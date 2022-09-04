@@ -1,68 +1,47 @@
 Readme.md Version# 2022.08.01 (ITSE-2330 and ITSE-2332 Version)
 
- 
-### [Note: Square brackets [ ] contain information, directions, actions, links or tags that you will delete/remove from your Readme.md file once all changes have been made and before submission for review]
-### [The tag: [Must Update] Indicates Sections of the Readme.md file that must be updated]
-### [Make the changes shown below with the [Must Update]. Once all changes are made, delete this line from your Readme.md and make sure to remove the [Must Update] tags. Also remove any lines/contents included in [...]'s]
+![Brand Logo](/Icons/snkLogo.png "Brand Logo")
 
-### [You may not remove any SECTION of this document without the prior approval of the Instructor. All original SECTIONS must be present after your modifications.]
+# SNK
+*"A shoe store with a wide selection."*
 
-[Review this site (link below) before modifying your Readme.md file:]
+## Detailed Description
 
-[https://medium.com/swlh/how-to-make-the-perfect-readme-md-on-github-92ed5771c061]
+SNK offers a wide selection of shoes. In our application, you will find shoes of all types. There are many brands you could choose from, including sneakers, Nike, Jordans, Adidas, Puma, Converse, flip-flops, and all other brands you could imagine.
 
-[Your Project Logo/Icon (Small):] [Must Update]
-```
-Remove this explaination before you submit your work:
-![Alternate 'text' description for the image](/RelativePath/ImageFileName "Hover over text that is displayed")
-```
+The goal of this project is to transform our world into a digital one. We know that the shopping experience matters, which is why we are keeping the shopping experience as it is.
 
-![Alternate 'text' description for the image](/Icons/OctoCat_SM.png "My Pet Octocat Logo")
+There is only one limitation to this project, the shoe store can only be accessed online. There will be no physical store found anywhere in the world.
 
-# [Project Name Must Update, example: TechieDave Ninja Academy]
-[Very brief and to the point project description]
+There are many different varieties of shoes in all different sizes and colors in our current inventory. As shoes are sold, color and size may decrease.
 
-## Detailed Description [Must Update]
+### Project Introduction
 
-[Clear semi-detailed professional description of your project. (about a paragraph or slightly more)]
+- This project allows users to buy shoes from our company. SNK allows our employees/managers to update inventories, and create customized promotional codes.
+- We hope to enhance the shopping experience by making it simple, fast, and enjoyable.
+- We know that not everyone is a tech enthusiast. Therefore, users will enjoy a simple and easy-to-use experience thanks to our user-friendly design.
+- Some features include: Ease to navigate all brands, User-friendly design, Choosing a color you like, and a size that fits you perfectly.
+- Development status: 1/100
 
-[Clearly define the Scope of the proposed project - Refer to the System Analysis and Design Course definitions for any needed clarification]
-
-[Clearly define the Limitations of the proposed project - Refer to the System Analysis and Design Course definitions for any needed clarification]
-
-[Clearly define the inventory and inventory control (no unlimited inventories). Provide details of what the inventory will be.]
-
-
-### Project Introduction [Must Update]  
-
-- [Describe very briefly but clearly what the project does.]
-- [State its goals/what problem(s) it solves.]
-- [State if it is out-of-the-box user-friendly, so it’s clear to the user.]
-- [List its most useful/innovative/noteworthy features.] 
-- [Note its development status.]
-- [If possible, include screenshots and demo videos.]
-
-### Development Plan - Time Table [Must Update, must plan through end of project and adjust as progress changes]
+### Development Plan - Time Table 
 #### Below is the development time table and planned benchmarks/milestones to accomplish this project by the due date.
 Date | Items | Description
 -----|-------------|--------------
-[Must Update] | Project Proposal submitted | Proposal for consideration.
-[Must Update] | [Must Update] | [Must Update]
-[Additional] | [Additional] | [Additional]
-[etc.] | [etc.] | [etc.]
+9/10/2022 | Project Proposal submitted | Proposal for consideration.
+N/A | Not Defined | Not Defined
 
-### Development Environment [Must Update]
+### Development Environment
 
 Type | Description
 -----|-------------
-Language | [C#, Java, or Python (Choose one)]
-Development Environment | Visual Studio 2022 Community Edition<br>[or NetBeans]
-SQL Server Type/Dialect | Microsoft SQL (TSTC Server)<br>[or MySQL (TSTC Server)]
-Target Environment | Windows 10 or Windows 11 <br>Desktop Application
-Target Business/Industry | [Whatever your target Business/Industry is]
-Help System | [Describe method used for context sensitive help]
+Language | C#
+Development Environment | Visual Studio 2022 Community Edition
+SQL Server Type/Dialect | Microsoft SQL (TSTC Server)
+Target Environment | Windows 11 <br>Desktop Application
+Target Business/Industry | Shoe store
+Help System | Help Menu
 Report Methods | HTML Reports
-Project Version Control | Git and Course assigned GitHub Repository
+Project Version Control | GitHub
 
 ### Getting Started/Requirements/Prerequisites/Dependencies
 Include any essential instructions for:
@@ -71,34 +50,24 @@ Include any essential instructions for:
 - Configuring your program
 - Running your program
 
-### Videos [Must Update your video entries below and add a URL for the specific topic that goes to the Google Drive video file]
-- Project Proposal [Must Update with URL at each Pull Request approval]
-- Logon View [Must Update with URL at each Pull Request approval]
-- Customer View [Must Update with URL at each Pull Request approval]
-- Manager View [Must Update with URL at each Pull Request approval]
-- Video Resume [Must Update with URL at each Pull Request approval]
-- Final Client Demonstration Video [Must Update with URL at each Pull Request approval]
-- URL for any other specific videos for this product [Must Update with URL at each Pull Request approval, if applicable]
+### Videos
+- Project Proposal - N/A
+- Logon View - N/A
+- Customer View - N/A
+- Manager View - N/A
+- Video Resume - N/A
+- Final Client Demonstration Video - N/A
+- URL for any other specific videos for this product - N/A
 
 ### Contact [Must Update]
 
 Contact | Information
 --------|------
-Name | [Your Name]
-Email | [Your Email Address]
-[Social Media Name] | [Your Social Media link(s) (if applicable)]
+Name | Deep Parmar
+Email | dhparmar@mymail.tstc.edu
 
-### [License](/LICENSE) [Must Update Create your license file and check/add URL for the word 'License' that goes to the License file in the Repository]
-```
-Remove this explaination before you submit your work:
-### [License](/LICENSE)
-```
-
-[Review the Instructions for adding a license file:]
-[https://docs.github.com/en/github/building-a-strong-community/adding-a-license-to-a-repository)]
-
-**[For the Final Project course, we will use the GNU General Public License v3.0]**
-**[When you add the License file, make sure you update the references within it to yours]**
+### [License](https://github.com/TSTC-CPT/22FA-FinalProject-ParmarDeep/blob/add-license-1/LICENSE)
+[https://github.com/TSTC-CPT/22FA-FinalProject-ParmarDeep/blob/add-license-1/LICENSE]
 
 GNU General Public License v3.0
 
