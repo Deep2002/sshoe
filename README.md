@@ -27,7 +27,7 @@ There are many different varieties of shoes in all different sizes and colors in
 #### Below is the development time table and planned benchmarks/milestones to accomplish this project by the due date.
 Date | Items | Description
 -----|-------------|--------------
-9/10/2022 | Project Proposal submitted | Proposal for consideration.
+9/7/2022 | Project Proposal submitted | Proposal for consideration.
 N/A | Not Defined | Not Defined
 
 ### Development Environment
@@ -51,7 +51,7 @@ Include any essential instructions for:
 - Running your program
 
 ### Videos
-- Project Proposal - N/A
+- Project Proposal - [https://drive.google.com/file/d/1fY-Um_XzTF7NH6vekmCGcCqaCqwK6Y92/view]
 - Logon View - N/A
 - Customer View - N/A
 - Manager View - N/A
@@ -66,8 +66,8 @@ Contact | Information
 Name | Deep Parmar
 Email | dhparmar@mymail.tstc.edu
 
-### [License](https://github.com/TSTC-CPT/22FA-FinalProject-ParmarDeep/blob/add-license-1/LICENSE)
-[https://github.com/TSTC-CPT/22FA-FinalProject-ParmarDeep/blob/add-license-1/LICENSE]
+### [License](https://github.com/TSTC-CPT/22FA-FinalProject-ParmarDeep/blob/README-Update/LICENSE)
+[https://github.com/TSTC-CPT/22FA-FinalProject-ParmarDeep/blob/README-Update/LICENSE]
 
 GNU General Public License v3.0
 
