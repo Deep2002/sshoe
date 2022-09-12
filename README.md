@@ -28,7 +28,9 @@ There are many different varieties of shoes in all different sizes and colors in
 Date | Items | Description
 -----|-------------|--------------
 9/7/2022 | Project Proposal submitted | Proposal for consideration.
-N/A | Not Defined | Not Defined
+9/22/2022 | Logon View | Database, Design, code, Debug for logon & sign up view.
+10/10/2022 | Customer View | Database, Design, code, Debug for Customer view.
+10/30/2022 | Manager View | Database, Design, code, Debug for Manager view.
 
 ### Development Environment
 
@@ -67,7 +69,6 @@ Name | Deep Parmar
 Email | dhparmar@mymail.tstc.edu
 
 ### [License](https://github.com/TSTC-CPT/22FA-FinalProject-ParmarDeep/blob/README-Update/LICENSE)
-[https://github.com/TSTC-CPT/22FA-FinalProject-ParmarDeep/blob/README-Update/LICENSE]
 
 GNU General Public License v3.0
 
