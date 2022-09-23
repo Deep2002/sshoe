@@ -48,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>TSTCLogo.ico</ApplicationIcon>
+    <ApplicationIcon>sshoeLogo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -67,17 +67,55 @@
     <Compile Include="clsHelp.cs" />
     <Compile Include="clsLogon.cs" />
     <Compile Include="clsSQL.cs" />
+    <Compile Include="clsUpdateControls.cs" />
     <Compile Include="clsValidation.cs" />
+    <Compile Include="frmCreateNewPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCreateNewPassword.Designer.cs">
+      <DependentUpon>frmCreateNewPassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLogon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLogon.Designer.cs">
+      <DependentUpon>frmLogon.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmQuestionsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmQuestionsWindow.Designer.cs">
+      <DependentUpon>frmQuestionsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSignupView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSignupView.Designer.cs">
+      <DependentUpon>frmSignupView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmCreateNewPassword.resx">
+      <DependentUpon>frmCreateNewPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLogon.resx">
+      <DependentUpon>frmLogon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmQuestionsWindow.resx">
+      <DependentUpon>frmQuestionsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSignupView.resx">
+      <DependentUpon>frmSignupView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -122,6 +160,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icons\TSTCLogo.ico" />
+    <None Include="Resources\about.png" />
+    <None Include="Resources\help1.png" />
+    <Content Include="sshoeLogo.ico" />
     <Content Include="TSTCLogo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

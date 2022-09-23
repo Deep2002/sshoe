@@ -36,6 +36,9 @@
 //ToDo: clsValidation - Security Question, Answers: Create a validation method
 //ToDo: ------------ clsValidation: Remove Form ToDo List, once completed (Listed Above) ------------
 
+using System;
+using System.Windows.Forms;
+
 namespace FinalProject
 {
     internal class clsValidation
@@ -70,14 +73,50 @@ namespace FinalProject
         #region Logon Credentials
         public static bool ValidateUsername(string strUsername)
         {
+            // if string is empty
+            if (strUsername.Length <= 8 || strUsername.Length >= 20) return false;
 
-            return true; // or false;
+            string strNotAllowed = "!#$%^&*_-+/():;,<>{}|\\~`=\'";
+
+            // check if any of above value contained by user
+            foreach (char c in strUsername)
+            {
+                if (char.IsWhiteSpace(c)) return false;
+                if (char.IsDigit(c)) return false;
+                if (strNotAllowed.Contains(c.ToString())) return false;
+            }
+
+            return true;
         }
 
         public static bool ValidatePassword(string strPassword)
         {
+            bool blnContianUpper = false;
+            bool blnContianLower = false;
+            bool blnContianDigit = false;
+            bool blnContianSpecialChar = false;
 
-            return true; // or false;
+            string strSpacialKeys = "()!@#$%^&*";
+
+
+            if (strPassword.Equals("")) return false;
+
+            if (strPassword.Length < 8) return false;
+
+            foreach (char c in strPassword)
+            {
+                if (char.IsUpper(c)) blnContianLower = true;
+                if (char.IsLower(c)) blnContianUpper = true;
+                if (char.IsDigit(c)) blnContianDigit = true;
+                if (strSpacialKeys.Contains(c.ToString())) blnContianSpecialChar = true;
+            }
+
+            if (blnContianUpper && blnContianLower && blnContianDigit && blnContianSpecialChar)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public static bool ValidateSecurityAnswers(string strAnswers)
@@ -126,6 +165,7 @@ namespace FinalProject
 
             return true; // or false;
         }
+
         #endregion
     }
 }
