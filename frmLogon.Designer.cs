@@ -133,6 +133,7 @@ namespace FinalProject
             // tbxUsername
             // 
             this.tbxUsername.Location = new System.Drawing.Point(369, 131);
+            this.tbxUsername.MaxLength = 20;
             this.tbxUsername.Name = "tbxUsername";
             this.tbxUsername.ShortcutsEnabled = false;
             this.tbxUsername.Size = new System.Drawing.Size(247, 30);

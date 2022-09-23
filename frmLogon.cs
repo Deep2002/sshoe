@@ -74,7 +74,7 @@ namespace FinalProject
             //
             if (!clsValidation.ValidateUsername(tbxUsername.Text))
             {
-                strErrorMessage = "User name cannot be empty and should not contain any of the followings: !#$%^&*_-+/():;,<>{}|\\~`=\'  1-9";
+                strErrorMessage = "Your username must be 8 char long and should not contain any of the followings: !#$%^&*_-+/():;,<>{}|\\~`=\'  1-9";
                 // set focus on user-name text box and change background color
                 tbxUsername.Focus();
                 tbxUsername.SelectAll();
