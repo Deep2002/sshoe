@@ -97,7 +97,7 @@ namespace FinalProject
             {
 
                 // setting up query to run
-                string  strQuery = "SELECT p.PersonID, p.NameFirst, p.NameLast FROM Person as p " +
+                string strQuery = "SELECT p.PersonID, p.NameFirst, p.NameLast FROM Person as p " +
                             "JOIN Logon AS l ON " +
                             "l.PersonID = p.PersonID " +
                             "WHERE LogonName = @0 " +
@@ -127,9 +127,9 @@ namespace FinalProject
                     Person temp = frmLogon.currentUser;
 
                     // parse info
-                    temp.PersonID = dtUserTable.Rows[0]["PersonID"].ToString();
-                    temp.FirstName = dtUserTable.Rows[0]["NameFirst"].ToString();
-                    temp.LastName = dtUserTable.Rows[0]["NameLast"].ToString();
+                    temp.strPersonID = dtUserTable.Rows[0]["PersonID"].ToString();
+                    temp.strFirstName = dtUserTable.Rows[0]["NameFirst"].ToString();
+                    temp.strLastName = dtUserTable.Rows[0]["NameLast"].ToString();
 
                     return true;
                 }
@@ -144,8 +144,8 @@ namespace FinalProject
             }
 
             return false;
-        }        
-        
+        }
+
         /// <summary>
         /// This will check if user exist with this user name &
         /// set current user with sequrity question
@@ -163,12 +163,12 @@ namespace FinalProject
                     "ON l.FirstChallengeQuestion = q.QuestionID " +
                     "WHERE l.LogonName = @0;";
 
-                string  strQuery2 = "SELECT q.QuestionPrompt, l.SecondChallengeAnswer FROM Logon as l " +
+                string strQuery2 = "SELECT q.QuestionPrompt, l.SecondChallengeAnswer FROM Logon as l " +
                     "JOIN SecurityQuestions as q " +
                     "ON l.SecondChallengeQuestion = q.QuestionID " +
                     "WHERE l.LogonName = @0;";
 
-                string  strQuery3 = "SELECT q.QuestionPrompt, l.ThirdChallengeAnswer FROM Logon as l " +
+                string strQuery3 = "SELECT q.QuestionPrompt, l.ThirdChallengeAnswer FROM Logon as l " +
                     "JOIN SecurityQuestions as q " +
                     "ON l.ThirdChallengeQuestion = q.QuestionID " +
                     "WHERE l.LogonName = @0;";
@@ -197,8 +197,8 @@ namespace FinalProject
                     Person temp = frmLogon.currentUser;
 
                     // parse info
-                    temp.FirstQuestion = dtUserTable.Rows[0]["QuestionPrompt"].ToString();
-                    temp.FirstAnswer = dtUserTable.Rows[0]["FirstChallengeAnswer"].ToString();
+                    temp.strFirstQuestion = dtUserTable.Rows[0]["QuestionPrompt"].ToString();
+                    temp.strFirstAnswer = dtUserTable.Rows[0]["FirstChallengeAnswer"].ToString();
                     dtUserTable.Clear();
 
                     // get second question
@@ -207,8 +207,8 @@ namespace FinalProject
                     sqlDataAdapter.SelectCommand = cmd;
                     sqlDataAdapter.Fill(dtUserTable);
 
-                    temp.SecondQuestion = dtUserTable.Rows[0]["QuestionPrompt"].ToString();
-                    temp.SecondAnswer = dtUserTable.Rows[0]["SecondChallengeAnswer"].ToString();
+                    temp.strSecondQuestion = dtUserTable.Rows[0]["QuestionPrompt"].ToString();
+                    temp.strSecondAnswer = dtUserTable.Rows[0]["SecondChallengeAnswer"].ToString();
                     dtUserTable.Clear();
 
                     // get third question
@@ -217,8 +217,8 @@ namespace FinalProject
                     sqlDataAdapter.SelectCommand = cmd;
                     sqlDataAdapter.Fill(dtUserTable);
 
-                    temp.ThirdQuestion = dtUserTable.Rows[0]["QuestionPrompt"].ToString();
-                    temp.ThirdAnswer = dtUserTable.Rows[0]["ThirdChallengeAnswer"].ToString();
+                    temp.strThirdQuestion = dtUserTable.Rows[0]["QuestionPrompt"].ToString();
+                    temp.strThirdAnswer = dtUserTable.Rows[0]["ThirdChallengeAnswer"].ToString();
                     dtUserTable.Clear();
 
                     return true;
@@ -246,7 +246,7 @@ namespace FinalProject
         {
             try
             {
-                string strQuery = "UPDATE ParmarDFa2332.Logon SET Password = @0 " +
+                string strQuery = "UPDATE ParmarD22Fa2332.Logon SET Password = @0 " +
                     "WHERE LogonName = @1";
 
 
@@ -259,12 +259,13 @@ namespace FinalProject
 
                 return true;
 
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return false;
             }
         }
-    
+
         public static List<string> GetSecurityQuestion()
         {
             List<string> list = new List<string>();
@@ -276,7 +277,7 @@ namespace FinalProject
                 // establish command and data adapter
                 SqlCommand cmd = new SqlCommand(strQuery, connection);
                 SqlDataReader reader = cmd.ExecuteReader();
-                
+
                 while (reader.Read())
                 {
                     list.Add(reader.GetInt32(0).ToString() + ":" + reader.GetInt32(1) + ":" + reader.GetString(2));
@@ -286,7 +287,8 @@ namespace FinalProject
                 cmd.Dispose();
                 return list;
 
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return list;
             }
@@ -311,33 +313,90 @@ namespace FinalProject
         /// <param name="strThirdQuestionID"></param>
         /// <param name="strThirdAnswer"></param>
         /// <returns></returns>
-        public static bool CreateNewUser(string strFirstName, string strLastName, string strUsername, string strAddress, string strCity, string strState, string strZIP, string strPassword, string strFirstQuestionID, string strFirstAnswer, string strSecondQuestionID, string strSecondAnswer, string strThirdQuestionID, string strThirdAnswer)
+        public static bool CreateNewUser(string strFirstName, string strLastName, string strUsername,
+            string strAddress, string strCity, string strState, string strZIP, string strPassword,
+            string strFirstQuestionID, string strFirstAnswer, string strSecondQuestionID,
+            string strSecondAnswer, string strThirdQuestionID, string strThirdAnswer,
+            string strMiddleName, string strTitle, string strSuffix, string strAddress2, string strAddress3,
+            string strPrimaryPhone, string strSecondaryPhone, string strEmail)
         {
             try
             {
                 // create Person
                 string strQuery = "SET ANSI_WARNINGS OFF;" +
-                    " INSERT INTO ParmarDFa2332.Person " +
-                    "(NameFirst, NameLast, Address1, City, Zipcode, State, PositionID) " +
-                    "VALUES " +
-                    "(@FirstName, @LastName, @Address, @City, @ZIP, @State, @PositionID); " +
+                    " INSERT INTO ParmarD22Fa2332.Person " +
+                    "(NameFirst, NameLast, Address1, City, Zipcode, State, PositionID, Title, Email, PhonePrimary";
+
+                #region Append fileds if provided by user
+                if (strMiddleName != "")
+                    strQuery += ", NameMiddle";
+
+                if (strAddress2 != "")
+                    strQuery += ", Address2";
+
+                if (strAddress3 != "")
+                    strQuery += ", Address3";
+
+                if (strSecondaryPhone != "")
+                    strQuery += ", PhoneSecondary";
+
+                if (strSuffix != "")
+                    strQuery += ", Suffix";
+
+                strQuery += ") VALUES " + "(@NameFirst, @NameLast, @Address1, @City, @Zipcode, @State, @PositionID, @Title, @Email, @PhonePrimary";
+
+                if (strMiddleName != "")
+                    strQuery += ", @NameMiddle";
+
+                if (strAddress2 != "")
+                    strQuery += ", @Address2";
+
+                if (strAddress3 != "")
+                    strQuery += ", @Address3";
+
+                if (strSecondaryPhone != "")
+                    strQuery += ", @PhoneSecondary";
+
+                if (strSuffix != "")
+                    strQuery += ", @Suffix";
+                
+                strQuery += ");" +
                     "SET ANSI_WARNINGS ON;";
 
+                #endregion
+
+
                 SqlCommand cmd = new SqlCommand(strQuery, connection);
-                cmd.Parameters.AddWithValue("@FirstName", strFirstName);
-                cmd.Parameters.AddWithValue("@LastName", strLastName);
-                cmd.Parameters.AddWithValue("@Address", strAddress);
+                cmd.Parameters.AddWithValue("@NameFirst", strFirstName);
+                cmd.Parameters.AddWithValue("@NameLast", strLastName);
+                cmd.Parameters.AddWithValue("@Address1", strAddress);
                 cmd.Parameters.AddWithValue("@City", strCity);
-                cmd.Parameters.AddWithValue("@ZIP", strZIP);
+                cmd.Parameters.AddWithValue("@Zipcode", strZIP);
                 cmd.Parameters.AddWithValue("@State", strState);
                 cmd.Parameters.AddWithValue("@PositionID", 1001); // Customer
+                cmd.Parameters.AddWithValue("@Title", strTitle);
+                cmd.Parameters.AddWithValue("@Email", strEmail);
+                cmd.Parameters.AddWithValue("@PhonePrimary", strPrimaryPhone);
+
+                if (!strMiddleName.Equals(""))
+                    cmd.Parameters.AddWithValue("@NameMiddle", strMiddleName);
+                if (!strAddress2.Equals(""))
+                    cmd.Parameters.AddWithValue("@Address2", strAddress2);
+                if (!strAddress3.Equals(""))
+                    cmd.Parameters.AddWithValue("@Address3", strAddress3);
+                if (!strSecondaryPhone.Equals(""))
+                    cmd.Parameters.AddWithValue("@PhoneSecondary", strSecondaryPhone);
+                if (!strSuffix.Equals(""))
+                    cmd.Parameters.AddWithValue("@Suffix", strSuffix);
+                
+
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
 
                 // create logon
-                strQuery = "INSERT INTO ParmarDFa2332.Logon " +
+                strQuery = "INSERT INTO ParmarD22Fa2332.Logon " +
                     "(PersonID, LogonName, Password, FirstChallengeQuestion, FirstChallengeAnswer, SecondChallengeQuestion, SecondChallengeAnswer, ThirdChallengeQuestion, ThirdChallengeAnswer, PositionTitle) VALUES " +
-                    "((Select PersonID FROM Person WHERE NameFirst = @FirstName AND NameLast = @LastName AND Address1 = @Address), @LogonName, @Password, @0, @1, @2, @3, @4, @5, @Title)";
+                    "((Select PersonID FROM ParmarD22Fa2332.Person WHERE NameFirst = @FirstName AND NameLast = @LastName AND Address1 = @Address), @LogonName, @Password, @0, @1, @2, @3, @4, @5, @Title)";
 
                 cmd = new SqlCommand(strQuery, connection);
                 cmd.Parameters.AddWithValue("@LogonName", strUsername);
@@ -348,18 +407,20 @@ namespace FinalProject
                 cmd.Parameters.AddWithValue("@0", Int32.Parse(strFirstQuestionID));
                 cmd.Parameters.AddWithValue("@1", strFirstAnswer);
                 cmd.Parameters.AddWithValue("@2", Int32.Parse(strSecondQuestionID));
-                cmd.Parameters.AddWithValue("@3", strSecondAnswer); 
-                cmd.Parameters.AddWithValue("@4", Int32.Parse(strThirdQuestionID)); 
-                cmd.Parameters.AddWithValue("@5", strThirdAnswer); 
+                cmd.Parameters.AddWithValue("@3", strSecondAnswer);
+                cmd.Parameters.AddWithValue("@4", Int32.Parse(strThirdQuestionID));
+                cmd.Parameters.AddWithValue("@5", strThirdAnswer);
                 cmd.Parameters.AddWithValue("@Title", "Customer");
                 cmd.ExecuteNonQuery();
 
                 cmd.Dispose();
-                
+
                 return true;
 
-            }catch(Exception)
+            }
+            catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
                 return false;
             }
         }

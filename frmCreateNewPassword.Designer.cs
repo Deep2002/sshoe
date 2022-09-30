@@ -122,6 +122,7 @@
             this.tbxNewPassword.ShortcutsEnabled = false;
             this.tbxNewPassword.Size = new System.Drawing.Size(247, 30);
             this.tbxNewPassword.TabIndex = 1;
+            this.tbxNewPassword.TextChanged += new System.EventHandler(this.tbxNewPassword_TextChanged);
             this.tbxNewPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxNewPassword_KeyPress);
             // 
             // lblNewPassword
@@ -213,6 +214,7 @@
             this.stsStatus.Location = new System.Drawing.Point(0, 439);
             this.stsStatus.Name = "stsStatus";
             this.stsStatus.Size = new System.Drawing.Size(984, 22);
+            this.stsStatus.SizingGrip = false;
             this.stsStatus.TabIndex = 25;
             this.stsStatus.Text = "statusStrip1";
             // 

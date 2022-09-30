@@ -36,25 +36,6 @@ namespace FinalProject
                 e.Handled = true;
             }
 
-            if(!clsValidation.ValidatePassword(tbxNewPassword.Text))
-            {
-                lblNewPasswordWrongMark.Visible = true;
-                lblNewPasswordRightMark.Visible = false;
-
-                // show error
-                clsUpdateControls.UpdateStatusBar(stsStatus, "Password must be 8 characters long and must contain: 1 Uppercase, 1 Lowercase, 1 Number, 1 Special characters ()!@#$%^&*.", Color.Red);
-
-            } else
-            {
-                lblNewPasswordWrongMark.Visible = false;
-                lblNewPasswordRightMark.Visible = true;
-                lblConfirmPasswordWrongMark.Visible = true;
-                lblConfirmPasswordRightMark.Visible = false;
-                // update status bar
-
-                clsUpdateControls.UpdateStatusBar(stsStatus, "Please re-enter your password in confirm password to continue.", Color.Red);
-
-            }
         }
 
 
@@ -67,7 +48,7 @@ namespace FinalProject
                 lblConfirmPasswordRightMark.Visible = true;
 
                 // update status 
-                clsUpdateControls.UpdateStatusBar(stsStatus, "✔️ Enterd password is valid.", Color.Green);
+                clsUpdateControls.UpdateStatusBar(stsStatus, "✔️ Entered password is valid.", Color.Green);
 
             }
             else
@@ -117,8 +98,33 @@ namespace FinalProject
 
             if(clsSQL.UpdatePassword(tbxNewPassword.Text, frmLogon.strUserName))
             {
-                MessageBox.Show("Password has been succesfully reseted. Thank you!", "Reset password", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Password has been successfully reseted. Thank you!", "Reset password", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
+            }
+        }
+
+        private void tbxNewPassword_TextChanged(object sender, EventArgs e)
+        {
+
+            if (!clsValidation.ValidatePassword(tbxNewPassword.Text))
+            {
+                lblNewPasswordWrongMark.Visible = true;
+                lblNewPasswordRightMark.Visible = false;
+
+                // show error
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Password must be 8 characters long and must contain: 1 Uppercase, 1 Lowercase, 1 Number, 1 Special characters ()!@#$%^&*.", Color.Red);
+
+            }
+            else
+            {
+                lblNewPasswordWrongMark.Visible = false;
+                lblNewPasswordRightMark.Visible = true;
+                lblConfirmPasswordWrongMark.Visible = true;
+                lblConfirmPasswordRightMark.Visible = false;
+                // update status bar
+
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Please re-enter your password in confirm password to continue.", Color.Red);
+
             }
         }
     }

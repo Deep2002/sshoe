@@ -231,6 +231,7 @@
             this.stsStatus.Location = new System.Drawing.Point(0, 439);
             this.stsStatus.Name = "stsStatus";
             this.stsStatus.Size = new System.Drawing.Size(984, 22);
+            this.stsStatus.SizingGrip = false;
             this.stsStatus.TabIndex = 26;
             this.stsStatus.Text = "statusStrip1";
             // 

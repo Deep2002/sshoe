@@ -37,9 +37,9 @@ namespace FinalProject
                     "Security Questions", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // display sicurity question
-                cbxFirstQuestion.Text = frmLogon.currentUser.FirstQuestion;
-                cbxSecondQuestion.Text = frmLogon.currentUser.SecondQuestion;
-                cbxThirdQuestion.Text = frmLogon.currentUser.ThirdQuestion;
+                cbxFirstQuestion.Text = frmLogon.currentUser.strFirstQuestion;
+                cbxSecondQuestion.Text = frmLogon.currentUser.strSecondQuestion;
+                cbxThirdQuestion.Text = frmLogon.currentUser.strThirdQuestion;
 
                 // display done continue button
                 btnContinue.Visible = true;
@@ -102,9 +102,9 @@ namespace FinalProject
                 clsUpdateControls.UpdateStatusBar(stsStatus, "Please enter all questions answers to continue.", Color.Red);
                 return;
             }
-            if (tbxFirstAnswer.Text.ToLower() == frmLogon.currentUser.FirstAnswer.ToLower() &&
-                tbxSecondAnswer.Text.ToLower() == frmLogon.currentUser.SecondAnswer.ToLower() &&
-                tbxThirdAnswer.Text.ToLower() == frmLogon.currentUser.ThirdAnswer.ToLower())
+            if (tbxFirstAnswer.Text.ToLower() == frmLogon.currentUser.strFirstAnswer.ToLower() &&
+                tbxSecondAnswer.Text.ToLower() == frmLogon.currentUser.strSecondAnswer.ToLower() &&
+                tbxThirdAnswer.Text.ToLower() == frmLogon.currentUser.strThirdAnswer.ToLower())
             {
                 new frmCreateNewPassword().ShowDialog();
                 this.Close();
@@ -116,11 +116,10 @@ namespace FinalProject
             }
         }
 
-
         private void tbxFirstAnswer_TextChanged(object sender, EventArgs e)
         {
             if (formType == FORM_TYPE.CREATE_NEW_USER) return;
-            if (tbxFirstAnswer.Text.ToLower() == frmLogon.currentUser.FirstAnswer.ToLower())
+            if (tbxFirstAnswer.Text.ToLower() == frmLogon.currentUser.strFirstAnswer.ToLower())
             {
                 lblFirstRight.Visible = true;
                 lblFirstWrong.Visible = false;
@@ -135,7 +134,7 @@ namespace FinalProject
         private void tbxSecondAnswer_TextChanged(object sender, EventArgs e)
         {
             if (formType == FORM_TYPE.CREATE_NEW_USER) return;
-            if (tbxSecondAnswer.Text.ToLower() == frmLogon.currentUser.SecondAnswer.ToLower())
+            if (tbxSecondAnswer.Text.ToLower() == frmLogon.currentUser.strSecondAnswer.ToLower())
             {
                 lblSecondRight.Visible = true;
                 lblSecondWrong.Visible = false;
@@ -150,7 +149,7 @@ namespace FinalProject
         private void tbxThirdAnswer_TextChanged(object sender, EventArgs e)
         {
             if (formType == FORM_TYPE.CREATE_NEW_USER) return;
-            if (tbxThirdAnswer.Text.ToLower() == frmLogon.currentUser.ThirdAnswer.ToLower())
+            if (tbxThirdAnswer.Text.ToLower() == frmLogon.currentUser.strThirdAnswer.ToLower())
             {
                 lblThirdRight.Visible = true;
                 lblThirdWrong.Visible = false;
@@ -174,13 +173,13 @@ namespace FinalProject
             if(!ValidateCbxQuestion(cbxSecondQuestion))
             {
                 cbxSecondQuestion.Focus();
-                clsUpdateControls.UpdateStatusBar(stsStatus, "Please select first question from the list.", Color.Red);
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Please select Second question from the list.", Color.Red);
                 return;
             }
             if(!ValidateCbxQuestion(cbxThirdQuestion))
             {
                 cbxThirdQuestion.Focus();
-                clsUpdateControls.UpdateStatusBar(stsStatus, "Please select first question from the list.", Color.Red);
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Please select Third question from the list.", Color.Red);
                 return;
             }
             // check if answers are not empty
@@ -192,22 +191,34 @@ namespace FinalProject
                 return;
             }
 
-            // if everything looks validate successful
+            // if everything looks/validate successfull
             // create a user
-            string strFirstName = frmLogon.currentUser.FirstName;
-            string strLastName = frmLogon.currentUser.LastName;
-            string strUsername = frmLogon.currentUser.Username;
-            string strAddress = frmLogon.currentUser.Address1;
-            string strCity = frmLogon.currentUser.City;
-            string strState = frmLogon.currentUser.State;
-            string strZIP = frmLogon.currentUser.Zip;
-            string strPassword = frmLogon.currentUser.Password;
+            string strFirstName = frmLogon.currentUser.strFirstName;
+            string strLastName = frmLogon.currentUser.strLastName;
+            string strUsername = frmLogon.currentUser.strUsername;
+            string strMiddleName = frmLogon.currentUser.strMiddleName;
+            string strTitle = frmLogon.currentUser.strTitle;
+            string strSuffix = frmLogon.currentUser.strSuffix;
+
+            string strAddress = frmLogon.currentUser.strAddress1;
+            string strAddress2 = frmLogon.currentUser.strAddress2;
+            string strAddress3 = frmLogon.currentUser.strAddress3;
+            string strCity = frmLogon.currentUser.strCity;
+            string strState = frmLogon.currentUser.strState;
+            string strZIP = frmLogon.currentUser.strZip;
+
+            string strPrimaryPhone = frmLogon.currentUser.strPrimaryPhone;
+            string strSecondaryPhone = frmLogon.currentUser.strSecondaryPhone;
+            string strEmail = frmLogon.currentUser.strEmail;
+            string strPassword = frmLogon.currentUser.strPassword;
+
             // questions
             string strFirstQuestionID = "";
             string strSecondQuestionID = "";
             string strThirdQuestionID = "";
             string strTemp = "";
 
+            // get questions & answers
             foreach(var item in questionList)
             {
                 // check and get first question id
@@ -235,21 +246,24 @@ namespace FinalProject
             string strSecondAnswer = tbxSecondAnswer.Text;
             string strThirdAnswer = tbxThirdAnswer.Text;
 
+            // pass infomration to create a user
             if(clsSQL.CreateNewUser(strFirstName, strLastName, strUsername, strAddress, strCity,
                 strState, strZIP, strPassword, strFirstQuestionID, strFirstAnswer,
-                strSecondQuestionID, strSecondAnswer, strThirdQuestionID, strThirdAnswer))
+                strSecondQuestionID, strSecondAnswer, strThirdQuestionID, strThirdAnswer, strMiddleName, strTitle, strSuffix, strAddress2, strAddress3, strPrimaryPhone, strSecondaryPhone, strEmail))
             {
                 MessageBox.Show("Account for user " + strFirstName + " successfully created.\nYou can now login with your username and password.",
-                    "All steps compited.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    "All steps are completed.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             } else
             {
                 MessageBox.Show(":( Unfortunatly we are unable to create your account. please try again later. ",
-                        "All steps compited.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        "All steps are completed.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
-            frmLogon.currentUser = null;
 
+            // delete current user information from application.
+            // (It is still in the database)
+            frmLogon.currentUser = null;
         }
 
         private bool ValidateCbxQuestion(ComboBox cbxQuestionBox)

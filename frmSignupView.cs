@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,59 +13,6 @@ namespace FinalProject
 {
     public partial class frmSignupView : Form
     {
-        public List<string> listOfState = new List<string> {
-            "AL",
-            "AK",
-            "AZ",
-            "AR",
-            "CA",
-            "CO",
-            "CT",
-            "DE",
-            "FL",
-            "GA",
-            "HI",
-            "ID",
-            "IL",
-            "IN",
-            "IA",
-            "KS",
-            "KY",
-            "LA",
-            "ME",
-            "MD",
-            "MA",
-            "MI",
-            "MN",
-            "MS",
-            "MO",
-            "MT",
-            "NE",
-            "NV",
-            "NH",
-            "NJ",
-            "NM",
-            "NY",
-            "NC",
-            "ND",
-            "OH",
-            "OK",
-            "OR",
-            "PA",
-            "RI",
-            "SC",
-            "SD",
-            "TN",
-            "TX",
-            "UT",
-            "VT",
-            "VA",
-            "WA",
-            "WV",
-            "WI",
-            "WY"
-        };
-
         public frmSignupView()
         {
             InitializeComponent();
@@ -92,7 +40,7 @@ namespace FinalProject
         private void lblGoToLogin_Click(object sender, EventArgs e)
         {
             // Check if user want to go back.
-            if (MessageBox.Show("Do you really want to go back?\nYour account will only created when all steps are followed. Click next to complete necessary steps.", "Going back..", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (MessageBox.Show("Do you really want to go back?\nYou will loose your information!", "Going back..", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 this.Close();
         }
 
@@ -111,15 +59,18 @@ namespace FinalProject
             if (string.IsNullOrEmpty(tbxTextBox.Text))
             {
                 tbxTextBox.BackColor = Color.Red;
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Make sure you fill out the required field.", Color.Red);
             }
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            #region Check what is empty and setting its back color to red
+            #region Check if text boxes is are empty and setting its back color to red
             IsTextBoxNull(tbxFirstName);
             IsTextBoxNull(tbxLastName);
             IsTextBoxNull(tbxUsername);
+            IsTextBoxNull(tbxEmail);
+            IsTextBoxNull(tbxPrimaryPhone);
             IsTextBoxNull(tbxAddress);
             IsTextBoxNull(tbxCity);
             IsTextBoxNull(tbxZIP);
@@ -127,45 +78,72 @@ namespace FinalProject
             IsTextBoxNull(tbxConfirmPassword);
             #endregion
 
-            // check if ZIP is valid
-            if (!listOfState.Contains(cbxState.Text))
+            // check if title and state empty
+            if (!cbxTitle.Items.Contains(cbxTitle.Text))
+            {
+                cbxTitle.BackColor = Color.Red;
+            }
+
+            if (!cbxState.Items.Contains(cbxState.Text))
             {
                 cbxState.BackColor = Color.Red;
             }
-            // Validate if already exists
+
+            // Check if user already exists
             if (clsSQL.SearchCurrentUser(tbxUsername.Text))
             {
-                // clear that user information
                 frmLogon.currentUser = null;
 
                 // if already exists
                 tbxUsername.BackColor = Color.Red;
                 tbxUsername.Focus();
-                clsUpdateControls.UpdateStatusBar(stsStatus, "Unfortunatly this username already exists please try something diffrent.", Color.Red);
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Unfortunatly this username is already taken, please try something diffrent.", Color.Red);
                 return;
             }
-            // check if everything is valid
-            Color greenColor = Color.Green;
-            if(tbxPassword.BackColor == greenColor && 
-                tbxConfirmPassword.BackColor == greenColor &&
-                tbxLastName.BackColor == Color.White &&
-                tbxFirstName.BackColor == Color.White &&
-                tbxUsername.BackColor == greenColor &&
-                tbxZIP.BackColor == Color.White &&
-                tbxCity.BackColor == Color.White &&
-                cbxState.BackColor == Color.White)
+
+            //// check if everything is valid
+            // Check All textboxes color
+            Color redColor = Color.Red;
+            if( tbxFirstName.BackColor != redColor && 
+                tbxLastName.BackColor != redColor &&
+                tbxMiddleName.BackColor != redColor &&
+                cbxTitle.BackColor != redColor &&
+                tbxSuffix.BackColor != redColor &&
+                tbxUsername.BackColor != redColor &&
+                tbxEmail.BackColor != redColor &&
+                tbxPrimaryPhone.BackColor != redColor &&
+                tbxSecondaryPhone.BackColor != redColor &&
+                tbxAddress.BackColor != redColor &&
+                tbxAddress2.BackColor != redColor &&
+                tbxAddress3.BackColor != redColor &&
+                tbxCity.BackColor != redColor &&
+                tbxZIP.BackColor != redColor &&
+                cbxState.BackColor != redColor &&
+                tbxPassword.BackColor != redColor &&
+                tbxConfirmPassword.BackColor != redColor)
             {
-                // set current user as this
+                // set current user as this (Who is signing-up)
                 frmLogon.currentUser = new Person();
                 // set information
-                frmLogon.currentUser.FirstName = tbxFirstName.Text;
-                frmLogon.currentUser.LastName = tbxLastName.Text;
-                frmLogon.currentUser.Username = tbxUsername.Text;
-                frmLogon.currentUser.Address1 = tbxAddress.Text;
-                frmLogon.currentUser.City = tbxCity.Text;
-                frmLogon.currentUser.State = cbxState.Text;
-                frmLogon.currentUser.Zip = tbxZIP.Text;
-                frmLogon.currentUser.Password = tbxPassword.Text;
+                // user info
+                frmLogon.currentUser.strFirstName = tbxFirstName.Text;
+                frmLogon.currentUser.strLastName = tbxLastName.Text;
+                frmLogon.currentUser.strMiddleName = tbxMiddleName.Text;
+                frmLogon.currentUser.strTitle = cbxTitle.Text;
+                frmLogon.currentUser.strSuffix = tbxSuffix.Text;
+                // logon info
+                frmLogon.currentUser.strUsername = tbxUsername.Text;
+                frmLogon.currentUser.strPrimaryPhone = tbxPrimaryPhone.Text;
+                frmLogon.currentUser.strSecondaryPhone = tbxSecondaryPhone.Text;
+                frmLogon.currentUser.strEmail = tbxEmail.Text;
+                frmLogon.currentUser.strPassword = tbxPassword.Text;
+                // Address info
+                frmLogon.currentUser.strAddress1 = tbxAddress.Text;
+                frmLogon.currentUser.strAddress2 = tbxAddress2.Text;
+                frmLogon.currentUser.strAddress3 = tbxAddress3.Text;
+                frmLogon.currentUser.strCity = tbxCity.Text;
+                frmLogon.currentUser.strState = cbxState.Text;
+                frmLogon.currentUser.strZip = tbxZIP.Text;
 
                 // show questions form
                 this.Hide();
@@ -173,52 +151,50 @@ namespace FinalProject
                 this.Close();
             }
 
-
         }
 
-        private void TbxValidation(TextBox tbxTextBox, int intLen = 2)
-        {
-            if (tbxTextBox.Text.Length < intLen)
-            {
-                tbxTextBox.BackColor = Color.Red;
-            }
-            else
-            {
-                tbxTextBox.BackColor = Color.White;
-            }
-        }
+        #region Text Change Methods
 
         private void tbxFirstName_TextChanged(object sender, EventArgs e)
         {
-            TbxValidation(tbxFirstName);
+            if (!clsValidation.ValidateName(tbxFirstName.Text))
+            {
+                tbxFirstName.BackColor = Color.Red;
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Invalid First Name", Color.Red);
+            }
+            else
+            {
+                tbxFirstName.BackColor = Color.White;
+                clsUpdateControls.UpdateStatusBar(stsStatus, "", Color.Red);
+            }
         }
 
         private void tbxLastName_TextChanged(object sender, EventArgs e)
         {
-            TbxValidation(tbxLastName);
+            if (!clsValidation.ValidateName(tbxLastName.Text))
+            {
+                tbxLastName.BackColor = Color.Red;
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Invalid Last Name", Color.Red);
+            }
+            else
+            {
+                tbxLastName.BackColor = Color.White;
+                clsUpdateControls.UpdateStatusBar(stsStatus, "", Color.Red);
+            }
         }
 
         private void tbxUsername_TextChanged(object sender, EventArgs e)
         {
-            if(clsValidation.ValidateUsername(tbxUsername.Text))
+            if (clsValidation.ValidateUsername(tbxUsername.Text))
             {
                 tbxUsername.BackColor = Color.Green;
-
-            } else
+                stsStatus.Items.Clear();
+            }
+            else
             {
                 tbxUsername.BackColor = Color.Red;
-
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Invalid Username", Color.Red);
             }
-        }
-
-        private void tbxAddress_TextChanged(object sender, EventArgs e)
-        {
-            TbxValidation(tbxAddress, 6);
-        }
-
-        private void tbxZIP_TextChanged(object sender, EventArgs e)
-        {
-            TbxValidation(tbxZIP, 5);
         }
 
         private void tbxConfirmPassword_TextChanged(object sender, EventArgs e)
@@ -229,8 +205,7 @@ namespace FinalProject
                 tbxConfirmPassword.BackColor = Color.Green;
 
                 // update status 
-                clsUpdateControls.UpdateStatusBar(stsStatus, "✔️ Enterd password is valid.", Color.Green);
-
+                clsUpdateControls.UpdateStatusBar(stsStatus, "✔️ Entered password is valid.", Color.Green);
             }
             else
             {
@@ -258,28 +233,6 @@ namespace FinalProject
             {
                 e.Handled = true;
             }
-
-            if (!clsValidation.ValidatePassword(tbxPassword.Text))
-            {
-                tbxPassword.BackColor = Color.Red;
-
-                // show error
-                clsUpdateControls.UpdateStatusBar(stsStatus, "Password must be 8 characters long and must contain: 1 Uppercase, 1 Lowercase, 1 Number, 1 Special characters ()!@#$%^&*.", Color.Red);
-
-            }
-            else
-            {
-                tbxPassword.BackColor = Color.Green;
-                tbxConfirmPassword.BackColor = Color.Red;
-                // update status bar
-                clsUpdateControls.UpdateStatusBar(stsStatus, "Please re-enter your password in confirm password to continue.", Color.Red);
-
-            }
-        }
-
-        private void tbxCity_TextChanged(object sender, EventArgs e)
-        {
-            TbxValidation(tbxCity, 2);
         }
 
         private void cbxHidePassword_CheckedChanged(object sender, EventArgs e)
@@ -296,26 +249,221 @@ namespace FinalProject
             }
         }
 
-        private void cbxState_TextChanged(object sender, EventArgs e)
+        private void tbxZIP_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!listOfState.Contains(cbxState.Text))
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
             {
-                cbxState.BackColor = Color.Red;
-                clsUpdateControls.UpdateStatusBar(stsStatus, "Please enter valid state, then try again.", Color.Red);
+                e.Handled = true;
+            }
+        }
+
+        private void tbxMiddleName_TextChanged(object sender, EventArgs e)
+        {
+            if (!clsValidation.ValidateName(tbxMiddleName.Text) && tbxMiddleName.Text != "")
+            {
+                tbxMiddleName.BackColor = Color.Red;
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Invalid Middle Name", Color.Red);
             }
             else
             {
-                cbxState.BackColor = Color.White;
+                tbxMiddleName.BackColor = Color.White;
                 clsUpdateControls.UpdateStatusBar(stsStatus, "", Color.Red);
+            }
+        }
+
+        private void HandleFirstSpaceKey(KeyPressEventArgs e, TextBox tbxToBeHandle)
+        {
+            if (e.KeyChar.ToString() == " " && tbxToBeHandle.Text == "")
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbxFirstName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            HandleFirstSpaceKey(e, tbxFirstName);
+        }
+
+        private void tbxLastName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            HandleFirstSpaceKey(e, tbxLastName);
+        }
+
+        private void tbxMiddleName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            HandleFirstSpaceKey(e, tbxMiddleName);
+        }
+
+        private void tbxSuffix_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            HandleFirstSpaceKey(e, tbxSuffix);
+        }
+
+        private void cbxTitle_TextChanged(object sender, EventArgs e)
+        {
+            // check if title is correctly entered
+            if (!cbxTitle.Items.Contains(cbxTitle.Text))
+            {
+                cbxTitle.BackColor = Color.Red;
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Title is invalid", Color.Red);
+            }
+            else
+            {
+                cbxTitle.BackColor = Color.White;
+                clsUpdateControls.UpdateStatusBar(stsStatus, "", Color.Red);
+            }
+        }
+
+        private void tbxUsername_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar) && tbxUsername.Text == "")
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbxEmail_TextChanged(object sender, EventArgs e)
+        {
+            if (!clsValidation.ValidateEmail(tbxEmail.Text))
+            {
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Invalid Email", Color.Red);
+                tbxEmail.BackColor = Color.Red;
+            }
+            else
+            {
+                stsStatus.Items.Clear();
+                tbxEmail.BackColor = Color.White;
+            }
+        }
+
+        private void tbxPrimaryPhone_TextChanged(object sender, EventArgs e)
+        {
+            if (clsValidation.ValidatePhone(tbxPrimaryPhone.Text))
+            {
+                tbxPrimaryPhone.BackColor = Color.White;
+            }
+            else
+            {
+                tbxPrimaryPhone.BackColor = Color.Red;
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Phone number is Invalid, try Entering 555-555-5555", Color.Red);
+            }
+        }
+
+        private void tbxSecondaryPhone_TextChanged(object sender, EventArgs e)
+        {
+            if (clsValidation.ValidatePhone(tbxSecondaryPhone.Text) || tbxSecondaryPhone.Text == "")
+            {
+                tbxSecondaryPhone.BackColor = Color.White;
+                stsStatus.Items.Clear();
+            }
+            else
+            {
+                tbxSecondaryPhone.BackColor = Color.Red;
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Phone number is Invalid, try Entering 555-555-5555", Color.Red);
+            }
+        }
+
+        private void tbxAddress_TextChanged_1(object sender, EventArgs e)
+        {
+            if (clsValidation.ValidateAddress(tbxAddress.Text))
+            {
+                tbxAddress.BackColor = Color.White;
+                stsStatus.Items.Clear();
+            }
+            else
+            {
+                tbxAddress.BackColor = Color.Red;
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Address is Invalid", Color.Red);
+            }
+        }
+
+        private void tbxAddress2_TextChanged(object sender, EventArgs e)
+        {
+            if (clsValidation.ValidateAddress(tbxAddress2.Text) || tbxAddress2.Text == "")
+            {
+                tbxAddress2.BackColor = Color.White;
+                stsStatus.Items.Clear();
+            }
+            else
+            {
+                tbxAddress2.BackColor = Color.Red;
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Address 2 is Invalid, for Appartments enter e.g. (APT#1)", Color.Red);
+            }
+        }
+
+        private void tbxAddress3_TextChanged(object sender, EventArgs e)
+        {
+            if (clsValidation.ValidateAddress(tbxAddress3.Text) || tbxAddress3.Text == "")
+            {
+                tbxAddress3.BackColor = Color.White;
+                stsStatus.Items.Clear();
+            }
+            else
+            {
+                tbxAddress3.BackColor = Color.Red;
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Address 3 is Invalid, for Appartments enter e.g. (APT#1)", Color.Red);
             }
 
         }
 
-        private void tbxZIP_KeyPress(object sender, KeyPressEventArgs e)
+        private void tbxPassword_TextChanged(object sender, EventArgs e)
         {
-            if(!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            if (!clsValidation.ValidatePassword(tbxPassword.Text))
             {
-                e.Handled = true;
+                tbxPassword.BackColor = Color.Red;
+
+                // show error
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Password must be 8 characters long and must contain: 1 Uppercase, 1 Lowercase, 1 Number, 1 Special characters ()!@#$%^&*.", Color.Red);
+            }
+            else
+            {
+                tbxPassword.BackColor = Color.Green;
+                tbxConfirmPassword.BackColor = Color.Red;
+                // update status bar
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Please re-enter your password in confirm password to continue.", Color.Red);
+            }
+        }
+
+        private void tbxZIP_TextChanged_1(object sender, EventArgs e)
+        {
+            if (clsValidation.ValidateZipcode(tbxZIP.Text))
+            {
+                tbxZIP.BackColor = Color.White;
+                stsStatus.Items.Clear();
+            } else
+            {
+                tbxZIP.BackColor = Color.Red;
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Invalid Zip code", Color.Red);
+            }
+        }
+
+        private void tbxZIP_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = e.KeyChar != '-' && !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        #endregion
+
+        private void tbxCity_TextChanged(object sender, EventArgs e)
+        {
+            if (tbxCity.Text.Length < 2)
+            {
+                tbxCity.BackColor = Color.Red;
+            }
+            else
+            {
+                tbxCity.BackColor = Color.White;
+            }
+        }
+
+        private void cbxState_TextChanged(object sender, EventArgs e)
+        {
+            if (!cbxState.Items.Contains(cbxState.Text))
+            {
+                cbxState.BackColor = Color.Red;
+            }
+            else { 
+                cbxState.BackColor = Color.White;
             }
         }
     }

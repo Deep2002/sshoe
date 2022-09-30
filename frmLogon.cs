@@ -114,7 +114,7 @@ namespace FinalProject
                 // pass it to the query
                 if (clsSQL.SearchCurrentUser(tbxUsername.Text, tbxPassword.Text))
                 {
-                    MessageBox.Show(currentUser.FirstName + " " + currentUser.LastName + " successfully logged-in.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(currentUser.strFirstName + " " + currentUser.strLastName + " successfully logged-in.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {

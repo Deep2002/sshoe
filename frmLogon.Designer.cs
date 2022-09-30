@@ -207,6 +207,7 @@ namespace FinalProject
             this.stsStatus.Location = new System.Drawing.Point(0, 414);
             this.stsStatus.Name = "stsStatus";
             this.stsStatus.Size = new System.Drawing.Size(984, 47);
+            this.stsStatus.SizingGrip = false;
             this.stsStatus.TabIndex = 10;
             this.stsStatus.Text = "statusStrip1";
             // 
