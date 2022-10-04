@@ -13,7 +13,9 @@ namespace FinalProject
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
+            clsSQL.OpenDbConnection(); // open sql connection
+            Application.Run(new frmLogon());
+            clsSQL.CloseDbConnection(); // close sql connection
         }
     }
 }
