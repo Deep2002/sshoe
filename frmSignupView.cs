@@ -97,7 +97,7 @@ namespace FinalProject
                 // if already exists
                 tbxUsername.BackColor = Color.Red;
                 tbxUsername.Focus();
-                clsUpdateControls.UpdateStatusBar(stsStatus, "Unfortunatly this username is already taken, please try something diffrent.", Color.Red);
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Unfortunately this username is already taken, please try something diffrent.", Color.Red);
                 return;
             }
 
@@ -387,7 +387,7 @@ namespace FinalProject
             else
             {
                 tbxAddress2.BackColor = Color.Red;
-                clsUpdateControls.UpdateStatusBar(stsStatus, "Address 2 is Invalid, for Appartments enter e.g. (APT#1)", Color.Red);
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Address 2 is Invalid, for Apartments enter e.g. (APT#1)", Color.Red);
             }
         }
 
@@ -401,7 +401,7 @@ namespace FinalProject
             else
             {
                 tbxAddress3.BackColor = Color.Red;
-                clsUpdateControls.UpdateStatusBar(stsStatus, "Address 3 is Invalid, for Appartments enter e.g. (APT#1)", Color.Red);
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Address 3 is Invalid, for Apartments enter e.g. (APT#1)", Color.Red);
             }
 
         }
