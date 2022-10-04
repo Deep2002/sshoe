@@ -40,7 +40,7 @@ namespace FinalProject
         private void lblGoToLogin_Click(object sender, EventArgs e)
         {
             // Check if user want to go back.
-            if (MessageBox.Show("Do you really want to go back?\nYou will loose your information!", "Going back..", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (MessageBox.Show("Do you really want to go back?\nYou will lose your information!", "Going back..", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 this.Close();
         }
 
