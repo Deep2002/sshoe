@@ -327,7 +327,7 @@ namespace FinalProject
                     " INSERT INTO ParmarD22Fa2332.Person " +
                     "(NameFirst, NameLast, Address1, City, Zipcode, State, PositionID, Title, Email, PhonePrimary";
 
-                #region Append fileds if provided by user
+                #region Append fields if provided by user
                 if (strMiddleName != "")
                     strQuery += ", NameMiddle";
 

@@ -51,7 +51,7 @@ namespace FinalProject
         /// <param name="e"></param>
         private void mnuMenuExit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
 
         private void IsTextBoxNull(TextBox tbxTextBox)
@@ -97,7 +97,7 @@ namespace FinalProject
                 // if already exists
                 tbxUsername.BackColor = Color.Red;
                 tbxUsername.Focus();
-                clsUpdateControls.UpdateStatusBar(stsStatus, "Unfortunately this username is already taken, please try something diffrent.", Color.Red);
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Unfortunately this username is already taken, please try something different.", Color.Red);
                 return;
             }
 
@@ -413,7 +413,7 @@ namespace FinalProject
                 tbxPassword.BackColor = Color.Red;
 
                 // show error
-                clsUpdateControls.UpdateStatusBar(stsStatus, "Password must be 8 characters long and must contain: 1 Uppercase, 1 Lowercase, 1 Number, 1 Special characters ()!@#$%^&*.", Color.Red);
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Passwords must be between 8 and 20 characters in length. Should Contain uppercase, lowercase, number, and special character.", Color.Red);
             }
             else
             {
@@ -465,6 +465,11 @@ namespace FinalProject
             else { 
                 cbxState.BackColor = Color.White;
             }
+        }
+
+        private void mnuMenuGoBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

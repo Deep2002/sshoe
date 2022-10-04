@@ -53,7 +53,7 @@
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Verdana", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblTitle.Location = new System.Drawing.Point(300, 53);
+            this.lblTitle.Location = new System.Drawing.Point(288, 53);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(408, 38);
             this.lblTitle.TabIndex = 3;
@@ -95,7 +95,7 @@
             // 
             // tbxConfirmPassword
             // 
-            this.tbxConfirmPassword.Location = new System.Drawing.Point(471, 194);
+            this.tbxConfirmPassword.Location = new System.Drawing.Point(468, 194);
             this.tbxConfirmPassword.MaxLength = 20;
             this.tbxConfirmPassword.Name = "tbxConfirmPassword";
             this.tbxConfirmPassword.PasswordChar = '●';
@@ -107,7 +107,7 @@
             // lblConfirmPassword
             // 
             this.lblConfirmPassword.AutoSize = true;
-            this.lblConfirmPassword.Location = new System.Drawing.Point(233, 198);
+            this.lblConfirmPassword.Location = new System.Drawing.Point(230, 198);
             this.lblConfirmPassword.Name = "lblConfirmPassword";
             this.lblConfirmPassword.Size = new System.Drawing.Size(192, 23);
             this.lblConfirmPassword.TabIndex = 13;
@@ -115,7 +115,7 @@
             // 
             // tbxNewPassword
             // 
-            this.tbxNewPassword.Location = new System.Drawing.Point(471, 156);
+            this.tbxNewPassword.Location = new System.Drawing.Point(468, 156);
             this.tbxNewPassword.MaxLength = 20;
             this.tbxNewPassword.Name = "tbxNewPassword";
             this.tbxNewPassword.PasswordChar = '●';
@@ -128,7 +128,7 @@
             // lblNewPassword
             // 
             this.lblNewPassword.AutoSize = true;
-            this.lblNewPassword.Location = new System.Drawing.Point(233, 159);
+            this.lblNewPassword.Location = new System.Drawing.Point(230, 159);
             this.lblNewPassword.Name = "lblNewPassword";
             this.lblNewPassword.Size = new System.Drawing.Size(157, 23);
             this.lblNewPassword.TabIndex = 10;
@@ -139,7 +139,7 @@
             this.cbxHidePassword.AutoSize = true;
             this.cbxHidePassword.Checked = true;
             this.cbxHidePassword.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbxHidePassword.Location = new System.Drawing.Point(389, 248);
+            this.cbxHidePassword.Location = new System.Drawing.Point(408, 248);
             this.cbxHidePassword.Name = "cbxHidePassword";
             this.cbxHidePassword.Size = new System.Drawing.Size(169, 27);
             this.cbxHidePassword.TabIndex = 3;
@@ -152,7 +152,7 @@
             this.btnDone.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnDone.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDone.ForeColor = System.Drawing.Color.White;
-            this.btnDone.Location = new System.Drawing.Point(347, 329);
+            this.btnDone.Location = new System.Drawing.Point(369, 309);
             this.btnDone.Name = "btnDone";
             this.btnDone.Size = new System.Drawing.Size(247, 43);
             this.btnDone.TabIndex = 4;
@@ -165,7 +165,7 @@
             this.lblNewPasswordWrongMark.AutoSize = true;
             this.lblNewPasswordWrongMark.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNewPasswordWrongMark.ForeColor = System.Drawing.Color.Red;
-            this.lblNewPasswordWrongMark.Location = new System.Drawing.Point(724, 155);
+            this.lblNewPasswordWrongMark.Location = new System.Drawing.Point(721, 155);
             this.lblNewPasswordWrongMark.Name = "lblNewPasswordWrongMark";
             this.lblNewPasswordWrongMark.Size = new System.Drawing.Size(33, 23);
             this.lblNewPasswordWrongMark.TabIndex = 26;
@@ -177,7 +177,7 @@
             this.lblConfirmPasswordWrongMark.AutoSize = true;
             this.lblConfirmPasswordWrongMark.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblConfirmPasswordWrongMark.ForeColor = System.Drawing.Color.Red;
-            this.lblConfirmPasswordWrongMark.Location = new System.Drawing.Point(724, 194);
+            this.lblConfirmPasswordWrongMark.Location = new System.Drawing.Point(721, 194);
             this.lblConfirmPasswordWrongMark.Name = "lblConfirmPasswordWrongMark";
             this.lblConfirmPasswordWrongMark.Size = new System.Drawing.Size(33, 23);
             this.lblConfirmPasswordWrongMark.TabIndex = 27;
@@ -189,7 +189,7 @@
             this.lblNewPasswordRightMark.AutoSize = true;
             this.lblNewPasswordRightMark.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNewPasswordRightMark.ForeColor = System.Drawing.Color.Green;
-            this.lblNewPasswordRightMark.Location = new System.Drawing.Point(724, 159);
+            this.lblNewPasswordRightMark.Location = new System.Drawing.Point(721, 159);
             this.lblNewPasswordRightMark.Name = "lblNewPasswordRightMark";
             this.lblNewPasswordRightMark.Size = new System.Drawing.Size(33, 23);
             this.lblNewPasswordRightMark.TabIndex = 28;
@@ -201,7 +201,7 @@
             this.lblConfirmPasswordRightMark.AutoSize = true;
             this.lblConfirmPasswordRightMark.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblConfirmPasswordRightMark.ForeColor = System.Drawing.Color.Green;
-            this.lblConfirmPasswordRightMark.Location = new System.Drawing.Point(724, 197);
+            this.lblConfirmPasswordRightMark.Location = new System.Drawing.Point(721, 197);
             this.lblConfirmPasswordRightMark.Name = "lblConfirmPasswordRightMark";
             this.lblConfirmPasswordRightMark.Size = new System.Drawing.Size(33, 23);
             this.lblConfirmPasswordRightMark.TabIndex = 29;

@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace FinalProject
 {
-    // this can be used to display apropriate form
+    // this can be used to display appropriate form
     // 
     public enum FORM_TYPE { RESET_PASSWORD, CREATE_NEW_USER }
 
@@ -27,7 +27,7 @@ namespace FinalProject
             // check which form to display
             if (formType == FORM_TYPE.RESET_PASSWORD)
             {
-                // disable sequrity question 
+                // disable security question 
                 cbxFirstQuestion.Enabled = false;
                 cbxSecondQuestion.Enabled = false;
                 cbxThirdQuestion.Enabled = false;
@@ -36,7 +36,7 @@ namespace FinalProject
                 MessageBox.Show("You will be asked 3 Security Questions, please enter all three answer correctly to change your password.",
                     "Security Questions", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // display sicurity question
+                // display security question
                 cbxFirstQuestion.Text = frmLogon.currentUser.strFirstQuestion;
                 cbxSecondQuestion.Text = frmLogon.currentUser.strSecondQuestion;
                 cbxThirdQuestion.Text = frmLogon.currentUser.strThirdQuestion;
@@ -187,7 +187,7 @@ namespace FinalProject
                "Type..".Equals(tbxFirstAnswer.Text) || "Type..".Equals(tbxSecondAnswer.Text) || "Type..".Equals(tbxThirdAnswer.Text)
                 )
             {
-                clsUpdateControls.UpdateStatusBar(stsStatus, "Please make sure that all answers are correctly filed.", Color.Red);
+                clsUpdateControls.UpdateStatusBar(stsStatus, "Please make sure that all answers are correctly filled.", Color.Red);
                 return;
             }
 
@@ -246,7 +246,7 @@ namespace FinalProject
             string strSecondAnswer = tbxSecondAnswer.Text;
             string strThirdAnswer = tbxThirdAnswer.Text;
 
-            // pass infomration to create a user
+            // pass information to create a user
             if(clsSQL.CreateNewUser(strFirstName, strLastName, strUsername, strAddress, strCity,
                 strState, strZIP, strPassword, strFirstQuestionID, strFirstAnswer,
                 strSecondQuestionID, strSecondAnswer, strThirdQuestionID, strThirdAnswer, strMiddleName, strTitle, strSuffix, strAddress2, strAddress3, strPrimaryPhone, strSecondaryPhone, strEmail))
@@ -256,7 +256,7 @@ namespace FinalProject
                 this.Close();
             } else
             {
-                MessageBox.Show(":( Unfortunatly we are unable to create your account. please try again later. ",
+                MessageBox.Show(":( Unfortunately we are unable to create your account. please try again later. ",
                         "All steps are completed.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }

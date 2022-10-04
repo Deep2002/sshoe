@@ -34,7 +34,7 @@ namespace FinalProject
             this.lblMainTitle = new System.Windows.Forms.Label();
             this.mnuMenuStrip = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuMenuExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuMenuGoBack = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMenuViewHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMenuAbout = new System.Windows.Forms.ToolStripMenuItem();
@@ -122,17 +122,17 @@ namespace FinalProject
             // mnuFile
             // 
             this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuMenuExit});
+            this.mnuMenuGoBack});
             this.mnuFile.Name = "mnuFile";
             this.mnuFile.Size = new System.Drawing.Size(49, 22);
             this.mnuFile.Text = "&File";
             // 
-            // mnuMenuExit
+            // mnuMenuGoBack
             // 
-            this.mnuMenuExit.Name = "mnuMenuExit";
-            this.mnuMenuExit.Size = new System.Drawing.Size(107, 22);
-            this.mnuMenuExit.Text = "E&xit";
-            this.mnuMenuExit.Click += new System.EventHandler(this.mnuMenuExit_Click);
+            this.mnuMenuGoBack.Name = "mnuMenuGoBack";
+            this.mnuMenuGoBack.Size = new System.Drawing.Size(180, 22);
+            this.mnuMenuGoBack.Text = "Go &Back";
+            this.mnuMenuGoBack.Click += new System.EventHandler(this.mnuMenuGoBack_Click);
             // 
             // mnuHelp
             // 
@@ -831,7 +831,7 @@ namespace FinalProject
         private System.Windows.Forms.Label lblMainTitle;
         private System.Windows.Forms.MenuStrip mnuMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem mnuFile;
-        private System.Windows.Forms.ToolStripMenuItem mnuMenuExit;
+        private System.Windows.Forms.ToolStripMenuItem mnuMenuGoBack;
         private System.Windows.Forms.ToolStripMenuItem mnuHelp;
         private System.Windows.Forms.ToolStripMenuItem mnuMenuViewHelp;
         private System.Windows.Forms.ToolStripMenuItem mnuMenuAbout;
