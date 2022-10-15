@@ -33,10 +33,13 @@
 //ToDo: clsSQL - Handle Errors: Create a validation method
 //ToDo: ------------ clsSQL - Remove Form ToDo List, once completed (Listed Above) ------------
 
+using FinalProject.Customer_View_Classes;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
@@ -422,6 +425,150 @@ namespace FinalProject
             {
                 MessageBox.Show(ex.Message);
                 return false;
+            }
+        }
+    
+        
+        public static void LoadCategories(List<clsCategories> categoriesList)
+        {
+            // try to get all categories
+            try
+            {
+                // make sure to empty it first
+                categoriesList.Clear();
+
+                string strQuery = "SELECT * FROM Categories";
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    // Add to the list
+                    categoriesList.Add(new clsCategories(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
+                }
+                reader.Close();
+                cmd.Dispose();
+                
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public static void LoadInventory(List<clsInventory> lstInventory)
+        {
+            try
+            {
+                // setting up query to run
+                string strQuery = "SELECT * FROM Inventory;";
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+
+                // create and fill in the data table
+                DataTable dtInventoryTable = new DataTable();
+                sqlDataAdapter.SelectCommand = cmd;
+                sqlDataAdapter.Fill(dtInventoryTable);
+
+                // dispose unnecessary data
+                cmd.Dispose();
+                sqlDataAdapter.Dispose();
+
+                // check if DB return any row
+
+                foreach (DataRow row in dtInventoryTable.Rows)
+                {
+                    clsInventory inventory = new clsInventory();
+
+                    inventory.intID = Convert.ToInt32(row["InventoryID"]);
+                    inventory.strName = Convert.ToString(row["ItemName"]);
+                    inventory.strDescription = Convert.ToString(row["ItemDescription"]);
+                    inventory.intCategoryID = Convert.ToInt32(row["CategoryID"]);
+                    inventory.decReatailPrice = Convert.ToDecimal(row["RetailPrice"]);
+                    inventory.decCost = Convert.ToDecimal(row["Cost"]);
+                    inventory.intQuantity = Convert.ToInt32(row["Quantity"]);
+                    inventory.byteImage = (byte[])row["ItemImage"];
+                    
+                    // Finally add it to list
+                    lstInventory.Add(inventory);
+
+                }
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        internal static void AddInventory(string name, string description, string categoryID, string reatilPrice, string cost, string quantity, string threshold, string imageLocation)
+        {
+            try
+            {
+                byte[] image = File.ReadAllBytes(imageLocation);
+
+                string strQuery = "INSERT INTO Inventory " +
+                    "(ItemName, ItemDescription, CategoryID, RetailPrice, Cost, Quantity, RestockThreshold, ItemImage) VALUES " +
+                    "(@ItemName, @ItemDescription, @CategoryID, @RetailPrice, @Cost, @Quantity, @RestockThreshold, @ItemImage)";
+
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+                cmd.Parameters.AddWithValue("@ItemName", name);
+                cmd.Parameters.AddWithValue("@ItemDescription", description);
+                cmd.Parameters.AddWithValue("@CategoryID", Convert.ToInt32(categoryID));
+                cmd.Parameters.AddWithValue("@RetailPrice", Convert.ToDecimal(reatilPrice));
+                cmd.Parameters.AddWithValue("@Cost", Convert.ToDecimal(cost));
+                cmd.Parameters.AddWithValue("@Quantity", Convert.ToInt32(quantity));
+                cmd.Parameters.AddWithValue("@RestockThreshold", Convert.ToInt32(threshold));
+                SqlParameter sqlParams = cmd.Parameters.AddWithValue("@ItemImage", image);
+                sqlParams.DbType = DbType.Binary;
+
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Success");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        internal static void LoadSizes(List<clsInventory> lstInventory)
+        {
+            try
+            {
+                // setting up query to run
+                string strQuery = "SELECT * FROM ShoeSize;";
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+
+                // create and fill in the data table
+                DataTable dtShoeSizeTable = new DataTable();
+                sqlDataAdapter.SelectCommand = cmd;
+                sqlDataAdapter.Fill(dtShoeSizeTable);
+
+                // dispose unnecessary data
+                cmd.Dispose();
+                sqlDataAdapter.Dispose();
+
+              
+                foreach (DataRow row in dtShoeSizeTable.Rows)
+                {
+
+                    // Add shoe size to the item
+                    //lstInventory.Find(x => x.intID == Convert.ToInt32(row["ItemID"])).lstSizes.Add(new clsShoeSize(row["Size"].ToString(), Convert.ToInt32(row["Quantity"])));
+                   lstInventory.Find(x => x.intID == Convert.ToInt32(row["ItemID"])).lstSizes.Add(new clsShoeSize(row["Size"].ToString(), Convert.ToInt32(row["Quantity"])));
+                        
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
     }

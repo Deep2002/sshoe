@@ -73,9 +73,39 @@ namespace FinalProject.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap deleteIcon {
+            get {
+                object obj = ResourceManager.GetObject("deleteIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap deleteIcon2 {
+            get {
+                object obj = ResourceManager.GetObject("deleteIcon2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap help1 {
             get {
                 object obj = ResourceManager.GetObject("help1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sampleShoe {
+            get {
+                object obj = ResourceManager.GetObject("sampleShoe", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -86,6 +116,16 @@ namespace FinalProject.Properties {
         internal static string TSTCVersionNumber {
             get {
                 return ResourceManager.GetString("TSTCVersionNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap userProfileDefault {
+            get {
+                object obj = ResourceManager.GetObject("userProfileDefault", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

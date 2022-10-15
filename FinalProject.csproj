@@ -53,6 +53,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -64,6 +65,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customer View Classes\clsCategories.cs" />
+    <Compile Include="Customer View Classes\clsInventory.cs" />
+    <Compile Include="Customer View Classes\clsPublicData.cs" />
+    <Compile Include="frmAddressFilloutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddressFilloutForm.Designer.cs">
+      <DependentUpon>frmAddressFilloutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCheckoutView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCheckoutView.Designer.cs">
+      <DependentUpon>frmCheckoutView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCustomerView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCustomerView.Designer.cs">
+      <DependentUpon>frmCustomerView.cs</DependentUpon>
+    </Compile>
     <Compile Include="clsHelp.cs" />
     <Compile Include="clsLogon.cs" />
     <Compile Include="clsSQL.cs" />
@@ -74,6 +96,12 @@
     </Compile>
     <Compile Include="frmCreateNewPassword.Designer.cs">
       <DependentUpon>frmCreateNewPassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmItemDetailedInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmItemDetailedInfo.Designer.cs">
+      <DependentUpon>frmItemDetailedInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="frmLogon.cs">
       <SubType>Form</SubType>
@@ -87,6 +115,12 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmPaymentInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPaymentInfo.Designer.cs">
+      <DependentUpon>frmPaymentInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmQuestionsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,11 +133,29 @@
     <Compile Include="frmSignupView.Designer.cs">
       <DependentUpon>frmSignupView.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTempAddInventoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTempAddInventoryForm.Designer.cs">
+      <DependentUpon>frmTempAddInventoryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmAddressFilloutForm.resx">
+      <DependentUpon>frmAddressFilloutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCheckoutView.resx">
+      <DependentUpon>frmCheckoutView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCustomerView.resx">
+      <DependentUpon>frmCustomerView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCreateNewPassword.resx">
       <DependentUpon>frmCreateNewPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmItemDetailedInfo.resx">
+      <DependentUpon>frmItemDetailedInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogon.resx">
       <DependentUpon>frmLogon.cs</DependentUpon>
@@ -111,11 +163,17 @@
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmPaymentInfo.resx">
+      <DependentUpon>frmPaymentInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmQuestionsWindow.resx">
       <DependentUpon>frmQuestionsWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSignupView.resx">
       <DependentUpon>frmSignupView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTempAddInventoryForm.resx">
+      <DependentUpon>frmTempAddInventoryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -162,6 +220,10 @@
     <Content Include="Icons\TSTCLogo.ico" />
     <None Include="Resources\about.png" />
     <None Include="Resources\help1.png" />
+    <None Include="Resources\userProfileDefault.png" />
+    <None Include="Resources\sshoeLogo.png" />
+    <None Include="Resources\sampleShoe.jpg" />
+    <None Include="Resources\deleteIcon.png" />
     <Content Include="sshoeLogo.ico" />
     <Content Include="TSTCLogo.ico" />
   </ItemGroup>

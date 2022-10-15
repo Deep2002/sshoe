@@ -101,7 +101,7 @@ namespace FinalProject
             // 
             // mnuMenuViewHelp
             // 
-            this.mnuMenuViewHelp.Image = global::FinalProject.Properties.Resources.help1;
+            //this.mnuMenuViewHelp.Image = global::FinalProject.Properties.Resources.help1;
             this.mnuMenuViewHelp.Name = "mnuMenuViewHelp";
             this.mnuMenuViewHelp.Size = new System.Drawing.Size(158, 22);
             this.mnuMenuViewHelp.Text = "&View Help";
