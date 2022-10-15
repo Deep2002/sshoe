@@ -88,7 +88,7 @@ namespace FinalProject
                 });
 
                 // Adding it to the categories flow layout panel
-                flpCategoryTags.Controls.Add(btnTag);
+                //flpCategoryTags.Controls.Add(btnTag);
             }
 
             // load Inventory
