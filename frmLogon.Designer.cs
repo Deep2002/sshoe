@@ -48,6 +48,7 @@ namespace FinalProject
             this.cbxHidePassword = new System.Windows.Forms.CheckBox();
             this.stsStatus = new System.Windows.Forms.StatusStrip();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.btnContinueWithoutLogin = new System.Windows.Forms.Button();
             this.mnuMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,7 +102,6 @@ namespace FinalProject
             // 
             // mnuMenuViewHelp
             // 
-            //this.mnuMenuViewHelp.Image = global::FinalProject.Properties.Resources.help1;
             this.mnuMenuViewHelp.Name = "mnuMenuViewHelp";
             this.mnuMenuViewHelp.Size = new System.Drawing.Size(158, 22);
             this.mnuMenuViewHelp.Text = "&View Help";
@@ -215,11 +215,25 @@ namespace FinalProject
             // 
             this.toolTip.IsBalloon = true;
             // 
+            // btnContinueWithoutLogin
+            // 
+            this.btnContinueWithoutLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.btnContinueWithoutLogin.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnContinueWithoutLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnContinueWithoutLogin.Location = new System.Drawing.Point(334, 356);
+            this.btnContinueWithoutLogin.Name = "btnContinueWithoutLogin";
+            this.btnContinueWithoutLogin.Size = new System.Drawing.Size(316, 43);
+            this.btnContinueWithoutLogin.TabIndex = 11;
+            this.btnContinueWithoutLogin.Text = "&Continue without account";
+            this.btnContinueWithoutLogin.UseVisualStyleBackColor = false;
+            this.btnContinueWithoutLogin.Click += new System.EventHandler(this.btnContinueWithoutLogin_Click);
+            // 
             // frmLogon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 461);
+            this.Controls.Add(this.btnContinueWithoutLogin);
             this.Controls.Add(this.stsStatus);
             this.Controls.Add(this.cbxHidePassword);
             this.Controls.Add(this.btnLogin);
@@ -266,5 +280,6 @@ namespace FinalProject
         private System.Windows.Forms.CheckBox cbxHidePassword;
         private System.Windows.Forms.StatusStrip stsStatus;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Button btnContinueWithoutLogin;
     }
 }

@@ -109,10 +109,16 @@
             this.btnAddToCartNow.TabIndex = 5;
             this.btnAddToCartNow.Text = "Add to cart now";
             this.btnAddToCartNow.UseVisualStyleBackColor = false;
+            this.btnAddToCartNow.Click += new System.EventHandler(this.btnAddToCartNow_Click);
             // 
             // nudQuantityCounter
             // 
             this.nudQuantityCounter.Location = new System.Drawing.Point(656, 380);
+            this.nudQuantityCounter.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nudQuantityCounter.Name = "nudQuantityCounter";
             this.nudQuantityCounter.Size = new System.Drawing.Size(50, 30);
             this.nudQuantityCounter.TabIndex = 6;

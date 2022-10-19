@@ -40,24 +40,23 @@
             this.lblDiscount = new System.Windows.Forms.Label();
             this.lblTotal = new System.Windows.Forms.Label();
             this.lblTotalValue = new System.Windows.Forms.Label();
-            this.lblDicountValue = new System.Windows.Forms.Label();
+            this.lblDiscountValue = new System.Windows.Forms.Label();
             this.lblTaxValue = new System.Windows.Forms.Label();
             this.lblSubTotalValue = new System.Windows.Forms.Label();
             this.pnlPaymentBreakdownDisplay = new System.Windows.Forms.Panel();
+            this.lblDiscountedTotalValue = new System.Windows.Forms.Label();
+            this.lblDiscountedTotal = new System.Windows.Forms.Label();
             this.lblCoupon = new System.Windows.Forms.Label();
             this.tbxCoupon = new System.Windows.Forms.TextBox();
             this.btnApplyCoupon = new System.Windows.Forms.Button();
             this.btnContinueToCheckout = new System.Windows.Forms.Button();
-            this.lblInvalidCouponError = new System.Windows.Forms.Label();
             this.rdoUseAboveAddress = new System.Windows.Forms.RadioButton();
             this.rdoUseDiffrentAddress = new System.Windows.Forms.RadioButton();
             this.lblAddress = new System.Windows.Forms.Label();
             this.pnlAddressChoice = new System.Windows.Forms.Panel();
             this.lblRequiredStar = new System.Windows.Forms.Label();
             this.lblAddressInfo = new System.Windows.Forms.Label();
-            this.lblSelectAddressError = new System.Windows.Forms.Label();
-            this.lblDicountedTotalValue = new System.Windows.Forms.Label();
-            this.lblDiscountedTotal = new System.Windows.Forms.Label();
+            this.lblCouponInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItemsDetails)).BeginInit();
             this.pnlPaymentBreakdownDisplay.SuspendLayout();
             this.pnlAddressChoice.SuspendLayout();
@@ -92,6 +91,7 @@
             this.TotalPrice});
             this.dgvItemsDetails.Location = new System.Drawing.Point(42, 94);
             this.dgvItemsDetails.Name = "dgvItemsDetails";
+            this.dgvItemsDetails.ReadOnly = true;
             this.dgvItemsDetails.Size = new System.Drawing.Size(1194, 348);
             this.dgvItemsDetails.TabIndex = 2;
             // 
@@ -99,21 +99,25 @@
             // 
             this.Item.HeaderText = "Item";
             this.Item.Name = "Item";
+            this.Item.ReadOnly = true;
             // 
             // ItemPrice
             // 
             this.ItemPrice.HeaderText = "Item Price";
             this.ItemPrice.Name = "ItemPrice";
+            this.ItemPrice.ReadOnly = true;
             // 
             // Quantity
             // 
             this.Quantity.HeaderText = "Quantity";
             this.Quantity.Name = "Quantity";
+            this.Quantity.ReadOnly = true;
             // 
             // TotalPrice
             // 
             this.TotalPrice.HeaderText = "Total Price";
             this.TotalPrice.Name = "TotalPrice";
+            this.TotalPrice.ReadOnly = true;
             // 
             // lblSubtotal
             // 
@@ -158,46 +162,42 @@
             // 
             // lblTotalValue
             // 
-            this.lblTotalValue.AutoSize = true;
             this.lblTotalValue.BackColor = System.Drawing.Color.White;
             this.lblTotalValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.lblTotalValue.Location = new System.Drawing.Point(257, 127);
+            this.lblTotalValue.Location = new System.Drawing.Point(297, 124);
             this.lblTotalValue.Name = "lblTotalValue";
-            this.lblTotalValue.Size = new System.Drawing.Size(65, 23);
+            this.lblTotalValue.Size = new System.Drawing.Size(130, 23);
             this.lblTotalValue.TabIndex = 10;
             this.lblTotalValue.Text = "$0.00";
             this.lblTotalValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // lblDicountValue
+            // lblDiscountValue
             // 
-            this.lblDicountValue.AutoSize = true;
-            this.lblDicountValue.BackColor = System.Drawing.Color.White;
-            this.lblDicountValue.ForeColor = System.Drawing.Color.Green;
-            this.lblDicountValue.Location = new System.Drawing.Point(260, 40);
-            this.lblDicountValue.Name = "lblDicountValue";
-            this.lblDicountValue.Size = new System.Drawing.Size(62, 23);
-            this.lblDicountValue.TabIndex = 9;
-            this.lblDicountValue.Text = "-0.00";
-            this.lblDicountValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblDiscountValue.BackColor = System.Drawing.Color.White;
+            this.lblDiscountValue.ForeColor = System.Drawing.Color.Green;
+            this.lblDiscountValue.Location = new System.Drawing.Point(297, 37);
+            this.lblDiscountValue.Name = "lblDiscountValue";
+            this.lblDiscountValue.Size = new System.Drawing.Size(130, 23);
+            this.lblDiscountValue.TabIndex = 9;
+            this.lblDiscountValue.Text = "-0.00";
+            this.lblDiscountValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblTaxValue
             // 
-            this.lblTaxValue.AutoSize = true;
             this.lblTaxValue.BackColor = System.Drawing.Color.White;
-            this.lblTaxValue.Location = new System.Drawing.Point(257, 98);
+            this.lblTaxValue.Location = new System.Drawing.Point(297, 95);
             this.lblTaxValue.Name = "lblTaxValue";
-            this.lblTaxValue.Size = new System.Drawing.Size(65, 23);
+            this.lblTaxValue.Size = new System.Drawing.Size(130, 23);
             this.lblTaxValue.TabIndex = 8;
             this.lblTaxValue.Text = "$0.00";
             this.lblTaxValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblSubTotalValue
             // 
-            this.lblSubTotalValue.AutoSize = true;
             this.lblSubTotalValue.BackColor = System.Drawing.Color.White;
-            this.lblSubTotalValue.Location = new System.Drawing.Point(257, 11);
+            this.lblSubTotalValue.Location = new System.Drawing.Point(297, 8);
             this.lblSubTotalValue.Name = "lblSubTotalValue";
-            this.lblSubTotalValue.Size = new System.Drawing.Size(65, 23);
+            this.lblSubTotalValue.Size = new System.Drawing.Size(130, 23);
             this.lblSubTotalValue.TabIndex = 7;
             this.lblSubTotalValue.Text = "$0.00";
             this.lblSubTotalValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -206,26 +206,46 @@
             // 
             this.pnlPaymentBreakdownDisplay.BackColor = System.Drawing.Color.White;
             this.pnlPaymentBreakdownDisplay.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnlPaymentBreakdownDisplay.Controls.Add(this.lblDicountedTotalValue);
+            this.pnlPaymentBreakdownDisplay.Controls.Add(this.lblDiscountedTotalValue);
             this.pnlPaymentBreakdownDisplay.Controls.Add(this.lblSubTotalValue);
             this.pnlPaymentBreakdownDisplay.Controls.Add(this.lblDiscountedTotal);
             this.pnlPaymentBreakdownDisplay.Controls.Add(this.lblSubtotal);
             this.pnlPaymentBreakdownDisplay.Controls.Add(this.lblTotal);
-            this.pnlPaymentBreakdownDisplay.Controls.Add(this.lblDicountValue);
+            this.pnlPaymentBreakdownDisplay.Controls.Add(this.lblDiscountValue);
             this.pnlPaymentBreakdownDisplay.Controls.Add(this.lblTotalValue);
             this.pnlPaymentBreakdownDisplay.Controls.Add(this.lblTaxValue);
             this.pnlPaymentBreakdownDisplay.Controls.Add(this.lblDiscount);
             this.pnlPaymentBreakdownDisplay.Controls.Add(this.lblTax);
-            this.pnlPaymentBreakdownDisplay.Location = new System.Drawing.Point(898, 460);
+            this.pnlPaymentBreakdownDisplay.Location = new System.Drawing.Point(778, 460);
             this.pnlPaymentBreakdownDisplay.Name = "pnlPaymentBreakdownDisplay";
-            this.pnlPaymentBreakdownDisplay.Size = new System.Drawing.Size(338, 160);
+            this.pnlPaymentBreakdownDisplay.Size = new System.Drawing.Size(458, 160);
             this.pnlPaymentBreakdownDisplay.TabIndex = 11;
+            // 
+            // lblDiscountedTotalValue
+            // 
+            this.lblDiscountedTotalValue.BackColor = System.Drawing.Color.White;
+            this.lblDiscountedTotalValue.Location = new System.Drawing.Point(297, 66);
+            this.lblDiscountedTotalValue.Name = "lblDiscountedTotalValue";
+            this.lblDiscountedTotalValue.Size = new System.Drawing.Size(130, 23);
+            this.lblDiscountedTotalValue.TabIndex = 12;
+            this.lblDiscountedTotalValue.Text = "$0.00";
+            this.lblDiscountedTotalValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblDiscountedTotal
+            // 
+            this.lblDiscountedTotal.AutoSize = true;
+            this.lblDiscountedTotal.BackColor = System.Drawing.Color.White;
+            this.lblDiscountedTotal.Location = new System.Drawing.Point(13, 69);
+            this.lblDiscountedTotal.Name = "lblDiscountedTotal";
+            this.lblDiscountedTotal.Size = new System.Drawing.Size(179, 23);
+            this.lblDiscountedTotal.TabIndex = 11;
+            this.lblDiscountedTotal.Text = "Discounted Total:";
             // 
             // lblCoupon
             // 
             this.lblCoupon.AutoSize = true;
             this.lblCoupon.BackColor = System.Drawing.SystemColors.Control;
-            this.lblCoupon.Location = new System.Drawing.Point(613, 464);
+            this.lblCoupon.Location = new System.Drawing.Point(444, 473);
             this.lblCoupon.Name = "lblCoupon";
             this.lblCoupon.Size = new System.Drawing.Size(92, 23);
             this.lblCoupon.TabIndex = 12;
@@ -233,7 +253,7 @@
             // 
             // tbxCoupon
             // 
-            this.tbxCoupon.Location = new System.Drawing.Point(711, 461);
+            this.tbxCoupon.Location = new System.Drawing.Point(542, 470);
             this.tbxCoupon.Name = "tbxCoupon";
             this.tbxCoupon.Size = new System.Drawing.Size(166, 30);
             this.tbxCoupon.TabIndex = 13;
@@ -243,36 +263,26 @@
             this.btnApplyCoupon.BackColor = System.Drawing.SystemColors.Control;
             this.btnApplyCoupon.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.btnApplyCoupon.ForeColor = System.Drawing.Color.Black;
-            this.btnApplyCoupon.Location = new System.Drawing.Point(617, 506);
+            this.btnApplyCoupon.Location = new System.Drawing.Point(448, 531);
             this.btnApplyCoupon.Name = "btnApplyCoupon";
             this.btnApplyCoupon.Size = new System.Drawing.Size(260, 40);
             this.btnApplyCoupon.TabIndex = 14;
             this.btnApplyCoupon.Text = "Apply";
             this.btnApplyCoupon.UseVisualStyleBackColor = false;
+            this.btnApplyCoupon.Click += new System.EventHandler(this.btnApplyCoupon_Click);
             // 
             // btnContinueToCheckout
             // 
             this.btnContinueToCheckout.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnContinueToCheckout.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnContinueToCheckout.ForeColor = System.Drawing.Color.White;
-            this.btnContinueToCheckout.Location = new System.Drawing.Point(617, 552);
+            this.btnContinueToCheckout.Location = new System.Drawing.Point(448, 574);
             this.btnContinueToCheckout.Name = "btnContinueToCheckout";
             this.btnContinueToCheckout.Size = new System.Drawing.Size(260, 40);
             this.btnContinueToCheckout.TabIndex = 15;
             this.btnContinueToCheckout.Text = "Continue to checkout";
             this.btnContinueToCheckout.UseVisualStyleBackColor = false;
-            // 
-            // lblInvalidCouponError
-            // 
-            this.lblInvalidCouponError.AutoSize = true;
-            this.lblInvalidCouponError.ForeColor = System.Drawing.Color.Red;
-            this.lblInvalidCouponError.Location = new System.Drawing.Point(425, 464);
-            this.lblInvalidCouponError.Name = "lblInvalidCouponError";
-            this.lblInvalidCouponError.Size = new System.Drawing.Size(182, 23);
-            this.lblInvalidCouponError.TabIndex = 16;
-            this.lblInvalidCouponError.Text = "* Invalid Coupon!";
-            this.lblInvalidCouponError.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblInvalidCouponError.Visible = false;
+            this.btnContinueToCheckout.Click += new System.EventHandler(this.btnContinueToCheckout_Click);
             // 
             // rdoUseAboveAddress
             // 
@@ -340,46 +350,22 @@
             this.lblAddressInfo.TabIndex = 20;
             this.lblAddressInfo.Text = "Address Information";
             // 
-            // lblSelectAddressError
+            // lblCouponInfo
             // 
-            this.lblSelectAddressError.AutoSize = true;
-            this.lblSelectAddressError.ForeColor = System.Drawing.Color.Red;
-            this.lblSelectAddressError.Location = new System.Drawing.Point(425, 502);
-            this.lblSelectAddressError.Name = "lblSelectAddressError";
-            this.lblSelectAddressError.Size = new System.Drawing.Size(177, 23);
-            this.lblSelectAddressError.TabIndex = 21;
-            this.lblSelectAddressError.Text = "* Select Address!";
-            this.lblSelectAddressError.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblSelectAddressError.Visible = false;
-            // 
-            // lblDicountedTotalValue
-            // 
-            this.lblDicountedTotalValue.AutoSize = true;
-            this.lblDicountedTotalValue.BackColor = System.Drawing.Color.White;
-            this.lblDicountedTotalValue.Location = new System.Drawing.Point(257, 69);
-            this.lblDicountedTotalValue.Name = "lblDicountedTotalValue";
-            this.lblDicountedTotalValue.Size = new System.Drawing.Size(65, 23);
-            this.lblDicountedTotalValue.TabIndex = 12;
-            this.lblDicountedTotalValue.Text = "$0.00";
-            this.lblDicountedTotalValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblDiscountedTotal
-            // 
-            this.lblDiscountedTotal.AutoSize = true;
-            this.lblDiscountedTotal.BackColor = System.Drawing.Color.White;
-            this.lblDiscountedTotal.Location = new System.Drawing.Point(13, 69);
-            this.lblDiscountedTotal.Name = "lblDiscountedTotal";
-            this.lblDiscountedTotal.Size = new System.Drawing.Size(179, 23);
-            this.lblDiscountedTotal.TabIndex = 11;
-            this.lblDiscountedTotal.Text = "Discounted Total:";
+            this.lblCouponInfo.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCouponInfo.ForeColor = System.Drawing.Color.Red;
+            this.lblCouponInfo.Location = new System.Drawing.Point(448, 505);
+            this.lblCouponInfo.Name = "lblCouponInfo";
+            this.lblCouponInfo.Size = new System.Drawing.Size(260, 20);
+            this.lblCouponInfo.TabIndex = 21;
+            this.lblCouponInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frmCheckoutView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1279, 642);
-            this.Controls.Add(this.lblSelectAddressError);
-            this.Controls.Add(this.lblInvalidCouponError);
+            this.Controls.Add(this.lblCouponInfo);
             this.Controls.Add(this.btnContinueToCheckout);
             this.Controls.Add(this.btnApplyCoupon);
             this.Controls.Add(this.tbxCoupon);
@@ -396,6 +382,7 @@
             this.Name = "frmCheckoutView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Checkout";
+            this.Load += new System.EventHandler(this.frmCheckoutView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvItemsDetails)).EndInit();
             this.pnlPaymentBreakdownDisplay.ResumeLayout(false);
             this.pnlPaymentBreakdownDisplay.PerformLayout();
@@ -419,7 +406,7 @@
         private System.Windows.Forms.Label lblDiscount;
         private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Label lblTotalValue;
-        private System.Windows.Forms.Label lblDicountValue;
+        private System.Windows.Forms.Label lblDiscountValue;
         private System.Windows.Forms.Label lblTaxValue;
         private System.Windows.Forms.Label lblSubTotalValue;
         private System.Windows.Forms.Panel pnlPaymentBreakdownDisplay;
@@ -427,15 +414,14 @@
         private System.Windows.Forms.TextBox tbxCoupon;
         private System.Windows.Forms.Button btnApplyCoupon;
         private System.Windows.Forms.Button btnContinueToCheckout;
-        private System.Windows.Forms.Label lblInvalidCouponError;
         private System.Windows.Forms.RadioButton rdoUseAboveAddress;
         private System.Windows.Forms.RadioButton rdoUseDiffrentAddress;
         private System.Windows.Forms.Label lblAddress;
         private System.Windows.Forms.Panel pnlAddressChoice;
         private System.Windows.Forms.Label lblRequiredStar;
         private System.Windows.Forms.Label lblAddressInfo;
-        private System.Windows.Forms.Label lblSelectAddressError;
-        private System.Windows.Forms.Label lblDicountedTotalValue;
+        private System.Windows.Forms.Label lblDiscountedTotalValue;
         private System.Windows.Forms.Label lblDiscountedTotal;
+        private System.Windows.Forms.Label lblCouponInfo;
     }
 }

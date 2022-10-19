@@ -52,7 +52,8 @@ namespace FinalProject
                 lblNote.Text = "Sold out!";
                 lblNote.ForeColor = Color.Red;
                 lblNote.Visible = true;
-            } else if (_selectedInventoryItem.intQuantity <= 10)
+            }
+            else if (_selectedInventoryItem.intQuantity <= 10)
             {
                 lblNote.Visible = true;
             }
@@ -73,6 +74,7 @@ namespace FinalProject
             else
             {
                 cbxSize.DataSource = _selectedInventoryItem.lstSizes;
+                cbxSize.SelectedIndex = 0;
                 cbxSize.DisplayMember = "strSize";
 
                 nudQuantityCounter.Value = 1;
@@ -83,9 +85,37 @@ namespace FinalProject
 
         private void cbxSize_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+           
             nudQuantityCounter.Value = 1;
             nudQuantityCounter.Maximum = _selectedInventoryItem.lstSizes[cbxSize.SelectedIndex].intQuantity;
+
+        }
+
+        private void btnAddToCartNow_Click(object sender, EventArgs e)
+        {
+            // check if selected size is valid
+            bool isExists = cbxSize.Items.Cast<clsShoeSize>().Any(x => x.strSize == cbxSize.Text);
+            
+            if (isExists)
+            {
+                // Get the selected size by the user
+                clsShoeSize selectedSize = new clsShoeSize();
+                selectedSize = _selectedInventoryItem.lstSizes.Find(x => x.strSize.Equals(cbxSize.Text));
+
+                // validate added quantity
+                if (nudQuantityCounter.Value > selectedSize.intQuantity || nudQuantityCounter.Value < 0)
+                {
+                    MessageBox.Show("Please select valid quantity.", "Incorrect Information!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Add Selected Inventory to the list
+                Customer_View_Classes.clsPublicData.currentUserCart.AddNewItem(_selectedInventoryItem, selectedSize, Convert.ToInt32(nudQuantityCounter.Value));
+            }
+            else
+            {
+                MessageBox.Show("Please select available/valid shoe size.", "Incorrect Information!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
     }

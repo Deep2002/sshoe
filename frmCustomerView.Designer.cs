@@ -37,21 +37,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pnlMainView = new System.Windows.Forms.Panel();
             this.flpItemsView = new System.Windows.Forms.FlowLayoutPanel();
-            this.pnlItemCard = new System.Windows.Forms.Panel();
-            this.pbxImage = new System.Windows.Forms.PictureBox();
-            this.pnlInformation = new System.Windows.Forms.Panel();
-            this.lblPrice = new System.Windows.Forms.Label();
-            this.btnAddToCart = new System.Windows.Forms.Button();
-            this.lblName = new System.Windows.Forms.Label();
             this.pnlCart = new System.Windows.Forms.Panel();
             this.flpInCartItems = new System.Windows.Forms.FlowLayoutPanel();
-            this.pnlCartItemCard = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.nudQuantityCounter = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pbxDeleteButton = new System.Windows.Forms.PictureBox();
-            this.lblQuantity = new System.Windows.Forms.Label();
-            this.pbxItemImage = new System.Windows.Forms.PictureBox();
             this.pnlSubtotal = new System.Windows.Forms.Panel();
             this.btnBuy = new System.Windows.Forms.Button();
             this.lblTotalItems = new System.Windows.Forms.Label();
@@ -109,16 +96,7 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.pnlMainView.SuspendLayout();
-            this.flpItemsView.SuspendLayout();
-            this.pnlItemCard.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxImage)).BeginInit();
-            this.pnlInformation.SuspendLayout();
             this.pnlCart.SuspendLayout();
-            this.flpInCartItems.SuspendLayout();
-            this.pnlCartItemCard.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudQuantityCounter)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxDeleteButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxItemImage)).BeginInit();
             this.pnlSubtotal.SuspendLayout();
             this.mnuMenu.SuspendLayout();
             this.pnlCategory.SuspendLayout();
@@ -216,7 +194,6 @@
             this.flpItemsView.AutoScroll = true;
             this.flpItemsView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(233)))), ((int)(((byte)(233)))));
             this.flpItemsView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flpItemsView.Controls.Add(this.pnlItemCard);
             this.flpItemsView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpItemsView.Location = new System.Drawing.Point(0, 0);
             this.flpItemsView.Margin = new System.Windows.Forms.Padding(0);
@@ -224,84 +201,6 @@
             this.flpItemsView.Padding = new System.Windows.Forms.Padding(10);
             this.flpItemsView.Size = new System.Drawing.Size(1202, 617);
             this.flpItemsView.TabIndex = 0;
-            // 
-            // pnlItemCard
-            // 
-            this.pnlItemCard.BackColor = System.Drawing.Color.White;
-            this.pnlItemCard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlItemCard.Controls.Add(this.pbxImage);
-            this.pnlItemCard.Controls.Add(this.pnlInformation);
-            this.pnlItemCard.Location = new System.Drawing.Point(20, 20);
-            this.pnlItemCard.Margin = new System.Windows.Forms.Padding(10);
-            this.pnlItemCard.Name = "pnlItemCard";
-            this.pnlItemCard.Size = new System.Drawing.Size(201, 296);
-            this.pnlItemCard.TabIndex = 0;
-            // 
-            // pbxImage
-            // 
-            this.pbxImage.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbxImage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pbxImage.Image = ((System.Drawing.Image)(resources.GetObject("pbxImage.Image")));
-            this.pbxImage.Location = new System.Drawing.Point(0, 0);
-            this.pbxImage.MinimumSize = new System.Drawing.Size(200, 100);
-            this.pbxImage.Name = "pbxImage";
-            this.pbxImage.Size = new System.Drawing.Size(200, 150);
-            this.pbxImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbxImage.TabIndex = 0;
-            this.pbxImage.TabStop = false;
-            this.pbxImage.Click += new System.EventHandler(this.pbxImage_Click);
-            // 
-            // pnlInformation
-            // 
-            this.pnlInformation.Controls.Add(this.lblPrice);
-            this.pnlInformation.Controls.Add(this.btnAddToCart);
-            this.pnlInformation.Controls.Add(this.lblName);
-            this.pnlInformation.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlInformation.Location = new System.Drawing.Point(0, 153);
-            this.pnlInformation.Name = "pnlInformation";
-            this.pnlInformation.Padding = new System.Windows.Forms.Padding(5);
-            this.pnlInformation.Size = new System.Drawing.Size(199, 141);
-            this.pnlInformation.TabIndex = 1;
-            // 
-            // lblPrice
-            // 
-            this.lblPrice.BackColor = System.Drawing.Color.Transparent;
-            this.lblPrice.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblPrice.Font = new System.Drawing.Font("Verdana", 12F);
-            this.lblPrice.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lblPrice.Location = new System.Drawing.Point(5, 78);
-            this.lblPrice.Margin = new System.Windows.Forms.Padding(5);
-            this.lblPrice.Name = "lblPrice";
-            this.lblPrice.Size = new System.Drawing.Size(189, 23);
-            this.lblPrice.TabIndex = 16;
-            this.lblPrice.Text = "Price: $119.99";
-            this.lblPrice.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnAddToCart
-            // 
-            this.btnAddToCart.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnAddToCart.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAddToCart.Font = new System.Drawing.Font("Verdana", 12F);
-            this.btnAddToCart.ForeColor = System.Drawing.Color.White;
-            this.btnAddToCart.Location = new System.Drawing.Point(28, 109);
-            this.btnAddToCart.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
-            this.btnAddToCart.Name = "btnAddToCart";
-            this.btnAddToCart.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.btnAddToCart.Size = new System.Drawing.Size(141, 28);
-            this.btnAddToCart.TabIndex = 15;
-            this.btnAddToCart.Text = "Add to cart";
-            this.btnAddToCart.UseVisualStyleBackColor = false;
-            // 
-            // lblName
-            // 
-            this.lblName.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblName.Font = new System.Drawing.Font("Verdana", 12F);
-            this.lblName.Location = new System.Drawing.Point(5, 5);
-            this.lblName.Margin = new System.Windows.Forms.Padding(5);
-            this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(189, 73);
-            this.lblName.TabIndex = 14;
-            this.lblName.Text = "Joardan Air 1234. Limited addition";
             // 
             // pnlCart
             // 
@@ -318,97 +217,12 @@
             this.flpInCartItems.AutoScroll = true;
             this.flpInCartItems.BackColor = System.Drawing.Color.White;
             this.flpInCartItems.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flpInCartItems.Controls.Add(this.pnlCartItemCard);
             this.flpInCartItems.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpInCartItems.Location = new System.Drawing.Point(0, 0);
             this.flpInCartItems.Name = "flpInCartItems";
-            this.flpInCartItems.Padding = new System.Windows.Forms.Padding(10);
+            this.flpInCartItems.Padding = new System.Windows.Forms.Padding(10, 10, 10, 20);
             this.flpInCartItems.Size = new System.Drawing.Size(259, 482);
             this.flpInCartItems.TabIndex = 1;
-            // 
-            // pnlCartItemCard
-            // 
-            this.pnlCartItemCard.AutoScroll = true;
-            this.pnlCartItemCard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlCartItemCard.Controls.Add(this.label2);
-            this.pnlCartItemCard.Controls.Add(this.nudQuantityCounter);
-            this.pnlCartItemCard.Controls.Add(this.label1);
-            this.pnlCartItemCard.Controls.Add(this.pbxDeleteButton);
-            this.pnlCartItemCard.Controls.Add(this.lblQuantity);
-            this.pnlCartItemCard.Controls.Add(this.pbxItemImage);
-            this.pnlCartItemCard.Location = new System.Drawing.Point(13, 13);
-            this.pnlCartItemCard.Name = "pnlCartItemCard";
-            this.pnlCartItemCard.Size = new System.Drawing.Size(200, 221);
-            this.pnlCartItemCard.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Verdana", 12F);
-            this.label2.ForeColor = System.Drawing.Color.Green;
-            this.label2.Location = new System.Drawing.Point(10, 147);
-            this.label2.Margin = new System.Windows.Forms.Padding(5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(176, 27);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "Joardan Air 1234. Limited addition";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // nudQuantityCounter
-            // 
-            this.nudQuantityCounter.Location = new System.Drawing.Point(89, 178);
-            this.nudQuantityCounter.Name = "nudQuantityCounter";
-            this.nudQuantityCounter.Size = new System.Drawing.Size(61, 30);
-            this.nudQuantityCounter.TabIndex = 18;
-            this.nudQuantityCounter.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Verdana", 12F);
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.label1.Location = new System.Drawing.Point(0, 126);
-            this.label1.Margin = new System.Windows.Forms.Padding(5);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(198, 23);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "$119.99";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pbxDeleteButton
-            // 
-            this.pbxDeleteButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbxDeleteButton.Image = ((System.Drawing.Image)(resources.GetObject("pbxDeleteButton.Image")));
-            this.pbxDeleteButton.Location = new System.Drawing.Point(161, 181);
-            this.pbxDeleteButton.Name = "pbxDeleteButton";
-            this.pbxDeleteButton.Size = new System.Drawing.Size(25, 25);
-            this.pbxDeleteButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbxDeleteButton.TabIndex = 3;
-            this.pbxDeleteButton.TabStop = false;
-            // 
-            // lblQuantity
-            // 
-            this.lblQuantity.AutoSize = true;
-            this.lblQuantity.Font = new System.Drawing.Font("Verdana", 11F);
-            this.lblQuantity.Location = new System.Drawing.Point(5, 184);
-            this.lblQuantity.Name = "lblQuantity";
-            this.lblQuantity.Size = new System.Drawing.Size(78, 18);
-            this.lblQuantity.TabIndex = 2;
-            this.lblQuantity.Text = "Quantity:";
-            // 
-            // pbxItemImage
-            // 
-            this.pbxItemImage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pbxItemImage.Image = ((System.Drawing.Image)(resources.GetObject("pbxItemImage.Image")));
-            this.pbxItemImage.Location = new System.Drawing.Point(0, 0);
-            this.pbxItemImage.Name = "pbxItemImage";
-            this.pbxItemImage.Size = new System.Drawing.Size(198, 118);
-            this.pbxItemImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbxItemImage.TabIndex = 0;
-            this.pbxItemImage.TabStop = false;
             // 
             // pnlSubtotal
             // 
@@ -430,7 +244,7 @@
             this.btnBuy.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnBuy.Font = new System.Drawing.Font("Verdana", 13F);
             this.btnBuy.ForeColor = System.Drawing.Color.White;
-            this.btnBuy.Location = new System.Drawing.Point(58, 89);
+            this.btnBuy.Location = new System.Drawing.Point(58, 86);
             this.btnBuy.Name = "btnBuy";
             this.btnBuy.Size = new System.Drawing.Size(140, 36);
             this.btnBuy.TabIndex = 3;
@@ -440,22 +254,23 @@
             // 
             // lblTotalItems
             // 
-            this.lblTotalItems.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblTotalItems.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblTotalItems.AutoSize = true;
             this.lblTotalItems.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalItems.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblTotalItems.Location = new System.Drawing.Point(74, 60);
+            this.lblTotalItems.Location = new System.Drawing.Point(73, 60);
             this.lblTotalItems.Name = "lblTotalItems";
             this.lblTotalItems.Size = new System.Drawing.Size(111, 18);
             this.lblTotalItems.TabIndex = 2;
-            this.lblTotalItems.Text = "Total items: 2";
+            this.lblTotalItems.Text = "Total items: 0";
+            this.lblTotalItems.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblSubtotal
             // 
             this.lblSubtotal.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblSubtotal.AutoSize = true;
             this.lblSubtotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.lblSubtotal.Location = new System.Drawing.Point(84, 34);
+            this.lblSubtotal.Location = new System.Drawing.Point(83, 34);
             this.lblSubtotal.Name = "lblSubtotal";
             this.lblSubtotal.Size = new System.Drawing.Size(90, 23);
             this.lblSubtotal.TabIndex = 1;
@@ -463,14 +278,14 @@
             // 
             // lblSubtotalPrice
             // 
-            this.lblSubtotalPrice.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lblSubtotalPrice.AutoSize = true;
+            this.lblSubtotalPrice.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSubtotalPrice.ForeColor = System.Drawing.Color.Green;
-            this.lblSubtotalPrice.Location = new System.Drawing.Point(85, 8);
+            this.lblSubtotalPrice.Location = new System.Drawing.Point(37, 11);
             this.lblSubtotalPrice.Name = "lblSubtotalPrice";
-            this.lblSubtotalPrice.Size = new System.Drawing.Size(89, 23);
+            this.lblSubtotalPrice.Size = new System.Drawing.Size(183, 23);
             this.lblSubtotalPrice.TabIndex = 0;
-            this.lblSubtotalPrice.Text = "$239.98";
+            this.lblSubtotalPrice.Text = "$0.00";
+            this.lblSubtotalPrice.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // mnuMenu
             // 
@@ -496,13 +311,14 @@
             // logotToolStripMenuItem
             // 
             this.logotToolStripMenuItem.Name = "logotToolStripMenuItem";
-            this.logotToolStripMenuItem.Size = new System.Drawing.Size(134, 28);
-            this.logotToolStripMenuItem.Text = "&Logot";
+            this.logotToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
+            this.logotToolStripMenuItem.Text = "&Logout";
+            this.logotToolStripMenuItem.Click += new System.EventHandler(this.logotToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(134, 28);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
             this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // aboutToolStripMenuItem
@@ -964,17 +780,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.pnlMainView.ResumeLayout(false);
-            this.flpItemsView.ResumeLayout(false);
-            this.pnlItemCard.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbxImage)).EndInit();
-            this.pnlInformation.ResumeLayout(false);
             this.pnlCart.ResumeLayout(false);
-            this.flpInCartItems.ResumeLayout(false);
-            this.pnlCartItemCard.ResumeLayout(false);
-            this.pnlCartItemCard.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudQuantityCounter)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxDeleteButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxItemImage)).EndInit();
             this.pnlSubtotal.ResumeLayout(false);
             this.pnlSubtotal.PerformLayout();
             this.mnuMenu.ResumeLayout(false);
@@ -1012,19 +818,6 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.Panel pnlItemCard;
-        private System.Windows.Forms.Panel pnlInformation;
-        private System.Windows.Forms.Button btnAddToCart;
-        private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.PictureBox pbxImage;
-        private System.Windows.Forms.Label lblPrice;
-        private System.Windows.Forms.Panel pnlCartItemCard;
-        private System.Windows.Forms.PictureBox pbxDeleteButton;
-        private System.Windows.Forms.Label lblQuantity;
-        private System.Windows.Forms.PictureBox pbxItemImage;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown nudQuantityCounter;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel pnlCategory;
         private System.Windows.Forms.Panel pnlCategories;
         private System.Windows.Forms.Label label7;

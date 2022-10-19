@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinalProject.Customer_View_Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -92,7 +93,7 @@ namespace FinalProject
             // Check if user already exists
             if (clsSQL.SearchCurrentUser(tbxUsername.Text))
             {
-                frmLogon.currentUser = null;
+                clsPublicData.currentUser = null;
 
                 // if already exists
                 tbxUsername.BackColor = Color.Red;
@@ -123,27 +124,27 @@ namespace FinalProject
                 tbxConfirmPassword.BackColor != redColor)
             {
                 // set current user as this (Who is signing-up)
-                frmLogon.currentUser = new Person();
+                clsPublicData.currentUser = new Person();
                 // set information
                 // user info
-                frmLogon.currentUser.strFirstName = tbxFirstName.Text;
-                frmLogon.currentUser.strLastName = tbxLastName.Text;
-                frmLogon.currentUser.strMiddleName = tbxMiddleName.Text;
-                frmLogon.currentUser.strTitle = cbxTitle.Text;
-                frmLogon.currentUser.strSuffix = tbxSuffix.Text;
+                clsPublicData.currentUser.strFirstName = tbxFirstName.Text;
+                clsPublicData.currentUser.strLastName = tbxLastName.Text;
+                clsPublicData.currentUser.strMiddleName = tbxMiddleName.Text;
+                clsPublicData.currentUser.strTitle = cbxTitle.Text;
+                clsPublicData.currentUser.strSuffix = tbxSuffix.Text;
                 // logon info
-                frmLogon.currentUser.strUsername = tbxUsername.Text;
-                frmLogon.currentUser.strPrimaryPhone = tbxPrimaryPhone.Text;
-                frmLogon.currentUser.strSecondaryPhone = tbxSecondaryPhone.Text;
-                frmLogon.currentUser.strEmail = tbxEmail.Text;
-                frmLogon.currentUser.strPassword = tbxPassword.Text;
+                clsPublicData.currentUser.strUsername = tbxUsername.Text;
+                clsPublicData.currentUser.strPrimaryPhone = tbxPrimaryPhone.Text;
+                clsPublicData.currentUser.strSecondaryPhone = tbxSecondaryPhone.Text;
+                clsPublicData.currentUser.strEmail = tbxEmail.Text;
+                clsPublicData.currentUser.strPassword = tbxPassword.Text;
                 // Address info
-                frmLogon.currentUser.strAddress1 = tbxAddress.Text;
-                frmLogon.currentUser.strAddress2 = tbxAddress2.Text;
-                frmLogon.currentUser.strAddress3 = tbxAddress3.Text;
-                frmLogon.currentUser.strCity = tbxCity.Text;
-                frmLogon.currentUser.strState = cbxState.Text;
-                frmLogon.currentUser.strZip = tbxZIP.Text;
+                clsPublicData.currentUser.strAddress1 = tbxAddress.Text;
+                clsPublicData.currentUser.strAddress2 = tbxAddress2.Text;
+                clsPublicData.currentUser.strAddress3 = tbxAddress3.Text;
+                clsPublicData.currentUser.strCity = tbxCity.Text;
+                clsPublicData.currentUser.strState = cbxState.Text;
+                clsPublicData.currentUser.strZip = tbxZIP.Text;
 
                 // show questions form
                 this.Hide();

@@ -31,10 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPaymentInfo));
             this.lblTitle = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbxCardNumber = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tbxCVV = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -44,6 +43,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.stsStatus = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.dtpExpirationDate = new System.Windows.Forms.DateTimePicker();
             this.stsStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,13 +67,13 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Card Number:";
             // 
-            // textBox1
+            // tbxCardNumber
             // 
-            this.textBox1.Location = new System.Drawing.Point(257, 116);
-            this.textBox1.MaxLength = 20;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(265, 30);
-            this.textBox1.TabIndex = 4;
+            this.tbxCardNumber.Location = new System.Drawing.Point(257, 116);
+            this.tbxCardNumber.MaxLength = 20;
+            this.tbxCardNumber.Name = "tbxCardNumber";
+            this.tbxCardNumber.Size = new System.Drawing.Size(265, 30);
+            this.tbxCardNumber.TabIndex = 4;
             // 
             // label2
             // 
@@ -84,21 +84,15 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Expiration Date:";
             // 
-            // textBox2
+            // tbxCVV
             // 
-            this.textBox2.Location = new System.Drawing.Point(257, 161);
-            this.textBox2.MaxLength = 5;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(76, 30);
-            this.textBox2.TabIndex = 6;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(446, 161);
-            this.textBox3.MaxLength = 3;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(76, 30);
-            this.textBox3.TabIndex = 8;
+            this.tbxCVV.Location = new System.Drawing.Point(446, 161);
+            this.tbxCVV.MaxLength = 3;
+            this.tbxCVV.Name = "tbxCVV";
+            this.tbxCVV.ShortcutsEnabled = false;
+            this.tbxCVV.Size = new System.Drawing.Size(76, 30);
+            this.tbxCVV.TabIndex = 8;
+            this.tbxCVV.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxCVV_KeyPress);
             // 
             // label3
             // 
@@ -107,7 +101,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 23);
             this.label3.TabIndex = 7;
-            this.label3.Text = "CCV:";
+            this.label3.Text = "CVV:";
             // 
             // label4
             // 
@@ -133,7 +127,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(339, 169);
+            this.label6.Location = new System.Drawing.Point(355, 164);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(22, 23);
             this.label6.TabIndex = 82;
@@ -150,6 +144,7 @@
             this.btnContinueToCheckout.TabIndex = 83;
             this.btnContinueToCheckout.Text = "Place my order";
             this.btnContinueToCheckout.UseVisualStyleBackColor = false;
+            this.btnContinueToCheckout.Click += new System.EventHandler(this.btnContinueToCheckout_Click);
             // 
             // label7
             // 
@@ -190,11 +185,23 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(219, 17);
             this.toolStripStatusLabel1.Text = "Required fields are marked as  *";
             // 
+            // dtpExpirationDate
+            // 
+            this.dtpExpirationDate.CustomFormat = "MM/yy";
+            this.dtpExpirationDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpExpirationDate.Location = new System.Drawing.Point(257, 162);
+            this.dtpExpirationDate.Name = "dtpExpirationDate";
+            this.dtpExpirationDate.ShowUpDown = true;
+            this.dtpExpirationDate.Size = new System.Drawing.Size(92, 30);
+            this.dtpExpirationDate.TabIndex = 87;
+            this.dtpExpirationDate.Value = new System.DateTime(2024, 10, 22, 0, 0, 0, 0);
+            // 
             // frmPaymentInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(611, 308);
+            this.Controls.Add(this.dtpExpirationDate);
             this.Controls.Add(this.stsStatus);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -202,11 +209,10 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.tbxCVV);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tbxCardNumber);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblTitle);
             this.Font = new System.Drawing.Font("Verdana", 14F);
@@ -228,10 +234,9 @@
 
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbxCardNumber;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox tbxCVV;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -241,5 +246,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.StatusStrip stsStatus;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.DateTimePicker dtpExpirationDate;
     }
 }

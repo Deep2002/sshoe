@@ -65,7 +65,7 @@ namespace FinalProject
             catch (Exception ex)
             {
                 /// show error
-                MessageBox.Show(ex.Message, "Unable to connect!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please close your application wait for few minutes then restart the application.\n\nSee Error:\n" + ex.Message, "Unable to connect!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -100,7 +100,9 @@ namespace FinalProject
             {
 
                 // setting up query to run
-                string strQuery = "SELECT p.PersonID, p.NameFirst, p.NameLast FROM Person as p " +
+                string strQuery = "SELECT p.PersonID, p.NameFirst, p.NameLast, " +
+                    "p.Address1, p.Address2, p.Address3, p.City, p.State, p.Zipcode, p.Email, p.PhonePrimary, p.PositionID" +
+                    " FROM Person as p " +
                             "JOIN Logon AS l ON " +
                             "l.PersonID = p.PersonID " +
                             "WHERE LogonName = @0 " +
@@ -126,13 +128,22 @@ namespace FinalProject
                 if (dtUserTable.Rows.Count != 0)
                 {
                     // If so, user is found and add it information to the currentUser.
-                    frmLogon.currentUser = new Person();
-                    Person temp = frmLogon.currentUser;
+                    clsPublicData.currentUser = new Person();
+                    Person temp = clsPublicData.currentUser;
 
                     // parse info
                     temp.strPersonID = dtUserTable.Rows[0]["PersonID"].ToString();
                     temp.strFirstName = dtUserTable.Rows[0]["NameFirst"].ToString();
                     temp.strLastName = dtUserTable.Rows[0]["NameLast"].ToString();
+                    temp.strAddress1 = dtUserTable.Rows[0]["Address1"].ToString();
+                    temp.strAddress2 = dtUserTable.Rows[0]["Address2"].ToString();
+                    temp.strAddress3 = dtUserTable.Rows[0]["Address3"].ToString();
+                    temp.strCity = dtUserTable.Rows[0]["City"].ToString();
+                    temp.strState = dtUserTable.Rows[0]["State"].ToString();
+                    temp.strZip = dtUserTable.Rows[0]["ZipCode"].ToString();
+                    temp.strEmail = dtUserTable.Rows[0]["Email"].ToString();
+                    temp.strPrimaryPhone = dtUserTable.Rows[0]["PhonePrimary"].ToString();
+                    temp.strPositionID = dtUserTable.Rows[0]["PositionID"].ToString();
 
                     return true;
                 }
@@ -196,8 +207,8 @@ namespace FinalProject
                 if (dtUserTable.Rows.Count != 0)
                 {
                     // If so, user is found and add it information to the currentUser.
-                    frmLogon.currentUser = new Person();
-                    Person temp = frmLogon.currentUser;
+                    clsPublicData.currentUser = new Person();
+                    Person temp = clsPublicData.currentUser;
 
                     // parse info
                     temp.strFirstQuestion = dtUserTable.Rows[0]["QuestionPrompt"].ToString();
@@ -570,6 +581,183 @@ namespace FinalProject
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        public static bool GetDiscountCode(string strCuponCode)
+        {
+
+            try
+            {
+                // setting up query to run
+                string strQuery = "SELECT * FROM Discounts WHERE DiscountCode = @DiscountCode;";
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+
+                cmd.Parameters.AddWithValue("@DiscountCode", strCuponCode);
+
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+
+                // create and fill in the data table
+                DataTable dtDiscountTable = new DataTable();
+                sqlDataAdapter.SelectCommand = cmd;
+                sqlDataAdapter.Fill(dtDiscountTable);
+
+                // dispose unnecessary data
+                cmd.Dispose();
+                sqlDataAdapter.Dispose();
+
+                // check if DB return any row
+
+                if (dtDiscountTable.Rows.Count >= 1)
+                {
+                    clsPublicData.discount.DicountID = dtDiscountTable.Rows[0]["DiscountID"].ToString();
+                    clsPublicData.discount.DicountCode = dtDiscountTable.Rows[0]["DiscountCode"].ToString();
+                    clsPublicData.discount.DicountAmount = dtDiscountTable.Rows[0]["DiscountDollarAmount"].ToString();
+                    clsPublicData.discount.DicountPercentage = dtDiscountTable.Rows[0]["DiscountPercentage"].ToString();
+                    clsPublicData.discount.InventoryID = dtDiscountTable.Rows[0]["InventoryID"].ToString();
+                    clsPublicData.discount.ExpirationDate = dtDiscountTable.Rows[0]["ExpirationDate"].ToString();
+                    clsPublicData.discount.DicountType = Convert.ToInt32(dtDiscountTable.Rows[0]["DiscountType"].ToString());
+
+                }else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reviving discounts see error below:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+
+            }
+
+            return true;
+        }
+
+        internal static bool PlaceOrder(string strCardNumber, string ExpDate, string strCCV)
+        {
+
+            try
+            {
+                #region Creating new Order
+                string strQuery = "INSERT INTO Orders (PersonID, OrderDate, CC_Number, ExpDate, CCV, Time";
+
+                #region Append discount id if exists
+                if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
+                    strQuery += ", DiscountID";
+
+                strQuery += ") VALUES (@PersonID, @OrderDate, @CC_Number, @ExpDate, @CCV, @Time";
+
+                if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
+                    strQuery += ", @DiscountID";
+                strQuery += ");";
+                #endregion
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+
+                if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
+                    cmd.Parameters.AddWithValue("@DiscountID", clsPublicData.discount.DicountID);
+
+                string orderDate = DateTime.Now.ToString("g");
+                string orderTime = DateTime.Now.ToString("T");
+
+                cmd.Parameters.AddWithValue("@PersonID", clsPublicData.currentUser.strPersonID);
+                cmd.Parameters.AddWithValue("@OrderDate", orderDate);
+                cmd.Parameters.AddWithValue("@Time", orderTime);
+                cmd.Parameters.AddWithValue("@CC_Number", strCardNumber);
+                cmd.Parameters.AddWithValue("@ExpDate", ExpDate);
+                cmd.Parameters.AddWithValue("@CCV", strCCV);
+                #endregion
+
+                string orderID;
+
+                if (cmd.ExecuteNonQuery() == 1)
+                {
+                    #region Getting created order ID
+                    strQuery = "SELECT OrderID From Orders WHERE PersonID = CONVERT(int, @PersonID) " +
+                        "AND OrderDate = @OrderDate " +
+                        "AND CC_Number = @CC_Number " +
+                        "AND CCV = @CCV " +
+                        "AND Time = @Time;";
+                    
+                    cmd = new SqlCommand(strQuery, connection);
+
+                    cmd.Parameters.AddWithValue("@PersonID", Convert.ToInt32(clsPublicData.currentUser.strPersonID));
+                    cmd.Parameters.AddWithValue("@OrderDate", orderDate);
+                    cmd.Parameters.AddWithValue("@CC_Number", strCardNumber);
+                    cmd.Parameters.AddWithValue("@CCV", strCCV);
+                    cmd.Parameters.AddWithValue("@Time", orderTime);
+
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+
+                    // create and fill in the data table
+                    DataTable dtOrderTable = new DataTable();
+                    sqlDataAdapter.SelectCommand = cmd;
+                    sqlDataAdapter.Fill(dtOrderTable);
+
+                    // dispose unnecessary data
+                    cmd.Dispose();
+                    sqlDataAdapter.Dispose();
+
+                    if (dtOrderTable.Rows.Count >= 1)
+                    {
+                        orderID = dtOrderTable.Rows[0]["OrderID"].ToString();
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                    #endregion
+
+                    #region Adding order Details
+                   
+                    // get that order id
+                    strQuery = "INSERT INTO OrderDetails (OrderID, InventoryID, Quantity ";
+
+                    #region Append discount id if exists
+                    if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
+                        strQuery += ", DiscountID";
+
+                    strQuery += ") VALUES (@OrderID, @InventoryID, @Quantity";
+
+                    if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
+                        strQuery += ", @DiscountID";
+                    strQuery += ");";
+                    #endregion
+
+                    foreach (var item in clsPublicData.currentUserCart.lstUserCart)
+                    {
+                        // here add every items to the new order details 1 by 1
+                        cmd = new SqlCommand(strQuery, connection);
+
+                        cmd.Parameters.AddWithValue("@OrderID", orderID);
+                        cmd.Parameters.AddWithValue("@InventoryID", item.inventory.intID);
+                        cmd.Parameters.AddWithValue("@Quantity", item.quantity);
+
+                        if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
+                            cmd.Parameters.AddWithValue("@DiscountID", clsPublicData.discount.DicountID);
+
+                        // run the query
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    #endregion
+                }
+                else
+                {
+                    MessageBox.Show("Error occurred while creating your order! Please try again later.", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error receiving Placing an order see error below:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
         }
     }
 }

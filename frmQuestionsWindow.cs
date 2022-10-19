@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinalProject.Customer_View_Classes;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -37,9 +38,9 @@ namespace FinalProject
                     "Security Questions", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // display security question
-                cbxFirstQuestion.Text = frmLogon.currentUser.strFirstQuestion;
-                cbxSecondQuestion.Text = frmLogon.currentUser.strSecondQuestion;
-                cbxThirdQuestion.Text = frmLogon.currentUser.strThirdQuestion;
+                cbxFirstQuestion.Text = clsPublicData.currentUser.strFirstQuestion;
+                cbxSecondQuestion.Text = clsPublicData.currentUser.strSecondQuestion;
+                cbxThirdQuestion.Text = clsPublicData.currentUser.strThirdQuestion;
 
                 // display done continue button
                 btnContinue.Visible = true;
@@ -102,9 +103,9 @@ namespace FinalProject
                 clsUpdateControls.UpdateStatusBar(stsStatus, "Please enter all questions answers to continue.", Color.Red);
                 return;
             }
-            if (tbxFirstAnswer.Text.ToLower() == frmLogon.currentUser.strFirstAnswer.ToLower() &&
-                tbxSecondAnswer.Text.ToLower() == frmLogon.currentUser.strSecondAnswer.ToLower() &&
-                tbxThirdAnswer.Text.ToLower() == frmLogon.currentUser.strThirdAnswer.ToLower())
+            if (tbxFirstAnswer.Text.ToLower() == clsPublicData.currentUser.strFirstAnswer.ToLower() &&
+                tbxSecondAnswer.Text.ToLower() == clsPublicData.currentUser.strSecondAnswer.ToLower() &&
+                tbxThirdAnswer.Text.ToLower() == clsPublicData.currentUser.strThirdAnswer.ToLower())
             {
                 new frmCreateNewPassword().ShowDialog();
                 this.Close();
@@ -119,7 +120,7 @@ namespace FinalProject
         private void tbxFirstAnswer_TextChanged(object sender, EventArgs e)
         {
             if (formType == FORM_TYPE.CREATE_NEW_USER) return;
-            if (tbxFirstAnswer.Text.ToLower() == frmLogon.currentUser.strFirstAnswer.ToLower())
+            if (tbxFirstAnswer.Text.ToLower() == clsPublicData.currentUser.strFirstAnswer.ToLower())
             {
                 lblFirstRight.Visible = true;
                 lblFirstWrong.Visible = false;
@@ -134,7 +135,7 @@ namespace FinalProject
         private void tbxSecondAnswer_TextChanged(object sender, EventArgs e)
         {
             if (formType == FORM_TYPE.CREATE_NEW_USER) return;
-            if (tbxSecondAnswer.Text.ToLower() == frmLogon.currentUser.strSecondAnswer.ToLower())
+            if (tbxSecondAnswer.Text.ToLower() == clsPublicData.currentUser.strSecondAnswer.ToLower())
             {
                 lblSecondRight.Visible = true;
                 lblSecondWrong.Visible = false;
@@ -149,7 +150,7 @@ namespace FinalProject
         private void tbxThirdAnswer_TextChanged(object sender, EventArgs e)
         {
             if (formType == FORM_TYPE.CREATE_NEW_USER) return;
-            if (tbxThirdAnswer.Text.ToLower() == frmLogon.currentUser.strThirdAnswer.ToLower())
+            if (tbxThirdAnswer.Text.ToLower() == clsPublicData.currentUser.strThirdAnswer.ToLower())
             {
                 lblThirdRight.Visible = true;
                 lblThirdWrong.Visible = false;
@@ -193,24 +194,24 @@ namespace FinalProject
 
             // if everything looks/validate successfull
             // create a user
-            string strFirstName = frmLogon.currentUser.strFirstName;
-            string strLastName = frmLogon.currentUser.strLastName;
-            string strUsername = frmLogon.currentUser.strUsername;
-            string strMiddleName = frmLogon.currentUser.strMiddleName;
-            string strTitle = frmLogon.currentUser.strTitle;
-            string strSuffix = frmLogon.currentUser.strSuffix;
+            string strFirstName = clsPublicData.currentUser.strFirstName;
+            string strLastName = clsPublicData.currentUser.strLastName;
+            string strUsername = clsPublicData.currentUser.strUsername;
+            string strMiddleName = clsPublicData.currentUser.strMiddleName;
+            string strTitle = clsPublicData.currentUser.strTitle;
+            string strSuffix = clsPublicData.currentUser.strSuffix;
 
-            string strAddress = frmLogon.currentUser.strAddress1;
-            string strAddress2 = frmLogon.currentUser.strAddress2;
-            string strAddress3 = frmLogon.currentUser.strAddress3;
-            string strCity = frmLogon.currentUser.strCity;
-            string strState = frmLogon.currentUser.strState;
-            string strZIP = frmLogon.currentUser.strZip;
+            string strAddress = clsPublicData.currentUser.strAddress1;
+            string strAddress2 = clsPublicData.currentUser.strAddress2;
+            string strAddress3 = clsPublicData.currentUser.strAddress3;
+            string strCity = clsPublicData.currentUser.strCity;
+            string strState = clsPublicData.currentUser.strState;
+            string strZIP = clsPublicData.currentUser.strZip;
 
-            string strPrimaryPhone = frmLogon.currentUser.strPrimaryPhone;
-            string strSecondaryPhone = frmLogon.currentUser.strSecondaryPhone;
-            string strEmail = frmLogon.currentUser.strEmail;
-            string strPassword = frmLogon.currentUser.strPassword;
+            string strPrimaryPhone = clsPublicData.currentUser.strPrimaryPhone;
+            string strSecondaryPhone = clsPublicData.currentUser.strSecondaryPhone;
+            string strEmail = clsPublicData.currentUser.strEmail;
+            string strPassword = clsPublicData.currentUser.strPassword;
 
             // questions
             string strFirstQuestionID = "";
@@ -263,7 +264,7 @@ namespace FinalProject
 
             // delete current user information from application.
             // (It is still in the database)
-            frmLogon.currentUser = null;
+            clsPublicData.currentUser = null;
         }
 
         private bool ValidateCbxQuestion(ComboBox cbxQuestionBox)

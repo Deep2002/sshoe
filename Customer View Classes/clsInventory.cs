@@ -26,7 +26,7 @@ namespace FinalProject.Customer_View_Classes
         // this will be really helpful.
         // We do not have to go through array every time.
         // And locate the item through this position.
-        public int intPositionInArray; 
+        public int intPositionInArray;
         #endregion
     }
 
@@ -39,6 +39,10 @@ namespace FinalProject.Customer_View_Classes
         {
             this.strSize = strSize;
             this.intQuantity = intQuantity;
+        }
+
+        public clsShoeSize()
+        {
         }
     }
 }

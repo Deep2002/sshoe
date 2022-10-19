@@ -14,7 +14,6 @@ namespace FinalProject
     {
 
         // this is current customer who logged in
-        public static Person currentUser;
         // this will be useful when updating password
         public static string strUserName;
 
@@ -115,7 +114,9 @@ namespace FinalProject
                 if (clsSQL.SearchCurrentUser(tbxUsername.Text, tbxPassword.Text))
                 {
                     stsStatus.Items.Clear();
-                    MessageBox.Show(currentUser.strFirstName + " " + currentUser.strLastName + " successfully logged-in.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Hide();
+                    new frmCustomerView().ShowDialog();
+                    this.Show();
                 }
                 else
                 {
@@ -177,6 +178,13 @@ namespace FinalProject
             {
                 tbxPassword.PasswordChar = '●';
             }
+        }
+
+        private void btnContinueWithoutLogin_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new frmCustomerView().ShowDialog();
+            this.Show();
         }
     }
 }
