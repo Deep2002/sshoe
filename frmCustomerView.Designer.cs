@@ -771,6 +771,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Home";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmCustomerView_FormClosing);
             this.Load += new System.EventHandler(this.frmCustomerView_Load);
             this.pnlSearch.ResumeLayout(false);
             this.pnlSearch.PerformLayout();

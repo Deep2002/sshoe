@@ -77,7 +77,7 @@
             this.tbxAddress3.Multiline = true;
             this.tbxAddress3.Name = "tbxAddress3";
             this.tbxAddress3.Size = new System.Drawing.Size(249, 71);
-            this.tbxAddress3.TabIndex = 77;
+            this.tbxAddress3.TabIndex = 2;
             // 
             // lblAddress3
             // 
@@ -95,7 +95,7 @@
             this.tbxAddress2.Multiline = true;
             this.tbxAddress2.Name = "tbxAddress2";
             this.tbxAddress2.Size = new System.Drawing.Size(249, 71);
-            this.tbxAddress2.TabIndex = 76;
+            this.tbxAddress2.TabIndex = 1;
             // 
             // lblAddress2
             // 
@@ -123,7 +123,7 @@
             this.tbxAddress.Multiline = true;
             this.tbxAddress.Name = "tbxAddress";
             this.tbxAddress.Size = new System.Drawing.Size(249, 71);
-            this.tbxAddress.TabIndex = 75;
+            this.tbxAddress.TabIndex = 0;
             // 
             // lblAddress
             // 
@@ -153,7 +153,7 @@
             this.btnContinueToCheckout.Location = new System.Drawing.Point(113, 470);
             this.btnContinueToCheckout.Name = "btnContinueToCheckout";
             this.btnContinueToCheckout.Size = new System.Drawing.Size(260, 40);
-            this.btnContinueToCheckout.TabIndex = 82;
+            this.btnContinueToCheckout.TabIndex = 6;
             this.btnContinueToCheckout.Text = "Continue to checkout";
             this.btnContinueToCheckout.UseVisualStyleBackColor = false;
             this.btnContinueToCheckout.Click += new System.EventHandler(this.btnContinueToCheckout_Click);
@@ -228,7 +228,7 @@
             this.cbxState.MaxLength = 2;
             this.cbxState.Name = "cbxState";
             this.cbxState.Size = new System.Drawing.Size(60, 31);
-            this.cbxState.TabIndex = 85;
+            this.cbxState.TabIndex = 5;
             // 
             // label4
             // 
@@ -266,7 +266,7 @@
             this.tbxZIP.Name = "tbxZIP";
             this.tbxZIP.ShortcutsEnabled = false;
             this.tbxZIP.Size = new System.Drawing.Size(129, 30);
-            this.tbxZIP.TabIndex = 84;
+            this.tbxZIP.TabIndex = 4;
             // 
             // tbxCity
             // 
@@ -275,7 +275,7 @@
             this.tbxCity.Name = "tbxCity";
             this.tbxCity.ShortcutsEnabled = false;
             this.tbxCity.Size = new System.Drawing.Size(249, 30);
-            this.tbxCity.TabIndex = 83;
+            this.tbxCity.TabIndex = 3;
             // 
             // lblCity
             // 

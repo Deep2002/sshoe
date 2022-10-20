@@ -69,7 +69,8 @@ namespace FinalProject
             clsPublicData.currentUser.strZip = tbxZIP.Text;
 
             // Show payment information
-            new frmPaymentInfo().Show();
+            this.Hide();
+            new frmPaymentInfo().ShowDialog();
             this.Close();
         }
     }

@@ -58,7 +58,7 @@ namespace FinalProject
                 if (clsPublicData.discount.DicountPercentage != "")
                     lblDiscount.Text = $"Discount ({Convert.ToDecimal(clsPublicData.discount.DicountPercentage) * 100}%):";
                 else
-                    lblDiscount.Text = $"Discount $({clsPublicData.discount.DicountAmount}):";
+                    lblDiscount.Text = $"Discount (${clsPublicData.discount.DicountAmount}):";
 
                 lblDiscountValue.Text = "-" + clsPublicData.currentUserCart.Discount.ToString("0.00");
                 lblDiscountedTotalValue.Text = "$" + clsPublicData.currentUserCart.DiscountedTotal.ToString("0.00");
@@ -105,7 +105,7 @@ namespace FinalProject
                 if (clsPublicData.discount.DicountAmount != "")
                 {
                     clsPublicData.currentUserCart.Discount = Convert.ToDecimal(clsPublicData.discount.DicountAmount);
-                    lblDiscount.Text = $"Discount $({clsPublicData.discount.DicountAmount}):";
+                    lblDiscount.Text = $"Discount (${clsPublicData.discount.DicountAmount}):";
                 }
                 else
                 {

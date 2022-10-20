@@ -68,6 +68,7 @@ namespace FinalProject
                 ShowHtmlReceipt();
                 // clear cart
                 clsPublicData.currentUserCart = new clsUserCart();
+                this.Close();
             }
         }
 
@@ -139,14 +140,11 @@ namespace FinalProject
             strBuilder.AppendLine("</div>");
             strBuilder.AppendLine("</div>");
             string strImagePath = Assembly.GetExecutingAssembly().CodeBase.Replace("FinalProject.exe", "sshoeLogo.ico");
-            strBuilder.AppendLine($"<div style=\"margin-left: auto; margin-right: auto; margin-top: 2rem; text-align: center;\"><img src=\"{strImagePath}\" alt=\"sshoe logo\"><h5>Thank you for shopping with sshoe :)</h5></div>");
+            strBuilder.AppendLine($"<div style=\"margin-left: auto; margin-right: auto; margin-top: 2rem; text-align: center;\"><img style = \"width: 50px; height: 50px;\" src=\"{strImagePath}\" alt=\"sshoe logo\"><h5>Thank you for shopping with sshoe :)</h5></div>");
             strBuilder.AppendLine("</body>\r\n</html>");
 
             PrintReport(strBuilder);
-            this.Close();
-
         }
-
 
         private void PrintReport(StringBuilder html)
         {

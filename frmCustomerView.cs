@@ -40,7 +40,7 @@ namespace FinalProject
                 }
                 else
                 {
-                    new frmCheckoutView().Show();
+                    new frmCheckoutView().ShowDialog();
                     updateCartArea();
                 }
             }
@@ -295,6 +295,14 @@ namespace FinalProject
             clsPublicData.currentUser = null;
             clsPublicData.currentUserCart = new clsUserCart();
             this.Close();
+        }
+
+        private void frmCustomerView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            clsPublicData.currentUser = null;
+            clsPublicData.currentUserCart = new clsUserCart();
+
         }
     }
 }
