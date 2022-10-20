@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
+using Application = System.Windows.Forms.Application;
 using Image = System.Drawing.Image;
 
 namespace FinalProject
@@ -308,6 +309,11 @@ namespace FinalProject
             clsPublicData.currentUser = null;
             clsPublicData.currentUserCart = new clsUserCart();
 
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
