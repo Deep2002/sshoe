@@ -49,7 +49,12 @@ namespace FinalProject
                 new frmLoginOrCreateAccountQuestion().ShowDialog();
                 // see if they logged in
                 if (clsPublicData.currentUser != null)
+                {
                     lblUserFirstName.Text = $"Welcome Back, {clsPublicData.currentUser.strFirstName}";
+                    new frmCheckoutView().ShowDialog();
+                    updateCartArea();
+                }
+
             }
         }
 

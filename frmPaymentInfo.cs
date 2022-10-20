@@ -62,10 +62,9 @@ namespace FinalProject
             // If everything went right show receipt and add order to the database
             if (clsSQL.PlaceOrder(tbxCardNumber.Text, dtpExpirationDate.Text, tbxCVV.Text))
             {
-                MessageBox.Show("Thank you for ordering with us :)", "Order Placed.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 // Show HTML 
                 ShowHtmlReceipt();
+                MessageBox.Show("Thank you for ordering with us :)", "Order Placed.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 // clear cart
                 clsPublicData.currentUserCart = new clsUserCart();
                 this.Close();
@@ -157,29 +156,38 @@ namespace FinalProject
             {
                 // A "using" statement will automatically close a file after opening it.
                 // It never hurts to include a file.Close() once you are done with a file.
-                using (StreamWriter writer = new StreamWriter("Report.html"))
+                using (StreamWriter writer = new StreamWriter(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\Report.html"))
                 {
                     writer.WriteLine(html);
                 }
-                System.Diagnostics.Process.Start(@"Report.html"); //Open the report in the default web browser
+                System.Diagnostics.Process.Start(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\Report.html"); //Open the report in the default web browser
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("You currently do not have write permissions for this feature.",
+                MessageBox.Show("You currently do not have write permissions for this feature.\n\n" + ex.Message,
                     "Error with System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             // If you want a unique filename you could use a date and time with part of a name
-            DateTime today = DateTime.Now;
-            using (StreamWriter writer = new StreamWriter($"{today.ToString("yyyy-MM-dd-HHmmss")} - Report.html"))
+            try
             {
-                writer.WriteLine(html);
+                DateTime today = DateTime.Now;
+                using (StreamWriter writer = new StreamWriter(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + $"\\{today.ToString("yyyy-MM-dd-HHmmss")} - Report.html"))
+                {
+                    writer.WriteLine(html);
+                }
+            } catch (Exception ex)
+            {
+                MessageBox.Show("HTML file (receipt) does not exists." + ex.Message, "Error with System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void tbxCVV_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsDigit(e.KeyChar) && char.IsControl(e.KeyChar))
+            if(char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            } else
             {
                 e.Handled = true;
             }
