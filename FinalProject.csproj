@@ -105,6 +105,12 @@
     <Compile Include="frmItemDetailedInfo.Designer.cs">
       <DependentUpon>frmItemDetailedInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmLoginOrCreateAccountQuestion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLoginOrCreateAccountQuestion.Designer.cs">
+      <DependentUpon>frmLoginOrCreateAccountQuestion.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLogon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmItemDetailedInfo.resx">
       <DependentUpon>frmItemDetailedInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLoginOrCreateAccountQuestion.resx">
+      <DependentUpon>frmLoginOrCreateAccountQuestion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogon.resx">
       <DependentUpon>frmLogon.cs</DependentUpon>

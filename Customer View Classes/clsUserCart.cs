@@ -12,7 +12,8 @@ namespace FinalProject.Customer_View_Classes
     {
 
         public List<clsItem> lstUserCart = new List<clsItem>();
-        
+        public int orderID;
+
         public decimal Subtotal { get; set; }
         public decimal Discount { get; set; }
         public decimal DiscountedTotal { get; set; }

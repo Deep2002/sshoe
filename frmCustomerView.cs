@@ -41,11 +41,15 @@ namespace FinalProject
                 else
                 {
                     new frmCheckoutView().Show();
+                    updateCartArea();
                 }
             }
             else
             {
-                
+                new frmLoginOrCreateAccountQuestion().ShowDialog();
+                // see if they logged in
+                if (clsPublicData.currentUser != null)
+                    lblUserFirstName.Text = $"Welcome Back, {clsPublicData.currentUser.strFirstName}";
             }
         }
 
@@ -58,69 +62,15 @@ namespace FinalProject
             else
                 lblUserFirstName.Text = $"Anonymous user";
 
-            // load categories into the list
-            clsSQL.LoadCategories(clsPublicData.lstCategory);
-
-            // once categories loaded 
-            // now load all onto the form
-            string strDefalutSelectedButtonText = "Top selling";
-            foreach (var category in clsPublicData.lstCategory)
+            if (clsPublicData.lstInventory.Count <= 0)
             {
-                #region Button Styling and naming
-                Button btnTag = new Button();
-                btnTag.Text = category.strName;
-                btnTag.Name = category.intID.ToString();
-                if (btnTag.Text == strDefalutSelectedButtonText)
-                {
-                    btnTag.BackColor = Color.DodgerBlue;
-                    btnTag.ForeColor = Color.White;
-                    clsPublicData.lstActiveCategoryTags.Add(btnTag);
-                }
-                else
-                {
-                    btnTag.BackColor = Color.White;
-                }
-                btnTag.Font = new Font("Verdana", 12F);
-                btnTag.Location = new Point(10, 18);
-                btnTag.Margin = new Padding(10, 3, 10, 3);
-                btnTag.RightToLeft = RightToLeft.Yes;
-                btnTag.MinimumSize = new Size(100, 28);
-                btnTag.AutoSize = true;
-                btnTag.Height = 28;
-                btnTag.UseVisualStyleBackColor = false;
-                #endregion
+                // load Inventory
+                clsSQL.LoadInventory(clsPublicData.lstInventory);
 
-                // Add Some functionality
-                btnTag.Click += new EventHandler(delegate (Object o, EventArgs a)
-                {
-                    if (btnTag.BackColor == Color.DodgerBlue)
-                    {
-                        // set button to inactive state
-                        btnTag.BackColor = Color.White;
-                        btnTag.ForeColor = Color.Black;
-                        //
-                        clsPublicData.lstActiveCategoryTags.Remove(btnTag);
-                    }
-                    else
-                    {
-                        // set button to active state
-                        btnTag.BackColor = Color.DodgerBlue;
-                        btnTag.ForeColor = Color.White;
-                        //
-                        clsPublicData.lstActiveCategoryTags.Add(btnTag);
-                    }
-
-                });
-
-                // Adding it to the categories flow layout panel
-                //flpCategoryTags.Controls.Add(btnTag);
+                // load sizes
+                clsSQL.LoadSizes(clsPublicData.lstInventory);
             }
 
-            // load Inventory
-            clsSQL.LoadInventory(clsPublicData.lstInventory);
-
-            // load sizes
-            clsSQL.LoadSizes(clsPublicData.lstInventory);
 
 
             // Display Items onto the form

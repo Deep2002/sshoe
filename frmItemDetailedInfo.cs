@@ -111,6 +111,7 @@ namespace FinalProject
 
                 // Add Selected Inventory to the list
                 Customer_View_Classes.clsPublicData.currentUserCart.AddNewItem(_selectedInventoryItem, selectedSize, Convert.ToInt32(nudQuantityCounter.Value));
+                this.Close();
             }
             else
             {

@@ -4,33 +4,44 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FinalProject
 {
+    public enum LOGON_FORM_STATE
+    {
+        NORMAL,
+        POP_UP // This means when user logs in it will not open customer window
+
+    }
+
     public partial class frmLogon : Form
     {
 
         // this is current customer who logged in
         // this will be useful when updating password
         public static string strUserName;
+        public LOGON_FORM_STATE currentState;
 
-        public frmLogon()
+        public frmLogon(LOGON_FORM_STATE state)
         {
             InitializeComponent();
             #region Setting up toolTips
             toolTip.SetToolTip(tbxUsername, "Please type your User Name here.");
             toolTip.SetToolTip(tbxPassword, "Please type your Password here.");
             toolTip.SetToolTip(lblForgotPassword, "If you forgot your password and want to reset it, click on forgot password.");
-            toolTip.SetToolTip(lblSignup, "If you do not have an account with us, click here to sign up.");
+            toolTip.SetToolTip(btnSignUp, "If you do not have an account with us, click here to sign up.");
             toolTip.SetToolTip(btnLogin, "Click this button to login to the store.");
             toolTip.SetToolTip(cbxHidePassword, "Select or Deselect this box to show or hide your password.");
             #endregion
 
             // open database connection
             clsSQL.OpenDbConnection();
+
+            currentState = state;
         }
 
         /// <summary>
@@ -40,9 +51,7 @@ namespace FinalProject
         /// <param name="e"></param>
         private void lblSignup_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new frmSignupView().ShowDialog();
-            this.Show();
+    
         }
 
         /// <summary>
@@ -114,9 +123,20 @@ namespace FinalProject
                 if (clsSQL.SearchCurrentUser(tbxUsername.Text, tbxPassword.Text))
                 {
                     stsStatus.Items.Clear();
-                    this.Hide();
-                    new frmCustomerView().ShowDialog();
-                    this.Show();
+
+                    switch (currentState)
+                    {
+                        case LOGON_FORM_STATE.NORMAL:
+                            this.Hide();
+                            new frmCustomerView().ShowDialog();
+                            this.Show();
+                            break;
+                        case LOGON_FORM_STATE.POP_UP:
+                            this.Close();
+                            break;
+                    }
+
+
                 }
                 else
                 {
@@ -185,6 +205,28 @@ namespace FinalProject
             this.Hide();
             new frmCustomerView().ShowDialog();
             this.Show();
+        }
+
+        private void btnSignUp_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new frmSignupView().ShowDialog();
+            this.Show();
+        }
+
+        private void frmLogon_Load(object sender, EventArgs e)
+        {
+            switch (currentState)
+            {
+                case LOGON_FORM_STATE.NORMAL:
+                    btnSignUp.Visible = true;
+                    btnContinueWithoutLogin.Visible = true;
+                    break;
+                case LOGON_FORM_STATE.POP_UP:
+                    btnSignUp.Visible = false;
+                    btnContinueWithoutLogin.Visible = false;
+                    break;
+            }
         }
     }
 }

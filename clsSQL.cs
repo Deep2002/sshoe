@@ -703,6 +703,7 @@ namespace FinalProject
                     if (dtOrderTable.Rows.Count >= 1)
                     {
                         orderID = dtOrderTable.Rows[0]["OrderID"].ToString();
+                        clsPublicData.currentUserCart.orderID = Convert.ToInt32(orderID);
                     }
                     else
                     {

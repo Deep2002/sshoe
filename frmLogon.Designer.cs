@@ -43,12 +43,12 @@ namespace FinalProject
             this.tbxUsername = new System.Windows.Forms.TextBox();
             this.tbxPassword = new System.Windows.Forms.TextBox();
             this.lblForgotPassword = new System.Windows.Forms.Label();
-            this.lblSignup = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.cbxHidePassword = new System.Windows.Forms.CheckBox();
             this.stsStatus = new System.Windows.Forms.StatusStrip();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.btnContinueWithoutLogin = new System.Windows.Forms.Button();
+            this.btnSignUp = new System.Windows.Forms.Button();
             this.mnuMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -162,26 +162,15 @@ namespace FinalProject
             this.lblForgotPassword.Text = "Forgot &Password";
             this.lblForgotPassword.Click += new System.EventHandler(this.lblForgotPassword_Click);
             // 
-            // lblSignup
-            // 
-            this.lblSignup.AutoSize = true;
-            this.lblSignup.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblSignup.ForeColor = System.Drawing.Color.Gray;
-            this.lblSignup.Location = new System.Drawing.Point(454, 261);
-            this.lblSignup.Name = "lblSignup";
-            this.lblSignup.Size = new System.Drawing.Size(77, 23);
-            this.lblSignup.TabIndex = 5;
-            this.lblSignup.Text = "&Signup";
-            this.lblSignup.Click += new System.EventHandler(this.lblSignup_Click);
-            // 
             // btnLogin
             // 
             this.btnLogin.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Location = new System.Drawing.Point(369, 301);
+            this.btnLogin.Location = new System.Drawing.Point(351, 261);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(247, 43);
+            this.btnLogin.Size = new System.Drawing.Size(282, 43);
             this.btnLogin.TabIndex = 6;
             this.btnLogin.Text = "&Login";
             this.btnLogin.UseVisualStyleBackColor = false;
@@ -204,7 +193,7 @@ namespace FinalProject
             // 
             this.stsStatus.AutoSize = false;
             this.stsStatus.Font = new System.Drawing.Font("Verdana", 14F);
-            this.stsStatus.Location = new System.Drawing.Point(0, 414);
+            this.stsStatus.Location = new System.Drawing.Point(0, 427);
             this.stsStatus.Name = "stsStatus";
             this.stsStatus.Size = new System.Drawing.Size(984, 47);
             this.stsStatus.SizingGrip = false;
@@ -217,27 +206,42 @@ namespace FinalProject
             // 
             // btnContinueWithoutLogin
             // 
-            this.btnContinueWithoutLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.btnContinueWithoutLogin.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnContinueWithoutLogin.BackColor = System.Drawing.SystemColors.Control;
+            this.btnContinueWithoutLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnContinueWithoutLogin.Font = new System.Drawing.Font("Verdana", 14F);
             this.btnContinueWithoutLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnContinueWithoutLogin.Location = new System.Drawing.Point(334, 356);
+            this.btnContinueWithoutLogin.Location = new System.Drawing.Point(351, 369);
             this.btnContinueWithoutLogin.Name = "btnContinueWithoutLogin";
-            this.btnContinueWithoutLogin.Size = new System.Drawing.Size(316, 43);
+            this.btnContinueWithoutLogin.Size = new System.Drawing.Size(282, 43);
             this.btnContinueWithoutLogin.TabIndex = 11;
             this.btnContinueWithoutLogin.Text = "&Continue without account";
             this.btnContinueWithoutLogin.UseVisualStyleBackColor = false;
             this.btnContinueWithoutLogin.Click += new System.EventHandler(this.btnContinueWithoutLogin_Click);
             // 
+            // btnSignUp
+            // 
+            this.btnSignUp.BackColor = System.Drawing.SystemColors.Control;
+            this.btnSignUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSignUp.Font = new System.Drawing.Font("Verdana", 14F);
+            this.btnSignUp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnSignUp.Location = new System.Drawing.Point(351, 315);
+            this.btnSignUp.Name = "btnSignUp";
+            this.btnSignUp.Size = new System.Drawing.Size(282, 43);
+            this.btnSignUp.TabIndex = 12;
+            this.btnSignUp.Text = "&Signup";
+            this.btnSignUp.UseVisualStyleBackColor = false;
+            this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);
+            // 
             // frmLogon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 461);
+            this.ClientSize = new System.Drawing.Size(984, 474);
+            this.Controls.Add(this.btnSignUp);
             this.Controls.Add(this.btnContinueWithoutLogin);
             this.Controls.Add(this.stsStatus);
             this.Controls.Add(this.cbxHidePassword);
             this.Controls.Add(this.btnLogin);
-            this.Controls.Add(this.lblSignup);
             this.Controls.Add(this.lblForgotPassword);
             this.Controls.Add(this.tbxPassword);
             this.Controls.Add(this.tbxUsername);
@@ -254,6 +258,7 @@ namespace FinalProject
             this.Name = "frmLogon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Logon View";
+            this.Load += new System.EventHandler(this.frmLogon_Load);
             this.mnuMenuStrip.ResumeLayout(false);
             this.mnuMenuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -275,11 +280,11 @@ namespace FinalProject
         private System.Windows.Forms.TextBox tbxUsername;
         private System.Windows.Forms.TextBox tbxPassword;
         private System.Windows.Forms.Label lblForgotPassword;
-        private System.Windows.Forms.Label lblSignup;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.CheckBox cbxHidePassword;
         private System.Windows.Forms.StatusStrip stsStatus;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Button btnContinueWithoutLogin;
+        private System.Windows.Forms.Button btnSignUp;
     }
 }

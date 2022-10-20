@@ -311,14 +311,14 @@
             // logotToolStripMenuItem
             // 
             this.logotToolStripMenuItem.Name = "logotToolStripMenuItem";
-            this.logotToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
+            this.logotToolStripMenuItem.Size = new System.Drawing.Size(146, 28);
             this.logotToolStripMenuItem.Text = "&Logout";
             this.logotToolStripMenuItem.Click += new System.EventHandler(this.logotToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 28);
             this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // aboutToolStripMenuItem

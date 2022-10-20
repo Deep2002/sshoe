@@ -44,6 +44,7 @@ namespace FinalProject
 
                 // Add Selected Inventory to the list
                 Customer_View_Classes.clsPublicData.currentUserCart.AddNewItem(_selectedInventoryItem, selectedSize, 1);
+
             }
             this.Close();
         }

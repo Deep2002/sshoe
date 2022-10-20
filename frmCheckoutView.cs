@@ -73,11 +73,12 @@ namespace FinalProject
                 if (rdoUseAboveAddress.Checked)
                 {
                     new frmPaymentInfo().ShowDialog();
-                    //this.Close();
+                    this.Close();
                 }
                 else
                 {
                     new frmAddressFilloutForm().ShowDialog();
+                    this.Close();
                 }
             }
             else
