@@ -102,6 +102,15 @@ namespace FinalProject
                 clsShoeSize selectedSize = new clsShoeSize();
                 selectedSize = _selectedInventoryItem.lstSizes.Find(x => x.strSize.Equals(cbxSize.Text));
 
+                var InCartItem = clsPublicData.currentUserCart.lstUserCart.Find(x => x.size == selectedSize);
+
+                if (InCartItem != null)
+                    if ((InCartItem.quantity + nudQuantityCounter.Value) > selectedSize.intQuantity)
+                    {
+                        MessageBox.Show("Cannot be added more quantity. Please select different sizes!", "Incorrect Information!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                 // validate added quantity
                 if (nudQuantityCounter.Value > selectedSize.intQuantity || nudQuantityCounter.Value < 0)
                 {

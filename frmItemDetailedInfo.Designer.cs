@@ -114,6 +114,11 @@
             // nudQuantityCounter
             // 
             this.nudQuantityCounter.Location = new System.Drawing.Point(656, 380);
+            this.nudQuantityCounter.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.nudQuantityCounter.Minimum = new decimal(new int[] {
             1,
             0,

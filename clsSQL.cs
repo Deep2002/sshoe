@@ -373,7 +373,7 @@ namespace FinalProject
 
                 if (strSuffix != "")
                     strQuery += ", @Suffix";
-                
+
                 strQuery += ");" +
                     "SET ANSI_WARNINGS ON;";
 
@@ -402,7 +402,7 @@ namespace FinalProject
                     cmd.Parameters.AddWithValue("@PhoneSecondary", strSecondaryPhone);
                 if (!strSuffix.Equals(""))
                     cmd.Parameters.AddWithValue("@Suffix", strSuffix);
-                
+
 
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -438,8 +438,8 @@ namespace FinalProject
                 return false;
             }
         }
-    
-        
+
+
         public static void LoadCategories(List<clsCategories> categoriesList)
         {
             // try to get all categories
@@ -461,9 +461,10 @@ namespace FinalProject
                 }
                 reader.Close();
                 cmd.Dispose();
-                
 
-            } catch (Exception ex)
+
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
@@ -503,13 +504,14 @@ namespace FinalProject
                     inventory.decCost = Convert.ToDecimal(row["Cost"]);
                     inventory.intQuantity = Convert.ToInt32(row["Quantity"]);
                     inventory.byteImage = (byte[])row["ItemImage"];
-                    
+
                     // Finally add it to list
                     lstInventory.Add(inventory);
 
                 }
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
@@ -566,14 +568,18 @@ namespace FinalProject
                 cmd.Dispose();
                 sqlDataAdapter.Dispose();
 
-              
+                foreach(var item in lstInventory)
+                {
+                    item.lstSizes = new List<clsShoeSize>();
+                }
+                
                 foreach (DataRow row in dtShoeSizeTable.Rows)
                 {
-
                     // Add shoe size to the item
-                    //lstInventory.Find(x => x.intID == Convert.ToInt32(row["ItemID"])).lstSizes.Add(new clsShoeSize(row["Size"].ToString(), Convert.ToInt32(row["Quantity"])));
-                   lstInventory.Find(x => x.intID == Convert.ToInt32(row["ItemID"])).lstSizes.Add(new clsShoeSize(row["Size"].ToString(), Convert.ToInt32(row["Quantity"])));
-                        
+                    if(Convert.ToInt32(row["Quantity"]) > 0)
+                    {
+                        lstInventory.Find(x => x.intID == Convert.ToInt32(row["ItemID"])).lstSizes.Add(new clsShoeSize(row["Size"].ToString(), Convert.ToInt32(row["Quantity"])));
+                    }
                 }
 
             }
@@ -619,7 +625,8 @@ namespace FinalProject
                     clsPublicData.discount.ExpirationDate = dtDiscountTable.Rows[0]["ExpirationDate"].ToString();
                     clsPublicData.discount.DicountType = Convert.ToInt32(dtDiscountTable.Rows[0]["DiscountType"].ToString());
 
-                }else
+                }
+                else
                 {
                     return false;
                 }
@@ -680,7 +687,7 @@ namespace FinalProject
                         "AND CC_Number = @CC_Number " +
                         "AND CCV = @CCV " +
                         "AND Time = @Time;";
-                    
+
                     cmd = new SqlCommand(strQuery, connection);
 
                     cmd.Parameters.AddWithValue("@PersonID", Convert.ToInt32(clsPublicData.currentUser.strPersonID));
@@ -713,7 +720,7 @@ namespace FinalProject
                     #endregion
 
                     #region Adding order Details
-                   
+
                     // get that order id
                     strQuery = "INSERT INTO OrderDetails (OrderID, InventoryID, Quantity ";
 
@@ -745,6 +752,34 @@ namespace FinalProject
                     }
 
                     #endregion
+
+                    #region Delete product from inventory.
+
+                    foreach (var item in clsPublicData.currentUserCart.lstUserCart)
+                    {
+                        strQuery = "UPDATE ShoeSize SET Quantity = (Quantity - @Quantity) " +
+                            "WHERE ItemID = @InventoryID AND Size = @Size";
+
+                        cmd = new SqlCommand(strQuery, connection);
+                        cmd.Parameters.AddWithValue("@Quantity", item.quantity);
+                        cmd.Parameters.AddWithValue("@InventoryID", item.inventory.intID);
+                        cmd.Parameters.AddWithValue("@Size", item.size.strSize);
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+
+                        strQuery = "UPDATE Inventory SET Quantity = (SELECT SUM(s.Quantity) FROM ShoeSize as s WHERE ItemID = @ItemID) " +
+                            "WHERE InventoryID = @InventoryID;";
+
+                        cmd = new SqlCommand(strQuery, connection);
+                        cmd.Parameters.AddWithValue("@ItemID", item.inventory.intID);
+                        cmd.Parameters.AddWithValue("@InventoryID", item.inventory.intID);
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+                    }
+
+
+                    #endregion
+
                 }
                 else
                 {

@@ -70,6 +70,10 @@ namespace FinalProject
                 clsPublicData.currentUserCart = new clsUserCart();
                 this.Close();
             }
+            else
+            {
+                this.Close();
+            }
         }
 
         private void ShowHtmlReceipt()

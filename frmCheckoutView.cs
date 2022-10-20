@@ -21,7 +21,7 @@ namespace FinalProject
         private void frmCheckoutView_Load(object sender, EventArgs e)
         {
             // load address
-            lblAddress.Text = $"{ clsPublicData.currentUser.strAddress1 }..\n{clsPublicData.currentUser.strCity}, { clsPublicData.currentUser.strState } { clsPublicData.currentUser.strZip }";
+            lblAddress.Text = $"{clsPublicData.currentUser.strAddress1}..\n{clsPublicData.currentUser.strCity}, {clsPublicData.currentUser.strState} {clsPublicData.currentUser.strZip}";
 
             // load in cart items to list view
             int columnIndex = 0, rowIndex = 0;
@@ -67,6 +67,41 @@ namespace FinalProject
 
         private void btnContinueToCheckout_Click(object sender, EventArgs e)
         {
+
+            #region Before creating an order check if items quantity still exists in database
+            clsSQL.LoadSizes(clsPublicData.lstInventory);
+
+            foreach (var item in clsPublicData.currentUserCart.lstUserCart)
+            {
+                clsInventory findItem = clsPublicData.lstInventory.Find(x => x.intID == item.inventory.intID);
+
+                if (findItem != null)
+                {
+                    clsShoeSize size = findItem.lstSizes.Find(x => x.strSize == item.size.strSize);
+
+                    if (size != null)
+                    {
+                        if (size.intQuantity < item.quantity)
+                        {
+                            // Show user that size does not exists anymore.
+                            new frmItemDoesNotExistsErorr(item).ShowDialog();
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        new frmItemDoesNotExistsErorr(item).ShowDialog();
+                        return;
+                    }
+                }
+                else
+                {
+                    new frmItemDoesNotExistsErorr(item).ShowDialog();
+                    return;
+                }
+            }
+            #endregion
+
             // Check if user have selected right address
             if (rdoUseAboveAddress.Checked || rdoUseDiffrentAddress.Checked)
             {
@@ -123,7 +158,7 @@ namespace FinalProject
                 lblDiscountedTotalValue.Text = "$" + clsPublicData.currentUserCart.DiscountedTotal.ToString("0.00");
                 lblTaxValue.Text = "$" + clsPublicData.currentUserCart.Tax.ToString("0.00");
                 lblTotalValue.Text = "$" + clsPublicData.currentUserCart.Total.ToString("0.00");
-                
+
                 lblCouponInfo.Text = $"Coupon Applied: {clsPublicData.discount.DicountCode}";
                 lblCouponInfo.ForeColor = Color.DarkGreen;
             }
