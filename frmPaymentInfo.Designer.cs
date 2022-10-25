@@ -70,7 +70,7 @@
             // tbxCardNumber
             // 
             this.tbxCardNumber.Location = new System.Drawing.Point(257, 116);
-            this.tbxCardNumber.MaxLength = 20;
+            this.tbxCardNumber.MaxLength = 19;
             this.tbxCardNumber.Name = "tbxCardNumber";
             this.tbxCardNumber.Size = new System.Drawing.Size(265, 30);
             this.tbxCardNumber.TabIndex = 4;

@@ -192,6 +192,40 @@ namespace FinalProject
             return true; // or false;
         }
 
+        public static bool ValidateCCNumber(string ccNum)
+        {
+            // Check if num is at least 16 digits and less than 19
+            if (ccNum.Length != 16 && ccNum.Length != 19)
+            {
+                return false;
+            }
+            
+            if (ccNum.Length == 16)
+            {
+                // check if only contain digits
+                foreach (char c in ccNum)
+                {
+                    if (char.IsLetter(c)) return false;
+                }
+            } 
+            
+            else
+            {
+                foreach (char c in ccNum)
+                {
+                    if (!char.IsDigit(c) && c != '-') return false;
+                }
+
+                // check for all 3 dashes location
+                if (!ccNum[4].Equals('-')) return false;
+                if (!ccNum[9].Equals('-')) return false;
+                if (!ccNum[14].Equals('-')) return false;
+            }
+
+
+            return true;
+        }
+
         #endregion
     }
 }
