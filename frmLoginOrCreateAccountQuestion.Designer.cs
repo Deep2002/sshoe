@@ -39,9 +39,9 @@
             this.lblTitle.AutoSize = true;
             this.lblTitle.Location = new System.Drawing.Point(40, 39);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(280, 23);
+            this.lblTitle.Size = new System.Drawing.Size(500, 23);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Please login to buy product.";
+            this.lblTitle.Text = "You haven\'t loged in! Please login to buy products.";
             // 
             // btnLogin
             // 
@@ -54,14 +54,14 @@
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(149, 41);
             this.btnLogin.TabIndex = 4;
-            this.btnLogin.Text = "&Login";
+            this.btnLogin.Text = "&Login to buy";
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // btnSignUp
             // 
             this.btnSignUp.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnSignUp.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnSignUp.BackColor = System.Drawing.Color.Transparent;
             this.btnSignUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSignUp.Font = new System.Drawing.Font("Verdana", 13F);
             this.btnSignUp.ForeColor = System.Drawing.Color.White;

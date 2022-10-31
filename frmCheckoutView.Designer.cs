@@ -300,10 +300,10 @@
             this.rdoUseDiffrentAddress.AutoSize = true;
             this.rdoUseDiffrentAddress.Location = new System.Drawing.Point(14, 126);
             this.rdoUseDiffrentAddress.Name = "rdoUseDiffrentAddress";
-            this.rdoUseDiffrentAddress.Size = new System.Drawing.Size(230, 27);
+            this.rdoUseDiffrentAddress.Size = new System.Drawing.Size(241, 27);
             this.rdoUseDiffrentAddress.TabIndex = 18;
             this.rdoUseDiffrentAddress.TabStop = true;
-            this.rdoUseDiffrentAddress.Text = "Use diffrent Address.\r\n";
+            this.rdoUseDiffrentAddress.Text = "Use different Address.\r\n";
             this.rdoUseDiffrentAddress.UseVisualStyleBackColor = true;
             // 
             // lblAddress

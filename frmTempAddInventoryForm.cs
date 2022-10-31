@@ -26,11 +26,8 @@ namespace FinalProject
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            clsSQL.AddInventory(tbxName.Text, tbxDescription.Text, tbxCategoryID.Text, tbxretailPrice.Text, tbxcost.Text, tbxquantity.Text, tbxrestockThreshold.Text, tbxImgLocation.Text);
+            clsSQL.AddInventory(tbxName.Text, tbxDescription.Text, tbxCategoryID.Text, tbxretailPrice.Text, tbxcost.Text, tbxquantity.Text, tbxrestockThreshold.Text, tbxImgLocation.Text, tbxGenderID.Text);
             tbxName.Text = "Name";
-            tbxDescription.Text = "Description";
-            tbxCategoryID.Text = "CategoryID";
-            tbxretailPrice.Text = "Retail Price";
             tbxcost.Text = "Cost";
             tbxquantity.Text = "Quantity";
             tbxImgLocation.Text = "";

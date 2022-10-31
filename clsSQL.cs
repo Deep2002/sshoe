@@ -440,28 +440,36 @@ namespace FinalProject
         }
 
 
-        public static void LoadCategories(List<clsCategories> categoriesList)
+        public static void LoadCategories(List<clsInventory> lstInventory)
         {
-            // try to get all categories
             try
             {
-                // make sure to empty it first
-                categoriesList.Clear();
-
-                string strQuery = "SELECT * FROM Categories";
+                // setting up query to run
+                string strQuery = "SELECT * FROM Categories;";
 
                 // establish command and data adapter
                 SqlCommand cmd = new SqlCommand(strQuery, connection);
-                SqlDataReader reader = cmd.ExecuteReader();
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
 
-                while (reader.Read())
-                {
-                    // Add to the list
-                    categoriesList.Add(new clsCategories(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
-                }
-                reader.Close();
+                // create and fill in the data table
+                DataTable dtCategoriesTable = new DataTable();
+                sqlDataAdapter.SelectCommand = cmd;
+                sqlDataAdapter.Fill(dtCategoriesTable);
+
+                // dispose unnecessary data
                 cmd.Dispose();
+                sqlDataAdapter.Dispose();
 
+                // check if DB return any row
+
+                foreach (DataRow row in dtCategoriesTable.Rows)
+                {
+                   
+                    foreach(clsInventory item in lstInventory.Where(x => x.intCategoryID == Convert.ToInt32(row["CategoryID"])))
+                    {
+                        item.strCategory = row["CategoryName"].ToString();
+                    }
+                }
 
             }
             catch (Exception ex)
@@ -499,10 +507,12 @@ namespace FinalProject
                     inventory.intID = Convert.ToInt32(row["InventoryID"]);
                     inventory.strName = Convert.ToString(row["ItemName"]);
                     inventory.strDescription = Convert.ToString(row["ItemDescription"]);
-                    inventory.intCategoryID = Convert.ToInt32(row["CategoryID"]);
                     inventory.decReatailPrice = Convert.ToDecimal(row["RetailPrice"]);
                     inventory.decCost = Convert.ToDecimal(row["Cost"]);
                     inventory.intQuantity = Convert.ToInt32(row["Quantity"]);
+                    inventory.intGenderID = Convert.ToInt32(row["GenderID"]);
+                    inventory.intBrandID = Convert.ToInt32(row["BrandID"]);
+                    inventory.intCategoryID = Convert.ToInt32(row["CategoryID"]);
                     inventory.byteImage = (byte[])row["ItemImage"];
 
                     // Finally add it to list
@@ -517,15 +527,15 @@ namespace FinalProject
             }
         }
 
-        internal static void AddInventory(string name, string description, string categoryID, string reatilPrice, string cost, string quantity, string threshold, string imageLocation)
+        public static void AddInventory(string name, string description, string categoryID, string reatilPrice, string cost, string quantity, string threshold, string imageLocation, string genderID)
         {
             try
             {
                 byte[] image = File.ReadAllBytes(imageLocation);
 
                 string strQuery = "INSERT INTO Inventory " +
-                    "(ItemName, ItemDescription, CategoryID, RetailPrice, Cost, Quantity, RestockThreshold, ItemImage) VALUES " +
-                    "(@ItemName, @ItemDescription, @CategoryID, @RetailPrice, @Cost, @Quantity, @RestockThreshold, @ItemImage)";
+                    "(ItemName, ItemDescription, CategoryID, RetailPrice, Cost, Quantity, RestockThreshold, GenderID, ItemImage) VALUES " +
+                    "(@ItemName, @ItemDescription, @CategoryID, @RetailPrice, @Cost, @Quantity, @RestockThreshold, @GenderID, @ItemImage)";
 
                 SqlCommand cmd = new SqlCommand(strQuery, connection);
                 cmd.Parameters.AddWithValue("@ItemName", name);
@@ -535,6 +545,7 @@ namespace FinalProject
                 cmd.Parameters.AddWithValue("@Cost", Convert.ToDecimal(cost));
                 cmd.Parameters.AddWithValue("@Quantity", Convert.ToInt32(quantity));
                 cmd.Parameters.AddWithValue("@RestockThreshold", Convert.ToInt32(threshold));
+                cmd.Parameters.AddWithValue("@GenderID", genderID);
                 SqlParameter sqlParams = cmd.Parameters.AddWithValue("@ItemImage", image);
                 sqlParams.DbType = DbType.Binary;
 
@@ -548,7 +559,7 @@ namespace FinalProject
             }
         }
 
-        internal static void LoadSizes(List<clsInventory> lstInventory)
+        public static void LoadSizes(List<clsInventory> lstInventory)
         {
             try
             {
@@ -641,7 +652,7 @@ namespace FinalProject
             return true;
         }
 
-        internal static bool PlaceOrder(string strCardNumber, string ExpDate, string strCCV)
+        public static bool PlaceOrder(string strCardNumber, string ExpDate, string strCCV)
         {
 
             try
@@ -794,6 +805,83 @@ namespace FinalProject
             }
 
             return true;
+        }
+
+        public static void LoadGenders( List<clsInventory> lstInventory)
+        {
+            try
+            {
+                // setting up query to run
+                string strQuery = "SELECT * FROM Genders;";
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+
+                // create and fill in the data table
+                DataTable dtGendersTable = new DataTable();
+                sqlDataAdapter.SelectCommand = cmd;
+                sqlDataAdapter.Fill(dtGendersTable);
+
+                // dispose unnecessary data
+                cmd.Dispose();
+                sqlDataAdapter.Dispose();
+
+                // check if DB return any row
+
+                foreach (DataRow row in dtGendersTable.Rows)
+                {
+
+                    foreach (clsInventory v in lstInventory.Where(x => x.intGenderID == Convert.ToInt32(row["GenderID"])))
+                    { 
+                        v.strGender = row["Gender"].ToString();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public static void LoadBrands(List<clsInventory> lstInventory)
+        {
+            try
+            {
+                // setting up query to run
+                string strQuery = "SELECT * FROM Brands;";
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+
+                // create and fill in the data table
+                DataTable dtBrandsTable = new DataTable();
+                sqlDataAdapter.SelectCommand = cmd;
+                sqlDataAdapter.Fill(dtBrandsTable);
+
+                // dispose unnecessary data
+                cmd.Dispose();
+                sqlDataAdapter.Dispose();
+
+                // check if DB return any row
+
+                foreach (DataRow row in dtBrandsTable.Rows)
+                {
+                    
+                    foreach (clsInventory v in lstInventory.Where(x => x.intBrandID == Convert.ToInt32(row["BrandID"])))
+                    {
+                        v.strBrand = row["BrandName"].ToString();
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

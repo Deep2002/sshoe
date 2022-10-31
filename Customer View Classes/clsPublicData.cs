@@ -18,5 +18,6 @@ namespace FinalProject.Customer_View_Classes
         public static List<Button> lstActiveCategoryTags = new List<Button>();
         public static clsUserCart currentUserCart = new clsUserCart();
         public static clsDiscounts discount = new clsDiscounts();
+        public static List<clsInventory> lstCurrentDisplayingInventory = new List<clsInventory>();
     }
 }

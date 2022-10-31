@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinalProject.Customer_View_Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -179,6 +180,7 @@ namespace FinalProject
                         this.Hide();
                         frmQuestions.ShowDialog();
                         this.Show();
+                        clsPublicData.currentUser = null;
                     }
                     else
                     {
@@ -212,6 +214,7 @@ namespace FinalProject
             this.Hide();
             new frmSignupView().ShowDialog();
             this.Show();
+            clsPublicData.currentUser = null;
         }
 
         private void frmLogon_Load(object sender, EventArgs e)

@@ -12,13 +12,19 @@ namespace FinalProject.Customer_View_Classes
         public int intID;
         public string strName;
         public string strDescription;
-        public int intCategoryID;
         public decimal decReatailPrice;
         public decimal decCost;
         public int intQuantity;
         public int intRestockThreashold;
-        public int intDicontinued; // true or false as 0 or 1
-        public byte[] byteImage; // var binary image to byte image
+        public int intGenderID;
+        public int intBrandID;
+        public int intCategoryID;
+        public int intDicontinued; 
+        public byte[] byteImage;
+        public string strGender;
+        public string strBrand;
+        public string strCategory;
+
         public List<clsShoeSize> lstSizes = new List<clsShoeSize>();
         #endregion
 

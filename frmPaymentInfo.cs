@@ -106,7 +106,7 @@ namespace FinalProject
 
                 itemCount++;
                 strBuilder.AppendLine("<tr>");
-                strBuilder.AppendLine($"<th scope = \"row\" >{itemCount}</th>");
+                strBuilder.AppendLine($"<th scope = \"row\" >{clsPublicData.currentUserCart.TotalItems}</th>");
                 strBuilder.AppendLine($"<td>{ item.inventory.strName }</td>");
                 strBuilder.AppendLine($"<td>${item.inventory.decCost.ToString("0.00")}</td>");
                 strBuilder.AppendLine($"<td>{ item.quantity }</td>");
