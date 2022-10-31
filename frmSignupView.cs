@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -471,6 +472,12 @@ namespace FinalProject
         private void mnuMenuGoBack_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void mnuMenuViewHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Resources\HelpFile\help_file.html");
+
         }
     }
 }

@@ -725,5 +725,10 @@ namespace FinalProject
             }
         }
         #endregion
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Resources\HelpFile\help_file.html");
+        }
     }
 }

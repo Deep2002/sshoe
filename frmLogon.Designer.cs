@@ -103,13 +103,14 @@ namespace FinalProject
             // mnuMenuViewHelp
             // 
             this.mnuMenuViewHelp.Name = "mnuMenuViewHelp";
-            this.mnuMenuViewHelp.Size = new System.Drawing.Size(158, 22);
+            this.mnuMenuViewHelp.Size = new System.Drawing.Size(180, 22);
             this.mnuMenuViewHelp.Text = "&View Help";
+            this.mnuMenuViewHelp.Click += new System.EventHandler(this.mnuMenuViewHelp_Click);
             // 
             // mnuMenuAbout
             // 
             this.mnuMenuAbout.Name = "mnuMenuAbout";
-            this.mnuMenuAbout.Size = new System.Drawing.Size(158, 22);
+            this.mnuMenuAbout.Size = new System.Drawing.Size(180, 22);
             this.mnuMenuAbout.Text = "&About";
             // 
             // lblUserName

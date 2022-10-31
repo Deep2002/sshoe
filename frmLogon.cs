@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -230,6 +231,11 @@ namespace FinalProject
                     btnContinueWithoutLogin.Visible = false;
                     break;
             }
+        }
+
+        private void mnuMenuViewHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Resources\HelpFile\help_file.html");
         }
     }
 }

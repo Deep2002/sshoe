@@ -130,7 +130,7 @@ namespace FinalProject
             // mnuMenuGoBack
             // 
             this.mnuMenuGoBack.Name = "mnuMenuGoBack";
-            this.mnuMenuGoBack.Size = new System.Drawing.Size(180, 22);
+            this.mnuMenuGoBack.Size = new System.Drawing.Size(142, 22);
             this.mnuMenuGoBack.Text = "Go &Back";
             this.mnuMenuGoBack.Click += new System.EventHandler(this.mnuMenuGoBack_Click);
             // 
@@ -147,13 +147,14 @@ namespace FinalProject
             // 
             this.mnuMenuViewHelp.Image = global::FinalProject.Properties.Resources.help1;
             this.mnuMenuViewHelp.Name = "mnuMenuViewHelp";
-            this.mnuMenuViewHelp.Size = new System.Drawing.Size(158, 22);
+            this.mnuMenuViewHelp.Size = new System.Drawing.Size(180, 22);
             this.mnuMenuViewHelp.Text = "&View Help";
+            this.mnuMenuViewHelp.Click += new System.EventHandler(this.mnuMenuViewHelp_Click);
             // 
             // mnuMenuAbout
             // 
             this.mnuMenuAbout.Name = "mnuMenuAbout";
-            this.mnuMenuAbout.Size = new System.Drawing.Size(158, 22);
+            this.mnuMenuAbout.Size = new System.Drawing.Size(180, 22);
             this.mnuMenuAbout.Text = "&About";
             // 
             // tbxPassword

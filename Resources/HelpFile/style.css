@@ -1,0 +1,115 @@
+body{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    background-color: rgb(255,192, 128);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    scroll-behavior: smooth;
+}
+
+p {
+    font-size: 1.2vw;
+    color: rgb(103, 103, 103);
+}
+
+.content-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 65%;
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    padding-top: 20px;
+    padding-left: 40px;
+    padding-Right: 40px;
+    padding-bottom: 300px;
+    color: rgb(80, 80, 80);
+}
+
+    .content-container h1 {
+        font-size: 3vw;
+        color: rgb(255,192, 128);
+        margin: 0px;
+        margin-top: 300px;
+    }
+
+.title-container p {
+    margin: auto;
+    margin-top: 30px;
+    width: 50%;
+    font-style: italic;
+    font-size: 1.2vw;
+    color: rgb(30, 30, 30);
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgb(255, 240, 103);
+    border-style: dashed;
+    border-width: 4px;
+    border-color: orange;
+}
+
+.title-container {
+    text-align: center;
+    padding-bottom: 190px;
+}
+
+h2 a {
+    letter-spacing: 1.2px;
+    font-size: 2.2vw;
+    text-decoration: none;
+    color: rgb(80, 80, 80);
+}
+
+h3 {
+    font-size: 1.5vw;
+}
+
+.image-container {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 200px;
+}
+
+img {
+    cursor: zoom-in;
+    width: 70%;
+    border-radius: 1rem;
+    border-color: rgb(255,192, 128);
+    box-shadow: black 1px 1px 4px;
+    transition: transform .2s;
+}
+
+img:hover {
+    box-shadow: black 2px 2px 9px;
+    transform: scale(1.5);
+}
+
+.table-of-content {
+    margin-top: 15vh;
+    position:fixed;
+    width: 12vw;
+    height: auto;
+    background-color: rgba(255, 255, 255, 0.09);
+    border-radius: 0px 20px 20px 0px;
+    box-shadow: 0.2px 0.1px 2px black;
+    border-style: solid;
+    border-color: white;
+    border-width: 0px 1px 1px 0px;
+}
+.table-of-content h2 {
+    font-size: 1.2vw;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.743);
+}
+
+.table-of-content li{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    text-decoration: underline;
+
+}
+.table-of-content ol a {
+    font-size: 1vw;
+    text-decoration: none;
+    color: rgb(48, 48, 48);
+}
