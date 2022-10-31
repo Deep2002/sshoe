@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace FinalProject
@@ -278,6 +279,11 @@ namespace FinalProject
             }
 
             return false;
+        }
+
+        private void mnuMenuViewHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Resources\HelpFile\help_file.html");
         }
     }
 }
