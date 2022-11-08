@@ -591,7 +591,7 @@ namespace FinalProject
         }
         public static List<clsInventory> GetBySearchString(string searchString, List<clsInventory> lst)
         {
-            return lst.Where(x => x.strName.Contains(searchString) || x.strBrand.Contains(searchString) || x.strDescription.Contains(searchString)).ToList();
+            return lst.Where(x => x.strName.ToLower().Contains(searchString.ToLower()) || x.strBrand.ToLower().Contains(searchString.ToLower()) || x.strDescription.ToLower().Contains(searchString.ToLower())).ToList();
         }
         public static List<clsInventory> GetByMinMaxShoeSize(double selectedSize, List<clsInventory> lst)
         {

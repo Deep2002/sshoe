@@ -150,33 +150,22 @@ namespace FinalProject
         private void PrintReport(StringBuilder html)
         {
             // Write (and overwrite) to the hard drive using the same filename of "Report.html"
+            DateTime today = DateTime.Now;
+
             try
             {
                 // A "using" statement will automatically close a file after opening it.
                 // It never hurts to include a file.Close() once you are done with a file.
-                using (StreamWriter writer = new StreamWriter(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\Report.html"))
+                using (StreamWriter writer = new StreamWriter(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + $"\\{today.ToString("MM-dd-yyyy hh-mm-tt")} - Report.html"))
                 {
                     writer.WriteLine(html);
                 }
-                System.Diagnostics.Process.Start(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\Report.html"); //Open the report in the default web browser
+                System.Diagnostics.Process.Start(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + $"\\{today.ToString("MM-dd-yyyy hh-mm-tt")} - Report.html"); //Open the report in the default web browser
             }
             catch (Exception ex)
             {
                 MessageBox.Show("You currently do not have write permissions for this feature.\n\n" + ex.Message,
                     "Error with System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            // If you want a unique filename you could use a date and time with part of a name
-            try
-            {
-                DateTime today = DateTime.Now;
-                using (StreamWriter writer = new StreamWriter(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + $"\\{today.ToString("yyyy-MM-dd-HHmmss")} - Report.html"))
-                {
-                    writer.WriteLine(html);
-                }
-            } catch (Exception ex)
-            {
-                MessageBox.Show("HTML file (receipt) does not exists." + ex.Message, "Error with System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
