@@ -9,30 +9,23 @@ namespace FinalProject.Customer_View_Classes
     public class clsInventory
     {
         #region Inventory variables
-        public int intID;
-        public string strName;
-        public string strDescription;
-        public decimal decReatailPrice;
-        public decimal decCost;
-        public int intQuantity;
-        public int intRestockThreashold;
-        public int intGenderID;
-        public int intBrandID;
-        public int intCategoryID;
-        public int intDicontinued; 
-        public byte[] byteImage;
-        public string strGender;
-        public string strBrand;
-        public string strCategory;
+        public int intID { get; set; }
+        public string strName { get; set; }
+        public string strDescription { get; set; }
+        public decimal decReatailPrice { get; set; }
+        public decimal decCost { get; set; }
+        public int intQuantity { get; set; }
+        public int intRestockThreashold { get; set; }
+        public int intGenderID { get; set; }
+        public int intBrandID { get; set; }
+        public int intCategoryID { get; set; }
+        public int intDicontinued { get; set; }
+        public byte[] byteImage { get; set; }
+        public string strGender { get; set; }
+        public string strBrand { get; set; }
+        public string strCategory { get; set; }
 
         public List<clsShoeSize> lstSizes = new List<clsShoeSize>();
-        #endregion
-
-        #region Other Variables
-        // this will be really helpful.
-        // We do not have to go through array every time.
-        // And locate the item through this position.
-        public int intPositionInArray;
         #endregion
     }
 

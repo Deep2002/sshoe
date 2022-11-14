@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -54,6 +54,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customer View Classes\clsBrand.cs" />
     <Compile Include="Customer View Classes\clsCategories.cs" />
     <Compile Include="Customer View Classes\clsDiscounts.cs" />
     <Compile Include="Customer View Classes\clsInventory.cs" />
@@ -129,6 +131,12 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmManagerView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmManagerView.Designer.cs">
+      <DependentUpon>frmManagerView.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPaymentInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +166,12 @@
     </Compile>
     <Compile Include="frmTempAddInventoryForm.Designer.cs">
       <DependentUpon>frmTempAddInventoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerViewForms\frmInvetoryManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManagerViewForms\frmInvetoryManager.Designer.cs">
+      <DependentUpon>frmInvetoryManager.cs</DependentUpon>
     </Compile>
     <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
@@ -189,6 +203,9 @@
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmManagerView.resx">
+      <DependentUpon>frmManagerView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPaymentInfo.resx">
       <DependentUpon>frmPaymentInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -204,16 +221,14 @@
     <EmbeddedResource Include="frmTempAddInventoryForm.resx">
       <DependentUpon>frmTempAddInventoryForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ManagerViewForms\frmInvetoryManager.resx">
+      <DependentUpon>frmInvetoryManager.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Course Design Guides\Design Guide - Classroom Program Requirements and Naming Standards%28Final Project%29%282021-03-26%29.pdf" />
     <None Include="Course Design Guides\Notes" />
     <None Include="Course Design Guides\Prefixes%282021-03-26%29.pdf" />
@@ -221,6 +236,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -232,6 +252,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="HelpFiles\" />
+    <Folder Include="Resources\HelpFile\Resources\Images\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -255,6 +276,15 @@
     <None Include="Resources\deleteIcon.png" />
     <None Include="Resources\removeIconLarge.png" />
     <None Include="Resources\removeIconSmall.png" />
+    <None Include="Resources\InventoryManage.png" />
+    <None Include="Resources\notificationBlack.png" />
+    <None Include="Resources\notificationRed.png" />
+    <None Include="Resources\pos.png" />
+    <None Include="Resources\reports.png" />
+    <None Include="Resources\coupons.png" />
+    <None Include="Resources\userProfileDefault1.png" />
+    <None Include="Resources\notificationPlus1.png" />
+    <None Include="Resources\notification2.png" />
     <Content Include="sshoeLogo.ico" />
     <Content Include="TSTCLogo.ico" />
   </ItemGroup>

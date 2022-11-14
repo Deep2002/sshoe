@@ -478,6 +478,43 @@ namespace FinalProject
             }
         }
 
+
+        public static void LoadAllCategories(List<clsCategories> lstCategories)
+        {
+            try
+            {
+                // setting up query to run
+                string strQuery = "SELECT * FROM Categories;";
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+
+                // create and fill in the data table
+                DataTable dtCategoriesTable = new DataTable();
+                sqlDataAdapter.SelectCommand = cmd;
+                sqlDataAdapter.Fill(dtCategoriesTable);
+
+                // dispose unnecessary data
+                cmd.Dispose();
+                sqlDataAdapter.Dispose();
+
+                // check if DB return any row
+
+                foreach (DataRow row in dtCategoriesTable.Rows)
+                {
+                    clsCategories category = new clsCategories(Convert.ToInt32(row["categoryID"]), row["categoryName"].ToString());
+
+                    lstCategories.Add(category);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
         public static void LoadInventory(List<clsInventory> lstInventory)
         {
             try
@@ -883,5 +920,44 @@ namespace FinalProject
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        public static void LoadAllBrands(List<clsBrand> lstBrandList)
+        {
+            try
+            {
+                // setting up query to run
+                string strQuery = "SELECT * FROM Brands;";
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+
+                // create and fill in the data table
+                DataTable dtBrandsTable = new DataTable();
+                sqlDataAdapter.SelectCommand = cmd;
+                sqlDataAdapter.Fill(dtBrandsTable);
+
+                // dispose unnecessary data
+                cmd.Dispose();
+                sqlDataAdapter.Dispose();
+
+                // check if DB return any row
+
+                foreach (DataRow row in dtBrandsTable.Rows)
+                {
+                    clsBrand brand = new clsBrand();
+                    brand.id = Convert.ToInt32(row["brandId"]);
+                    brand.name = row["brandName"].ToString();
+                    lstBrandList.Add(brand);
+               
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
     }
 }
