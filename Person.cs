@@ -17,6 +17,7 @@ namespace FinalProject
         public string strTitle;
         public string strSuffix;
         public string strPositionID;
+        public string strPosition;
 
         // Logon Information
         public string strUsername;

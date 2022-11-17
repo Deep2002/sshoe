@@ -52,6 +52,8 @@
             this.cbxSize = new System.Windows.Forms.ComboBox();
             this.lbxItems = new System.Windows.Forms.ListBox();
             this.dgvSizes = new System.Windows.Forms.DataGridView();
+            this.Size = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Qt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnClearAllField = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -70,8 +72,6 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.fileChooser = new System.Windows.Forms.OpenFileDialog();
             this.tbxImgLocation = new System.Windows.Forms.TextBox();
-            this.Qt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Size = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSizes)).BeginInit();
             this.SuspendLayout();
@@ -387,6 +387,18 @@
             this.dgvSizes.Size = new System.Drawing.Size(255, 222);
             this.dgvSizes.TabIndex = 9;
             // 
+            // Size
+            // 
+            this.Size.HeaderText = "Size";
+            this.Size.Name = "Size";
+            this.Size.ReadOnly = true;
+            // 
+            // Qt
+            // 
+            this.Qt.HeaderText = "Qt";
+            this.Qt.Name = "Qt";
+            this.Qt.ReadOnly = true;
+            // 
             // btnClearAllField
             // 
             this.btnClearAllField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
@@ -578,18 +590,6 @@
             this.tbxImgLocation.Size = new System.Drawing.Size(261, 29);
             this.tbxImgLocation.TabIndex = 79;
             this.tbxImgLocation.Text = "Image Location...";
-            // 
-            // Qt
-            // 
-            this.Qt.HeaderText = "Qt";
-            this.Qt.Name = "Qt";
-            this.Qt.ReadOnly = true;
-            // 
-            // Size
-            // 
-            this.Size.HeaderText = "Size";
-            this.Size.Name = "Size";
-            this.Size.ReadOnly = true;
             // 
             // frmInvetoryManager
             // 

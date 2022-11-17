@@ -464,8 +464,8 @@ namespace FinalProject
 
                 foreach (DataRow row in dtCategoriesTable.Rows)
                 {
-                   
-                    foreach(clsInventory item in lstInventory.Where(x => x.intCategoryID == Convert.ToInt32(row["CategoryID"])))
+
+                    foreach (clsInventory item in lstInventory.Where(x => x.intCategoryID == Convert.ToInt32(row["CategoryID"])))
                     {
                         item.strCategory = row["CategoryName"].ToString();
                     }
@@ -594,7 +594,8 @@ namespace FinalProject
                 if (id > 0)
                 {
                     return id.ToString();
-                } else
+                }
+                else
                 {
                     return "false";
                 }
@@ -628,15 +629,15 @@ namespace FinalProject
                 cmd.Dispose();
                 sqlDataAdapter.Dispose();
 
-                foreach(var item in lstInventory)
+                foreach (var item in lstInventory)
                 {
                     item.lstSizes = new List<clsShoeSize>();
                 }
-                
+
                 foreach (DataRow row in dtShoeSizeTable.Rows)
                 {
                     // Add shoe size to the item
-                    if(Convert.ToInt32(row["Quantity"]) > 0)
+                    if (Convert.ToInt32(row["Quantity"]) > 0)
                     {
                         lstInventory.Find(x => x.intID == Convert.ToInt32(row["ItemID"])).lstSizes.Add(new clsShoeSize(row["Size"].ToString(), Convert.ToInt32(row["Quantity"])));
                     }
@@ -856,7 +857,7 @@ namespace FinalProject
             return true;
         }
 
-        public static void LoadGenders( List<clsInventory> lstInventory)
+        public static void LoadGenders(List<clsInventory> lstInventory)
         {
             try
             {
@@ -882,7 +883,7 @@ namespace FinalProject
                 {
 
                     foreach (clsInventory v in lstInventory.Where(x => x.intGenderID == Convert.ToInt32(row["GenderID"])))
-                    { 
+                    {
                         v.strGender = row["Gender"].ToString();
                     }
                 }
@@ -918,7 +919,7 @@ namespace FinalProject
 
                 foreach (DataRow row in dtBrandsTable.Rows)
                 {
-                    
+
                     foreach (clsInventory v in lstInventory.Where(x => x.intBrandID == Convert.ToInt32(row["BrandID"])))
                     {
                         v.strBrand = row["BrandName"].ToString();
@@ -961,7 +962,7 @@ namespace FinalProject
                     brand.id = Convert.ToInt32(row["brandId"]);
                     brand.name = row["brandName"].ToString();
                     lstBrandList.Add(brand);
-               
+
                 }
 
             }
@@ -1016,7 +1017,7 @@ namespace FinalProject
             return false;
         }
 
-        internal static bool UpdateInventory(string name, string desc, string reatilPrice, string cost, string quantity,string restockThreshold,
+        internal static bool UpdateInventory(string name, string desc, string reatilPrice, string cost, string quantity, string restockThreshold,
             string genderID, string categoryID, string brandID, string itemID, string imageLocation = "none")
         {
             string query = "UPDATE Inventory SET itemName = @name, " +
@@ -1028,23 +1029,80 @@ namespace FinalProject
                 "GenderID = @genderID, " +
                 "BrandID = @brandID, " +
                 "CategoryID = @categoryID ";
-                
+
             if (imageLocation != "none")
             {
                 query += ", ItemImage = @img ";
             }
 
-            query += "WHERE InventoryID = @itemID;"; 
-
-            try
-            {
-
-            } catch (Exception ex)
-            {
-
-            }
+            query += "WHERE InventoryID = @itemID;";
 
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Method to load all customers into the given list.
+        /// </summary>
+        /// <param name="usersList"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        internal static void LoadAllCustomers(List<Person> usersList)
+        {
+            try
+            {
+                // setting up query to run
+                string strQuery = "SELECT * FROM Person ORDER BY NameLast;";
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+
+                // create and fill in the data table
+                DataTable dtBrandsTable = new DataTable();
+                sqlDataAdapter.SelectCommand = cmd;
+                sqlDataAdapter.Fill(dtBrandsTable);
+
+                // dispose unnecessary data
+                cmd.Dispose();
+                sqlDataAdapter.Dispose();
+
+                // check if DB return any row
+
+                foreach (DataRow row in dtBrandsTable.Rows)
+                {
+                    Person person = new Person();
+
+                    person.strPersonID = row["PersonID"].ToString();
+                    person.strFirstName = row["NameFirst"].ToString();
+                    person.strLastName = row["NameLast"].ToString();
+                    person.strMiddleName = row["NameMiddle"].ToString();
+                    person.strSuffix = row["Suffix"].ToString();
+                    person.strAddress1 = row["Address1"].ToString();
+                    person.strAddress2 = row["Address2"].ToString();
+                    person.strAddress3 = row["Address3"].ToString();
+                    person.strCity = row["City"].ToString();
+                    person.strState = row["State"].ToString();
+                    person.strZip = row["Zipcode"].ToString();
+                    person.strEmail = row["Email"].ToString();
+                    person.strPrimaryPhone = row["PhonePrimary"].ToString();
+                    person.strSecondaryPhone = row["PhoneSecondary"].ToString();
+                    person.strPositionID = row["PositionID"].ToString();
+
+                    if (person.strPositionID == "1000")
+                    {
+                        person.strPosition = "Employee";
+                    } else
+                    {
+                        person.strPosition = "Customer";
+                    }
+
+                    usersList.Add(person);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
