@@ -50,7 +50,6 @@
             this.cbxBrand = new System.Windows.Forms.ComboBox();
             this.tbxQuantity = new System.Windows.Forms.TextBox();
             this.cbxSize = new System.Windows.Forms.ComboBox();
-            this.btnUpdateSize = new System.Windows.Forms.Button();
             this.lbxItems = new System.Windows.Forms.ListBox();
             this.dgvSizes = new System.Windows.Forms.DataGridView();
             this.btnClearAllField = new System.Windows.Forms.Button();
@@ -70,6 +69,9 @@
             this.label14 = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
             this.fileChooser = new System.Windows.Forms.OpenFileDialog();
+            this.tbxImgLocation = new System.Windows.Forms.TextBox();
+            this.Qt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Size = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSizes)).BeginInit();
             this.SuspendLayout();
@@ -89,22 +91,24 @@
             // 
             // btnDeleteSize
             // 
-            this.btnDeleteSize.BackColor = System.Drawing.Color.Transparent;
+            this.btnDeleteSize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnDeleteSize.FlatAppearance.BorderSize = 0;
             this.btnDeleteSize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeleteSize.Font = new System.Drawing.Font("Trebuchet MS", 14F);
-            this.btnDeleteSize.ForeColor = System.Drawing.Color.Red;
-            this.btnDeleteSize.Location = new System.Drawing.Point(781, 428);
+            this.btnDeleteSize.ForeColor = System.Drawing.Color.Black;
+            this.btnDeleteSize.Location = new System.Drawing.Point(781, 635);
             this.btnDeleteSize.Margin = new System.Windows.Forms.Padding(2);
             this.btnDeleteSize.Name = "btnDeleteSize";
-            this.btnDeleteSize.Size = new System.Drawing.Size(255, 38);
+            this.btnDeleteSize.Size = new System.Drawing.Size(256, 38);
             this.btnDeleteSize.TabIndex = 18;
             this.btnDeleteSize.Text = "Delete Selected Size";
             this.btnDeleteSize.UseVisualStyleBackColor = false;
+            this.btnDeleteSize.Click += new System.EventHandler(this.btnDeleteSize_Click);
             // 
             // lblQuantity
             // 
             this.lblQuantity.AutoSize = true;
-            this.lblQuantity.Location = new System.Drawing.Point(777, 384);
+            this.lblQuantity.Location = new System.Drawing.Point(782, 437);
             this.lblQuantity.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblQuantity.Name = "lblQuantity";
             this.lblQuantity.Size = new System.Drawing.Size(139, 24);
@@ -114,11 +118,11 @@
             // lblSearchTem
             // 
             this.lblSearchTem.AutoSize = true;
-            this.lblSearchTem.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSearchTem.Location = new System.Drawing.Point(27, 120);
+            this.lblSearchTem.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSearchTem.Location = new System.Drawing.Point(31, 120);
             this.lblSearchTem.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSearchTem.Name = "lblSearchTem";
-            this.lblSearchTem.Size = new System.Drawing.Size(186, 24);
+            this.lblSearchTem.Size = new System.Drawing.Size(231, 29);
             this.lblSearchTem.TabIndex = 27;
             this.lblSearchTem.Text = "Select list of items:\r\n";
             // 
@@ -135,17 +139,19 @@
             // 
             // btnAddSize
             // 
-            this.btnAddSize.BackColor = System.Drawing.Color.Transparent;
+            this.btnAddSize.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnAddSize.FlatAppearance.BorderSize = 0;
             this.btnAddSize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddSize.Font = new System.Drawing.Font("Trebuchet MS", 14F);
-            this.btnAddSize.ForeColor = System.Drawing.Color.Black;
-            this.btnAddSize.Location = new System.Drawing.Point(781, 585);
+            this.btnAddSize.ForeColor = System.Drawing.Color.White;
+            this.btnAddSize.Location = new System.Drawing.Point(781, 586);
             this.btnAddSize.Margin = new System.Windows.Forms.Padding(2);
             this.btnAddSize.Name = "btnAddSize";
             this.btnAddSize.Size = new System.Drawing.Size(255, 36);
             this.btnAddSize.TabIndex = 14;
             this.btnAddSize.Text = "Add Size";
             this.btnAddSize.UseVisualStyleBackColor = false;
+            this.btnAddSize.Click += new System.EventHandler(this.btnAddSize_Click);
             // 
             // tbxDesc
             // 
@@ -174,12 +180,13 @@
             // tbxTotalQuantity
             // 
             this.tbxTotalQuantity.ForeColor = System.Drawing.Color.DimGray;
-            this.tbxTotalQuantity.Location = new System.Drawing.Point(933, 381);
+            this.tbxTotalQuantity.Location = new System.Drawing.Point(929, 434);
             this.tbxTotalQuantity.Margin = new System.Windows.Forms.Padding(2);
             this.tbxTotalQuantity.Name = "tbxTotalQuantity";
             this.tbxTotalQuantity.ReadOnly = true;
-            this.tbxTotalQuantity.Size = new System.Drawing.Size(103, 29);
+            this.tbxTotalQuantity.Size = new System.Drawing.Size(107, 29);
             this.tbxTotalQuantity.TabIndex = 10;
+            this.tbxTotalQuantity.Text = "0";
             // 
             // btnAddNewItem
             // 
@@ -194,6 +201,7 @@
             this.btnAddNewItem.TabIndex = 15;
             this.btnAddNewItem.Text = "Add new Item";
             this.btnAddNewItem.UseVisualStyleBackColor = false;
+            this.btnAddNewItem.Click += new System.EventHandler(this.btnAddNewItem_Click);
             // 
             // tbxRetailPrice
             // 
@@ -218,6 +226,7 @@
             this.btnUpdateItem.TabIndex = 13;
             this.btnUpdateItem.Text = "Update Selected Item";
             this.btnUpdateItem.UseVisualStyleBackColor = false;
+            this.btnUpdateItem.Click += new System.EventHandler(this.btnUpdateItem_Click);
             // 
             // tbxCost
             // 
@@ -231,15 +240,16 @@
             // 
             // btnUpdateImage
             // 
-            this.btnUpdateImage.BackColor = System.Drawing.Color.Transparent;
+            this.btnUpdateImage.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnUpdateImage.FlatAppearance.BorderSize = 0;
             this.btnUpdateImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdateImage.ForeColor = System.Drawing.Color.Black;
-            this.btnUpdateImage.Location = new System.Drawing.Point(1111, 638);
+            this.btnUpdateImage.ForeColor = System.Drawing.Color.White;
+            this.btnUpdateImage.Location = new System.Drawing.Point(1111, 684);
             this.btnUpdateImage.Margin = new System.Windows.Forms.Padding(2);
             this.btnUpdateImage.Name = "btnUpdateImage";
             this.btnUpdateImage.Size = new System.Drawing.Size(261, 40);
             this.btnUpdateImage.TabIndex = 16;
-            this.btnUpdateImage.Text = "Update Image";
+            this.btnUpdateImage.Text = "Upload Image";
             this.btnUpdateImage.UseVisualStyleBackColor = false;
             this.btnUpdateImage.Click += new System.EventHandler(this.btnUpdateImage_Click);
             // 
@@ -267,14 +277,9 @@
             // 
             this.cbxGender.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbxGender.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbxGender.DisplayMember = "1";
             this.cbxGender.ForeColor = System.Drawing.Color.DimGray;
             this.cbxGender.FormattingEnabled = true;
-            this.cbxGender.Items.AddRange(new object[] {
-            "Men",
-            "Women",
-            "Unisex",
-            "Girls",
-            "Boys"});
             this.cbxGender.Location = new System.Drawing.Point(426, 549);
             this.cbxGender.Margin = new System.Windows.Forms.Padding(2);
             this.cbxGender.Name = "cbxGender";
@@ -308,7 +313,7 @@
             // tbxQuantity
             // 
             this.tbxQuantity.ForeColor = System.Drawing.Color.DimGray;
-            this.tbxQuantity.Location = new System.Drawing.Point(928, 529);
+            this.tbxQuantity.Location = new System.Drawing.Point(929, 535);
             this.tbxQuantity.Margin = new System.Windows.Forms.Padding(2);
             this.tbxQuantity.Name = "tbxQuantity";
             this.tbxQuantity.Size = new System.Drawing.Size(108, 29);
@@ -347,26 +352,12 @@
             "15",
             "15.5",
             "16"});
-            this.cbxSize.Location = new System.Drawing.Point(928, 481);
+            this.cbxSize.Location = new System.Drawing.Point(929, 487);
             this.cbxSize.Margin = new System.Windows.Forms.Padding(2);
             this.cbxSize.Name = "cbxSize";
             this.cbxSize.Size = new System.Drawing.Size(108, 32);
             this.cbxSize.TabIndex = 11;
             this.cbxSize.Text = "Size";
-            // 
-            // btnUpdateSize
-            // 
-            this.btnUpdateSize.BackColor = System.Drawing.Color.Transparent;
-            this.btnUpdateSize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdateSize.Font = new System.Drawing.Font("Trebuchet MS", 14F);
-            this.btnUpdateSize.ForeColor = System.Drawing.Color.Black;
-            this.btnUpdateSize.Location = new System.Drawing.Point(781, 639);
-            this.btnUpdateSize.Margin = new System.Windows.Forms.Padding(2);
-            this.btnUpdateSize.Name = "btnUpdateSize";
-            this.btnUpdateSize.Size = new System.Drawing.Size(255, 36);
-            this.btnUpdateSize.TabIndex = 15;
-            this.btnUpdateSize.Text = "Update Size Quantity";
-            this.btnUpdateSize.UseVisualStyleBackColor = false;
             // 
             // lbxItems
             // 
@@ -374,6 +365,7 @@
             this.lbxItems.ItemHeight = 24;
             this.lbxItems.Location = new System.Drawing.Point(31, 171);
             this.lbxItems.Name = "lbxItems";
+            this.lbxItems.ScrollAlwaysVisible = true;
             this.lbxItems.Size = new System.Drawing.Size(339, 556);
             this.lbxItems.TabIndex = 0;
             this.lbxItems.SelectedIndexChanged += new System.EventHandler(this.lbxItems_SelectedIndexChanged);
@@ -382,13 +374,17 @@
             // 
             this.dgvSizes.AllowUserToAddRows = false;
             this.dgvSizes.AllowUserToDeleteRows = false;
+            this.dgvSizes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvSizes.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvSizes.BackgroundColor = System.Drawing.Color.White;
             this.dgvSizes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSizes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Size,
+            this.Qt});
             this.dgvSizes.Location = new System.Drawing.Point(781, 198);
             this.dgvSizes.Name = "dgvSizes";
             this.dgvSizes.ReadOnly = true;
-            this.dgvSizes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvSizes.Size = new System.Drawing.Size(255, 170);
+            this.dgvSizes.Size = new System.Drawing.Size(255, 222);
             this.dgvSizes.TabIndex = 9;
             // 
             // btnClearAllField
@@ -467,9 +463,9 @@
             this.label11.Location = new System.Drawing.Point(426, 523);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(78, 24);
+            this.label11.Size = new System.Drawing.Size(137, 24);
             this.label11.TabIndex = 69;
-            this.label11.Text = "Gender:";
+            this.label11.Text = "Select Gender:";
             // 
             // label12
             // 
@@ -478,9 +474,9 @@
             this.label12.Location = new System.Drawing.Point(426, 592);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(92, 24);
+            this.label12.Size = new System.Drawing.Size(151, 24);
             this.label12.TabIndex = 70;
-            this.label12.Text = "Category:";
+            this.label12.Text = "Select Category:";
             // 
             // label13
             // 
@@ -489,14 +485,14 @@
             this.label13.Location = new System.Drawing.Point(426, 666);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(66, 24);
+            this.label13.Size = new System.Drawing.Size(125, 24);
             this.label13.TabIndex = 71;
-            this.label13.Text = "Brand:";
+            this.label13.Text = "Select Brand:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(781, 484);
+            this.label1.Location = new System.Drawing.Point(782, 490);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 24);
@@ -506,7 +502,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(781, 529);
+            this.label2.Location = new System.Drawing.Point(782, 535);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 24);
@@ -516,33 +512,33 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(781, 120);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(172, 24);
+            this.label3.Size = new System.Drawing.Size(218, 29);
             this.label3.TabIndex = 74;
             this.label3.Text = "Sizes Information:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(422, 120);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(167, 24);
+            this.label4.Size = new System.Drawing.Size(214, 29);
             this.label4.TabIndex = 75;
             this.label4.Text = "Item Infromation:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(1107, 120);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(83, 24);
+            this.label5.Size = new System.Drawing.Size(104, 29);
             this.label5.TabIndex = 76;
             this.label5.Text = "Actions:";
             // 
@@ -571,12 +567,37 @@
             // 
             this.fileChooser.Filter = "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF|All files (*.*)|*.*";
             // 
+            // tbxImgLocation
+            // 
+            this.tbxImgLocation.ForeColor = System.Drawing.Color.DimGray;
+            this.tbxImgLocation.Location = new System.Drawing.Point(1111, 639);
+            this.tbxImgLocation.Margin = new System.Windows.Forms.Padding(2);
+            this.tbxImgLocation.MaxLength = 100;
+            this.tbxImgLocation.Name = "tbxImgLocation";
+            this.tbxImgLocation.ReadOnly = true;
+            this.tbxImgLocation.Size = new System.Drawing.Size(261, 29);
+            this.tbxImgLocation.TabIndex = 79;
+            this.tbxImgLocation.Text = "Image Location...";
+            // 
+            // Qt
+            // 
+            this.Qt.HeaderText = "Qt";
+            this.Qt.Name = "Qt";
+            this.Qt.ReadOnly = true;
+            // 
+            // Size
+            // 
+            this.Size.HeaderText = "Size";
+            this.Size.Name = "Size";
+            this.Size.ReadOnly = true;
+            // 
             // frmInvetoryManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1424, 781);
+            this.Controls.Add(this.tbxImgLocation);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label5);
@@ -595,7 +616,6 @@
             this.Controls.Add(this.btnClearAllField);
             this.Controls.Add(this.dgvSizes);
             this.Controls.Add(this.lbxItems);
-            this.Controls.Add(this.btnUpdateSize);
             this.Controls.Add(this.cbxSize);
             this.Controls.Add(this.tbxQuantity);
             this.Controls.Add(this.tbxSearchBar);
@@ -656,7 +676,6 @@
         private System.Windows.Forms.ComboBox cbxBrand;
         private System.Windows.Forms.TextBox tbxQuantity;
         private System.Windows.Forms.ComboBox cbxSize;
-        private System.Windows.Forms.Button btnUpdateSize;
         private System.Windows.Forms.ListBox lbxItems;
         private System.Windows.Forms.DataGridView dgvSizes;
         private System.Windows.Forms.Button btnClearAllField;
@@ -676,5 +695,8 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.OpenFileDialog fileChooser;
+        private System.Windows.Forms.TextBox tbxImgLocation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Size;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Qt;
     }
 }

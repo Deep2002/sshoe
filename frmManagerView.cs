@@ -100,6 +100,11 @@ namespace FinalProject
             new frmInvetoryManager().ShowDialog();
             this.Show();
         }
+
+        private void btnUsers_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

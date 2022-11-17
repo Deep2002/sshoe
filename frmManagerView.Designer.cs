@@ -159,6 +159,7 @@
             this.btnUsers.TabIndex = 3;
             this.btnUsers.Text = "Users";
             this.btnUsers.UseVisualStyleBackColor = false;
+            this.btnUsers.Click += new System.EventHandler(this.btnUsers_Click);
             this.btnUsers.MouseEnter += new System.EventHandler(this.btnUsers_MouseEnter);
             this.btnUsers.MouseLeave += new System.EventHandler(this.btnUsers_MouseLeave);
             // 

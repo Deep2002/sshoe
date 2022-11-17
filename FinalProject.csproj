@@ -69,6 +69,7 @@
     <Compile Include="Customer View Classes\clsBrand.cs" />
     <Compile Include="Customer View Classes\clsCategories.cs" />
     <Compile Include="Customer View Classes\clsDiscounts.cs" />
+    <Compile Include="Customer View Classes\clsGender.cs" />
     <Compile Include="Customer View Classes\clsInventory.cs" />
     <Compile Include="Customer View Classes\clsPublicData.cs" />
     <Compile Include="Customer View Classes\clsUserCart.cs" />

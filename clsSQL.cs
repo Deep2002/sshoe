@@ -478,7 +478,6 @@ namespace FinalProject
             }
         }
 
-
         public static void LoadAllCategories(List<clsCategories> lstCategories)
         {
             try
@@ -520,7 +519,7 @@ namespace FinalProject
             try
             {
                 // setting up query to run
-                string strQuery = "SELECT * FROM Inventory;";
+                string strQuery = "SELECT * FROM Inventory ORDER BY ItemName;";
 
                 // establish command and data adapter
                 SqlCommand cmd = new SqlCommand(strQuery, connection);
@@ -550,6 +549,7 @@ namespace FinalProject
                     inventory.intGenderID = Convert.ToInt32(row["GenderID"]);
                     inventory.intBrandID = Convert.ToInt32(row["BrandID"]);
                     inventory.intCategoryID = Convert.ToInt32(row["CategoryID"]);
+                    inventory.intRestockThreashold = Convert.ToInt32(row["RestockThreshold"]);
                     inventory.byteImage = (byte[])row["ItemImage"];
 
                     // Finally add it to list
@@ -564,15 +564,17 @@ namespace FinalProject
             }
         }
 
-        public static void AddInventory(string name, string description, string categoryID, string reatilPrice, string cost, string quantity, string threshold, string imageLocation, string genderID)
+        public static string AddInventory(string name, string description, string categoryID, string reatilPrice, string cost, string quantity, string threshold, string imageLocation, string genderID, string brandID)
         {
             try
             {
                 byte[] image = File.ReadAllBytes(imageLocation);
 
                 string strQuery = "INSERT INTO Inventory " +
-                    "(ItemName, ItemDescription, CategoryID, RetailPrice, Cost, Quantity, RestockThreshold, GenderID, ItemImage) VALUES " +
-                    "(@ItemName, @ItemDescription, @CategoryID, @RetailPrice, @Cost, @Quantity, @RestockThreshold, @GenderID, @ItemImage)";
+                    "(ItemName, ItemDescription, CategoryID, RetailPrice, Cost, Quantity, RestockThreshold, GenderID, ItemImage, BrandID, Discontinued) " +
+                    "OUTPUT INSERTED.InventoryID " +
+                    "VALUES " +
+                    "(@ItemName, @ItemDescription, @CategoryID, @RetailPrice, @Cost, @Quantity, @RestockThreshold, @GenderID, @ItemImage, @BrandID, 0)";
 
                 SqlCommand cmd = new SqlCommand(strQuery, connection);
                 cmd.Parameters.AddWithValue("@ItemName", name);
@@ -583,17 +585,27 @@ namespace FinalProject
                 cmd.Parameters.AddWithValue("@Quantity", Convert.ToInt32(quantity));
                 cmd.Parameters.AddWithValue("@RestockThreshold", Convert.ToInt32(threshold));
                 cmd.Parameters.AddWithValue("@GenderID", genderID);
+                cmd.Parameters.AddWithValue("@BrandID", brandID);
                 SqlParameter sqlParams = cmd.Parameters.AddWithValue("@ItemImage", image);
                 sqlParams.DbType = DbType.Binary;
 
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Success");
+                int id = (Int32)cmd.ExecuteScalar();
+
+                if (id > 0)
+                {
+                    return id.ToString();
+                } else
+                {
+                    return "false";
+                }
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return "false";
             }
+
         }
 
         public static void LoadSizes(List<clsInventory> lstInventory)
@@ -959,5 +971,81 @@ namespace FinalProject
             }
         }
 
+        internal static void AddShoeSize(string size, string quantity, string itemID)
+        {
+            try
+            {
+                string strQuery = "INSERT INTO ShoeSize (Size, Quantity, ItemID) " +
+                    "VALUES (@Size, @Quantity, @ItemID)";
+
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+
+                cmd.Parameters.AddWithValue("@Size", size);
+                cmd.Parameters.AddWithValue("@Quantity", quantity);
+                cmd.Parameters.AddWithValue("@ItemID", itemID);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to add Shoes all sizes. Please try again in few minutes.\n\nSee Error Below:\n" + ex.Message, "SQL ERROR - Adding Sizes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        internal static bool DeleteShoeSize(string size, string itemID)
+        {
+            try
+            {
+                string strQuery = "DELETE FROM ShoeSize WHERE Size = @Size AND ItemID = @ItemID; " +
+                    "UPDATE Inventory SET Quantity = (SELECT COUNT(s.Quantity) FROM ShoeSize AS s WHERE ItemID = InventoryID) WHERE InventoryID = @ItemID;";
+
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+
+                cmd.Parameters.AddWithValue("@Size", size);
+                cmd.Parameters.AddWithValue("@ItemID", Convert.ToInt32(itemID));
+
+                cmd.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to Delete Shoes. Please try again in few minutes.\n\nSee Error Below:\n" + ex.Message, "SQL ERROR - Deleting Sizes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return false;
+        }
+
+        internal static bool UpdateInventory(string name, string desc, string reatilPrice, string cost, string quantity,string restockThreshold,
+            string genderID, string categoryID, string brandID, string itemID, string imageLocation = "none")
+        {
+            string query = "UPDATE Inventory SET itemName = @name, " +
+                "ItemDescription = @desc, " +
+                "RetailPrice = @retailPrice, " +
+                "Cost = @cost, " +
+                "Quantity = @quantity, " +
+                "RestockThreshold = @restockthreshold, " +
+                "GenderID = @genderID, " +
+                "BrandID = @brandID, " +
+                "CategoryID = @categoryID ";
+                
+            if (imageLocation != "none")
+            {
+                query += ", ItemImage = @img ";
+            }
+
+            query += "WHERE InventoryID = @itemID;"; 
+
+            try
+            {
+
+            } catch (Exception ex)
+            {
+
+            }
+
+            throw new NotImplementedException();
+        }
     }
 }
+

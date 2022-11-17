@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -17,6 +18,8 @@ namespace FinalProject.ManagerViewForms
         public List<clsInventory> inventoryList = new List<clsInventory>();
         public List<clsBrand> brandList = new List<clsBrand>();
         public List<clsCategories> categoryList = new List<clsCategories>();
+
+
 
         public frmInvetoryManager()
         {
@@ -39,12 +42,15 @@ namespace FinalProject.ManagerViewForms
             lbxItems.ValueMember = "intID";
             lbxItems.SelectedIndex = 0;
 
+
             // get & show all brands
             clsSQL.LoadAllBrands(brandList);
             cbxBrand.DataSource = brandList.ToList();
             cbxBrand.DisplayMember = "name";
             cbxBrand.ValueMember = "id";
             cbxBrand.Text = "Brand";
+            cbxBrand.SelectedIndex = 0;
+
 
             // get & show all categories
             clsSQL.LoadAllCategories(categoryList);
@@ -52,7 +58,23 @@ namespace FinalProject.ManagerViewForms
             cbxCategory.DisplayMember = "strName";
             cbxCategory.ValueMember = "intID";
             cbxCategory.Text = "Category";
+            cbxCategory.SelectedIndex = 0;
 
+
+            // Insert Genders
+            List<clsGender> genderList = new List<clsGender>
+            {
+                new clsGender(1, "Men"),
+                new clsGender(2, "Women"),
+                new clsGender(3, "Unisex"),
+                new clsGender(4, "Girls"),
+                new clsGender(5, "Boys"),
+            };
+
+            cbxGender.DataSource = genderList.ToList();
+            cbxGender.DisplayMember = "gender";
+            cbxGender.ValueMember = "id";
+            cbxGender.SelectedIndex = 0;
         }
 
         private void lbxItems_SelectedIndexChanged(object sender, EventArgs e)
@@ -66,19 +88,22 @@ namespace FinalProject.ManagerViewForms
                 clsInventory selectedItem = inventoryList.Find(x => x.intID == Convert.ToInt32(lbxItems.SelectedValue.ToString()));
 
 
-                tbxName.Text = selectedItem.strName;    
-                tbxDesc.Text = selectedItem.strDescription;    
-                tbxRetailPrice.Text = selectedItem.decReatailPrice.ToString();    
-                tbxCost.Text = selectedItem.decCost.ToString();    
-                tbxRestockThreshold.Text = selectedItem.intRestockThreashold.ToString();    
-                cbxGender.Text = selectedItem.strGender;    
-                cbxCategory.Text = selectedItem.strCategory;    
+                tbxName.Text = selectedItem.strName;
+                tbxDesc.Text = selectedItem.strDescription;
+                tbxRetailPrice.Text = selectedItem.decReatailPrice.ToString();
+                tbxCost.Text = selectedItem.decCost.ToString();
+                tbxRestockThreshold.Text = selectedItem.intRestockThreashold.ToString();
+                cbxGender.Text = selectedItem.strGender;
+                cbxCategory.Text = selectedItem.strCategory;
                 cbxBrand.Text = selectedItem.strBrand;
 
-                // display sizes
-                dgvSizes.DataSource = selectedItem.lstSizes.ToList();
-                dgvSizes.Columns[0].HeaderText = "Size";
-                dgvSizes.Columns[1].HeaderText = "Qt";
+                // display sizes 
+                //dgvSizes.DataSource = selectedItem.lstSizes.ToList();
+                dgvSizes.Rows.Clear();
+                foreach (clsShoeSize size in selectedItem.lstSizes)
+                {
+                    dgvSizes.Rows.Add(size.strSize, size.intQuantity);
+                }
 
                 tbxTotalQuantity.Text = selectedItem.intQuantity.ToString();
 
@@ -135,27 +160,287 @@ namespace FinalProject.ManagerViewForms
 
         private void btnClearAllField_Click(object sender, EventArgs e)
         {
+            clearEverything();
+        }
+
+        public void clearEverything()
+        {
             // set everything back to normal
-            tbxName.Text = "Name";
-            tbxDesc.Text = "Description";
-            tbxRetailPrice.Text = "0.00";
-            tbxCost.Text = "0.00";
-            tbxRestockThreshold.Text = "0";
-            cbxGender.Text = "Gender";
-            cbxCategory.Text = "Category";
-            cbxBrand.Text = "Brand";
+            tbxName.Text = "";
+            tbxDesc.Text = "";
+            tbxRetailPrice.Text = "";
+            tbxCost.Text = "";
+            tbxRestockThreshold.Text = "";
+            cbxGender.Text = "";
+            cbxCategory.Text = "";
+            cbxBrand.Text = "";
             tbxTotalQuantity.Text = "0";
             cbxSize.Text = "Size";
             tbxQuantity.Text = "Quantity";
+            tbxImgLocation.Text = "Image Location...";
 
             dgvSizes.DataSource = null;
+            dgvSizes.Rows.Clear();
             pbxImage.Image = null;
-
+            fileChooser = null;
         }
 
         private void btnUpdateImage_Click(object sender, EventArgs e)
         {
-            fileChooser.ShowDialog();
+            fileChooser = new OpenFileDialog();
+
+            if (fileChooser.ShowDialog() == DialogResult.OK)
+            {
+                pbxImage.Image = new Bitmap(fileChooser.FileName);
+                tbxImgLocation.Text = fileChooser.FileName;
+            }
+        }
+
+        private void btnAddNewItem_Click(object sender, EventArgs e)
+        {
+            // check all fields before proceeding
+            if (AllFieldsAreValid())
+            {
+
+                string itemID = clsSQL.AddInventory(tbxName.Text, tbxDesc.Text, cbxCategory.SelectedValue.ToString(), tbxRetailPrice.Text, tbxCost.Text, tbxTotalQuantity.Text, tbxRestockThreshold.Text, fileChooser.FileName, cbxGender.SelectedValue.ToString(), cbxBrand.SelectedValue.ToString());
+
+                if (itemID != "false")
+                {
+                    // if item added successfully
+                    // add shoe size if exists
+                    if (dgvSizes.Rows.Count > 0)
+                    {
+                        foreach (DataGridViewRow row in dgvSizes.Rows)
+                        {
+
+                            clsSQL.AddShoeSize(row.Cells["Size"].Value.ToString(), row.Cells["Qt"].Value.ToString(), itemID);
+                        }
+                    }
+
+                    MessageBox.Show("Item Successfully Added.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // load inventory to get new items and its shoe sizes
+                    clsSQL.LoadInventory(inventoryList);
+                    clsSQL.LoadSizes(inventoryList);
+
+                    lbxItems.DataSource = inventoryList.ToList();
+                    lbxItems.DisplayMember = "strName";
+                    lbxItems.ValueMember = "intID";
+                    lbxItems.SelectedIndex = 0;
+
+                    clearEverything();
+                }
+            }
+        }
+
+        private bool AllFieldsAreValid()
+        {
+            if (string.IsNullOrEmpty(tbxName.Text))
+            {
+                MessageBox.Show("Name Cannot be Empty, Please enter the name before trying again.",
+                    "Invalid Input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tbxName.Focus();
+                return false;
+            }
+            if (string.IsNullOrEmpty(tbxDesc.Text))
+            {
+                MessageBox.Show("Description Cannot be Empty, Please enter the something before trying again.",
+                    "Invalid Input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tbxDesc.Focus();
+                return false;
+            }
+            if (string.IsNullOrEmpty(tbxRetailPrice.Text))
+            {
+                MessageBox.Show("Retail Price Cannot be Empty, Please enter the retail price before trying again.",
+                    "Invalid Input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tbxRetailPrice.Focus();
+                return false;
+            }
+            foreach (char c in tbxRetailPrice.Text)
+            {
+                if (char.IsLetter(c))
+                {
+                    MessageBox.Show("Retail Price Invalid, Please enter the retail price before trying again.",
+                 "Invalid Input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    tbxRetailPrice.Focus();
+                    return false;
+                }
+            }
+            if (string.IsNullOrEmpty(tbxCost.Text))
+            {
+                MessageBox.Show("Cost Cannot be Empty, Please enter the Cost before trying again.",
+                    "Invalid Input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tbxCost.Focus();
+                return false;
+            }
+            foreach (char c in tbxCost.Text)
+            {
+                if (char.IsLetter(c))
+                {
+                    MessageBox.Show("Cost Invalid, Please enter the Cost before trying again.",
+                 "Invalid Input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    tbxCost.Focus();
+                    return false;
+                }
+            }
+            if (string.IsNullOrEmpty(tbxRestockThreshold.Text))
+            {
+                MessageBox.Show("Name Restock Value cannot be Empty, Please enter the restock value before trying again.",
+                    "Invalid Input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tbxRestockThreshold.Focus();
+                return false;
+            }
+            foreach (char c in tbxRestockThreshold.Text)
+            {
+                if (char.IsLetter(c))
+                {
+                    MessageBox.Show("Restock Threshold is Invalid, Please enter the Restock Threshold is before trying again.",
+                 "Invalid Input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    tbxRestockThreshold.Focus();
+                    return false;
+                }
+            }
+            if (!cbxGender.Items.Cast<clsGender>().Any(x => x.gender == cbxGender.Text))
+            {
+                MessageBox.Show("Selected Gender Is Invalid!",
+                    "Invalid Input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cbxGender.Focus();
+                return false;
+            }
+            if (!cbxCategory.Items.Cast<clsCategories>().Any(x => x.strName == cbxCategory.Text))
+            {
+                MessageBox.Show("Selected Category Is Invalid!",
+                    "Invalid Input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cbxCategory.Focus();
+                return false;
+            }
+            if (!cbxBrand.Items.Cast<clsBrand>().Any(x => x.name == cbxBrand.Text))
+            {
+                MessageBox.Show("Selected Brand Is Invalid!",
+                    "Invalid Input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cbxBrand.Focus();
+                return false;
+            }
+            if (pbxImage.Image == null)
+            {
+                MessageBox.Show("Please upload image to continue.",
+                    "Image not found!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+
+            return true;
+        }
+
+        private void btnAddSize_Click(object sender, EventArgs e)
+        {
+            /// Add Size To The data grid view
+
+
+            if (cbxSize.Items.Contains(cbxSize.Text))
+            {
+                foreach (char c in tbxQuantity.Text)
+                {
+                    if (char.IsLetter(c))
+                    {
+                        MessageBox.Show("Invalid Quantity. Please enter valid Quantity", "Invalid Input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        tbxQuantity.Focus();
+                        return;
+                    }
+                }
+
+                bool sizeExists = false;
+                foreach (DataGridViewRow row in dgvSizes.Rows)
+                {
+                    // Check if size user trying to add is already exists
+                    if (row.Cells["Size"].Value.ToString() == cbxSize.Text)
+                    {
+                        if (MessageBox.Show($"Size {cbxSize.Text} already exists. Would you like to update quantity from {row.Cells["Qt"].Value} to {tbxQuantity.Text}?"
+                            , "Size Already Exists!", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                        {
+                            row.Cells["Qt"].Value = tbxQuantity.Text;
+                        }
+                        sizeExists = true;
+                    }
+                }
+
+                if (!sizeExists)
+                {
+                    dgvSizes.Rows.Add(cbxSize.Text, tbxQuantity.Text);
+                }
+
+                // update quantity
+                tbxTotalQuantity.Text = "0";
+                foreach (DataGridViewRow row in dgvSizes.Rows)
+                {
+                    tbxTotalQuantity.Text = (Convert.ToInt32(tbxTotalQuantity.Text) + Convert.ToInt32(row.Cells["Qt"].Value)).ToString();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid Size. Please enter valid Size to continue.", "Invalid Input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cbxSize.Focus();
+            }
+        }
+
+        private void btnDeleteSize_Click(object sender, EventArgs e)
+        {
+            // Ask if user really want to delete that
+            if (dgvSizes.Rows.Count <= 0) return;
+            if (MessageBox.Show("Do you really want to delete this size?", "Deleting..",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                // if so, delete selected size
+                // delete from data grid view only
+
+                tbxTotalQuantity.Text = "0";
+                foreach (DataGridViewRow row in dgvSizes.Rows)
+                {
+                    if (row.Cells["Size"].Value.ToString() == dgvSizes.SelectedCells[0].Value.ToString())
+                        dgvSizes.Rows.Remove(row);
+
+                    // count total quantity
+                    tbxTotalQuantity.Text = (Convert.ToInt32(row.Cells[1].Value.ToString()) + Convert.ToInt32(tbxTotalQuantity.Text)).ToString();
+                }
+
+                //// update total quantity text box
+
+                //if (clsSQL.DeleteShoeSize(dgvSizes.SelectedCells[0].Value.ToString(), lbxItems.SelectedValue.ToString()))
+                //{
+
+                //    MessageBox.Show("Size Deleted", "Record Deleted..", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                //    // update shoe sizes by re getting shoes sizes
+                //    clsSQL.LoadSizes(inventoryList);
+
+                //    // update list of shoes size / DataGridView
+                //    clsInventory selectedItem = inventoryList.Find(x => x.intID == Convert.ToInt32(lbxItems.SelectedValue.ToString()));
+                //    dgvSizes.Rows.Clear();
+                //    // Show available sizes
+                //    foreach (clsShoeSize size in selectedItem.lstSizes)
+                //    {
+                //        dgvSizes.Rows.Add(size.strSize, size.intQuantity);
+                //        selectedItem.intQuantity += size.intQuantity;
+                //    }
+                //    // update total quantity
+                //    tbxTotalQuantity.Text = selectedItem.intQuantity.ToString();
+                //} else
+                //{
+                //    MessageBox.Show("Unable to Delete", "Record Delete..", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //}
+            }
+        }
+
+
+        private void btnUpdateItem_Click(object sender, EventArgs e)
+        {
+            // This will update all information about form 
+
+            if (MessageBox.Show("Do you like top update information about selected item?", "Updating..", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                // update
+                //clsSQL.UpdateInventory();
+            }
         }
     }
 }
