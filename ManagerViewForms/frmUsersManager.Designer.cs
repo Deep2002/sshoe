@@ -46,6 +46,7 @@
             // 
             // dgvUsers
             // 
+            this.dgvUsers.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dgvUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -86,6 +87,7 @@
             // 
             // tbxSearchBar
             // 
+            this.tbxSearchBar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tbxSearchBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.tbxSearchBar.ForeColor = System.Drawing.Color.DimGray;
             this.tbxSearchBar.Location = new System.Drawing.Point(434, 49);
@@ -101,6 +103,7 @@
             // 
             // btnUpdateUserInfo
             // 
+            this.btnUpdateUserInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnUpdateUserInfo.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnUpdateUserInfo.FlatAppearance.BorderSize = 0;
             this.btnUpdateUserInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -116,6 +119,7 @@
             // 
             // btnShowCustomers
             // 
+            this.btnShowCustomers.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnShowCustomers.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnShowCustomers.FlatAppearance.BorderSize = 0;
             this.btnShowCustomers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -131,6 +135,7 @@
             // 
             // btnShowEmployees
             // 
+            this.btnShowEmployees.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnShowEmployees.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnShowEmployees.FlatAppearance.BorderSize = 0;
             this.btnShowEmployees.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -146,6 +151,7 @@
             // 
             // btnAddNewUser
             // 
+            this.btnAddNewUser.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnAddNewUser.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnAddNewUser.FlatAppearance.BorderSize = 0;
             this.btnAddNewUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -161,6 +167,7 @@
             // 
             // lblInfo
             // 
+            this.lblInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblInfo.AutoSize = true;
             this.lblInfo.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInfo.ForeColor = System.Drawing.Color.Green;
@@ -172,6 +179,7 @@
             // 
             // lblSearchUser
             // 
+            this.lblSearchUser.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSearchUser.AutoSize = true;
             this.lblSearchUser.Location = new System.Drawing.Point(313, 52);
             this.lblSearchUser.Name = "lblSearchUser";
@@ -195,6 +203,7 @@
             this.Font = new System.Drawing.Font("Trebuchet MS", 14F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MinimumSize = new System.Drawing.Size(1440, 820);
             this.Name = "frmUserManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Users Manager";
