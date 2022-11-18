@@ -13,7 +13,7 @@ namespace FinalProject.ManagerViewForms
     public partial class frmUserManager : Form
     {
 
-public List<Person> usersList;
+        public List<Person> usersList;
 
         public frmUserManager()
         {
@@ -71,11 +71,13 @@ public List<Person> usersList;
 
         private void tbxSearchBar_TextChanged(object sender, EventArgs e)
         {
+            if (tbxSearchBar.Text == "Name, ID, Email, Phone...") return;
+
             // search by user name or its name email phone or id
             string str = tbxSearchBar.Text.ToLower();
             // Open form with selected user informations
             dgvUsers.Rows.Clear();
-            foreach (Person person in usersList.Where(x => x.strFirstName.ToLower().Contains(str) || x.strLastName.ToLower().Contains(str) || x.strEmail.ToLower().Contains(str) || x.strPrimaryPhone.ToLower().Contains(str)))
+            foreach (Person person in usersList.Where(x => x.strFirstName.ToLower().Contains(str) || x.strLastName.ToLower().Contains(str) || x.strEmail.ToLower().Contains(str) || x.strPrimaryPhone.ToLower().Contains(str) || x.strPersonID.ToLower().Contains(str)))
             {
                 dgvUsers.Rows.Add(person.strLastName + " " + person.strFirstName, person.strEmail, person.strPrimaryPhone, person.strPersonID);
             }
@@ -90,7 +92,7 @@ public List<Person> usersList;
 
         private void btnAddNewUser_Click(object sender, EventArgs e)
         {
-            // open form where uiser can create new user
+            // open form where user can create new user
             frmSignupView frmSignupView = new frmSignupView();
             this.Hide();
             frmSignupView.ShowDialog();
@@ -98,13 +100,32 @@ public List<Person> usersList;
 
             // reload all data on the form
             loadDataOnForm();
-
         }
 
         private void btnUpdateUserInfo_Click(object sender, EventArgs e)
         {
-            /// Method to show more information about selected user
-            /// 
+            try { 
+                new frmUpdateUserInfo(usersList.Find(x => x.strPersonID == dgvUsers.SelectedCells[3].Value.ToString())).ShowDialog();
+                loadDataOnForm();
+            } catch {
+                MessageBox.Show("Please select a user from the grid view above to see full information!", "Selection cannot be found.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void tbxSearchBar_Enter(object sender, EventArgs e)
+        {
+            if(tbxSearchBar.Text == "Name, ID, Email, Phone...")
+            {
+                tbxSearchBar.Text = "";
+            }
+        }
+
+        private void tbxSearchBar_Leave(object sender, EventArgs e)
+        {
+            if (tbxSearchBar.Text == "")
+            {
+                tbxSearchBar.Text = "Name, ID, Email, Phone...";
+            }
         }
     }
 }

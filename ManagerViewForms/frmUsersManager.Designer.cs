@@ -30,16 +30,17 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUserManager));
             this.dgvUsers = new System.Windows.Forms.DataGridView();
+            this.UserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbxSearchBar = new System.Windows.Forms.TextBox();
             this.btnUpdateUserInfo = new System.Windows.Forms.Button();
             this.btnShowCustomers = new System.Windows.Forms.Button();
             this.btnShowEmployees = new System.Windows.Forms.Button();
             this.btnAddNewUser = new System.Windows.Forms.Button();
             this.lblInfo = new System.Windows.Forms.Label();
-            this.UserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblSearchUser = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,18 +60,44 @@
             this.dgvUsers.Size = new System.Drawing.Size(1368, 512);
             this.dgvUsers.TabIndex = 0;
             // 
+            // UserName
+            // 
+            this.UserName.HeaderText = "Name";
+            this.UserName.Name = "UserName";
+            this.UserName.ReadOnly = true;
+            // 
+            // Email
+            // 
+            this.Email.HeaderText = "Email";
+            this.Email.Name = "Email";
+            this.Email.ReadOnly = true;
+            // 
+            // Phone
+            // 
+            this.Phone.HeaderText = "Phone";
+            this.Phone.Name = "Phone";
+            this.Phone.ReadOnly = true;
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            // 
             // tbxSearchBar
             // 
             this.tbxSearchBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.tbxSearchBar.ForeColor = System.Drawing.Color.Black;
-            this.tbxSearchBar.Location = new System.Drawing.Point(374, 49);
+            this.tbxSearchBar.ForeColor = System.Drawing.Color.DimGray;
+            this.tbxSearchBar.Location = new System.Drawing.Point(434, 49);
             this.tbxSearchBar.Margin = new System.Windows.Forms.Padding(2);
             this.tbxSearchBar.Name = "tbxSearchBar";
             this.tbxSearchBar.Size = new System.Drawing.Size(677, 29);
             this.tbxSearchBar.TabIndex = 1;
-            this.tbxSearchBar.Text = "Search User...";
+            this.tbxSearchBar.Text = "Name, ID, Email, Phone...";
             this.tbxSearchBar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbxSearchBar_MouseClick);
             this.tbxSearchBar.TextChanged += new System.EventHandler(this.tbxSearchBar_TextChanged);
+            this.tbxSearchBar.Enter += new System.EventHandler(this.tbxSearchBar_Enter);
+            this.tbxSearchBar.Leave += new System.EventHandler(this.tbxSearchBar_Leave);
             // 
             // btnUpdateUserInfo
             // 
@@ -143,35 +170,21 @@
             this.lblInfo.TabIndex = 20;
             this.lblInfo.Text = "Displaying Customers:";
             // 
-            // UserName
+            // lblSearchUser
             // 
-            this.UserName.HeaderText = "Name";
-            this.UserName.Name = "UserName";
-            this.UserName.ReadOnly = true;
-            // 
-            // Email
-            // 
-            this.Email.HeaderText = "Email";
-            this.Email.Name = "Email";
-            this.Email.ReadOnly = true;
-            // 
-            // Phone
-            // 
-            this.Phone.HeaderText = "Phone";
-            this.Phone.Name = "Phone";
-            this.Phone.ReadOnly = true;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
+            this.lblSearchUser.AutoSize = true;
+            this.lblSearchUser.Location = new System.Drawing.Point(313, 52);
+            this.lblSearchUser.Name = "lblSearchUser";
+            this.lblSearchUser.Size = new System.Drawing.Size(116, 24);
+            this.lblSearchUser.TabIndex = 21;
+            this.lblSearchUser.Text = "Search User:";
             // 
             // frmUserManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1424, 781);
+            this.Controls.Add(this.lblSearchUser);
             this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.btnAddNewUser);
             this.Controls.Add(this.btnShowEmployees);
@@ -205,5 +218,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.Label lblSearchUser;
     }
 }

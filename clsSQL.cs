@@ -1050,7 +1050,7 @@ namespace FinalProject
             try
             {
                 // setting up query to run
-                string strQuery = "SELECT * FROM Person ORDER BY NameLast;";
+                string strQuery = "SELECT * FROM Person as p JOIN Logon AS l ON l.PersonID = p.PersonID;";
 
                 // establish command and data adapter
                 SqlCommand cmd = new SqlCommand(strQuery, connection);
@@ -1076,6 +1076,7 @@ namespace FinalProject
                     person.strLastName = row["NameLast"].ToString();
                     person.strMiddleName = row["NameMiddle"].ToString();
                     person.strSuffix = row["Suffix"].ToString();
+                    person.strTitle = row["Title"].ToString();
                     person.strAddress1 = row["Address1"].ToString();
                     person.strAddress2 = row["Address2"].ToString();
                     person.strAddress3 = row["Address3"].ToString();
@@ -1086,6 +1087,8 @@ namespace FinalProject
                     person.strPrimaryPhone = row["PhonePrimary"].ToString();
                     person.strSecondaryPhone = row["PhoneSecondary"].ToString();
                     person.strPositionID = row["PositionID"].ToString();
+                    person.strUsername = row["LogonName"].ToString();
+                    person.strPassword = row["Password"].ToString();
 
                     if (person.strPositionID == "1000")
                     {
@@ -1102,6 +1105,77 @@ namespace FinalProject
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+        }
+
+        internal static void updatePerson(string userID, string fName, string lName, string mName,
+            string title, string suffix, string username,
+            string email,string primaryPhone, string secondaryPhone,
+            string address1, string address2, string address3,
+            string city, string state, string zip,
+            string password, string positionID)
+        {
+
+            // update everything
+            string query = "UPDATE Person SET NameFirst = @NameFirst, " +
+                "NameLast = @NameLast, " +
+                "NameMiddle = @NameMiddle, " +
+                "Suffix = @Suffix, " +
+                "Title = @Title, " +
+                "Address1 = @Address1, " +
+                "Address2 = @Address2, " +
+                "Address3 = @Address3, " +
+                "City = @City, " +
+                "State = @State, " +
+                "Zipcode = @Zipcode, " +
+                "Email = @Email, " +
+                "PhonePrimary = @PhonePrimary, " +
+                "PhoneSecondary = @PhoneSecondary, " +
+                "PositionID = @PositionID " +
+                "WHERE PersonID = @PersonID";
+
+            try
+            {
+
+                SqlCommand cmd = new SqlCommand(query, connection);
+
+                cmd.Parameters.AddWithValue("@NameFirst", fName);
+                cmd.Parameters.AddWithValue("@NameLast", lName);
+                cmd.Parameters.AddWithValue("@NameMiddle", mName);
+                cmd.Parameters.AddWithValue("@Suffix", suffix);
+                cmd.Parameters.AddWithValue("@Title", title);
+                cmd.Parameters.AddWithValue("@Address1", address1);
+                cmd.Parameters.AddWithValue("@Address2", address2);
+                cmd.Parameters.AddWithValue("@Address3", address3);
+                cmd.Parameters.AddWithValue("@City", city);
+                cmd.Parameters.AddWithValue("@State", state);
+                cmd.Parameters.AddWithValue("@Zipcode", zip);
+                cmd.Parameters.AddWithValue("@Email", email);
+                cmd.Parameters.AddWithValue("@PhonePrimary", primaryPhone);
+                cmd.Parameters.AddWithValue("@PhoneSecondary", secondaryPhone);
+                cmd.Parameters.AddWithValue("@PositionID", positionID);
+                cmd.Parameters.AddWithValue("@PersonID", Convert.ToInt32(userID));
+
+                cmd.ExecuteNonQuery();
+         
+                // update user password and user name
+                query = "UPDATE Logon SET LogonName = @LogonName, Password = @Password WHERE PersonID = @PersonID";
+
+                cmd = new SqlCommand(query, connection);
+
+                cmd.Parameters.AddWithValue("@LogonName", username);
+                cmd.Parameters.AddWithValue("@Password", password);
+                cmd.Parameters.AddWithValue("@PersonID", userID);
+                cmd.ExecuteNonQuery();
+
+
+                // If everything went well, show message of success
+                MessageBox.Show("Successfully Updated User Record", "User Information updated.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to update your record!\n\nSee Error Below:\n" + ex.Message, "SQL ERROR - Updating user", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
