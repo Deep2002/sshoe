@@ -25,14 +25,19 @@ namespace FinalProject.ManagerViewForms
         {
             // load All discounts code and display it
             clsSQL.LoadAllDiscounts(discountCodeList);
-            loadDiscountsInDgv();
+            loadDiscountsInDgv(discountCodeList);
         }
 
-        private void loadDiscountsInDgv()
+        private void loadDiscountsInDgv(List<clsDiscounts> discountList)
         {
             dgvDiscounts.Rows.Clear();
-            foreach (clsDiscounts discount in discountCodeList)
+            foreach (clsDiscounts discount in discountList)
             {
+                if (discount.DiscountPercentage != "")
+                {
+                    discount.DiscountPercentage = (Convert.ToDecimal(discount.DiscountPercentage) * 100).ToString();
+                }
+
                 dgvDiscounts.Rows.Add(discount.DiscountCode, discount.StartDate, discount.ExpirationDate, discount.DiscountPercentage, discount.DiscountAmount, discount.DiscountID);
             }
         }
@@ -51,7 +56,7 @@ namespace FinalProject.ManagerViewForms
                 }
                 else
                 {
-                   
+
                     clsDiscounts discountCode = new clsDiscounts();
 
                     discountCode.DiscountCode = tbxCode.Text;
@@ -78,7 +83,7 @@ namespace FinalProject.ManagerViewForms
                     // load All discounts code and display it
                     discountCodeList.Clear();
                     clsSQL.LoadAllDiscounts(discountCodeList);
-                    loadDiscountsInDgv();
+                    loadDiscountsInDgv(discountCodeList);
                 }
             }
             // Check if code already exists
@@ -176,9 +181,10 @@ namespace FinalProject.ManagerViewForms
                 // load All discounts code and display it
                 discountCodeList.Clear();
                 clsSQL.LoadAllDiscounts(discountCodeList);
-                loadDiscountsInDgv();
+                loadDiscountsInDgv(discountCodeList);
 
-            } catch  (Exception)
+            }
+            catch (Exception)
             {
                 MessageBox.Show("Please select discount from list above to update!", "Item not selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -207,22 +213,25 @@ namespace FinalProject.ManagerViewForms
                     cbxDiscountType.Text = "Percentage";
                     lblPercentageORAmount.Text = "Percentage";
                     tbxPercentageORAmount.Text = discount.DiscountPercentage;
-                } else
+                }
+                else
                 {
                     cbxDiscountType.Text = "Dollar Amount";
                     lblPercentageORAmount.Text = "Amount";
                     tbxPercentageORAmount.Text = discount.DiscountAmount;
                 }
 
-            } catch { }
+            }
+            catch { }
         }
 
         private void cbxDiscountType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbxDiscountType.SelectedIndex == 0)
+            if (cbxDiscountType.SelectedIndex == 1)
             {
                 lblPercentageORAmount.Text = "Amount";
-            } else if (cbxDiscountType.SelectedIndex == 1)
+            }
+            else if (cbxDiscountType.SelectedIndex == 0)
             {
                 lblPercentageORAmount.Text = "Percentage";
             }
@@ -236,6 +245,27 @@ namespace FinalProject.ManagerViewForms
             cbxDiscountType.Text = "";
             dtpStartDate.Text = "";
             dtpExpDate.Text = "";
+        }
+
+        private void tbxSearchBar_TextChanged(object sender, EventArgs e)
+        {
+            string str = tbxSearchBar.Text.ToLower();
+
+            if ("Code, ID, Date, Amount..".ToLower().Equals(str)) return;
+
+            // filter discounts
+            loadDiscountsInDgv(discountCodeList.FindAll(x => x.DiscountCode.ToLower().Contains(str)
+            || x.DiscountID.ToLower().Contains(str) || x.DiscountCode.ToLower().Contains(str)
+            || x.DiscountCode.ToLower().Contains(str) || x.Description.ToLower().Contains(str)
+            || x.StartDate.ToLower().Contains(str)
+            || x.ExpirationDate.ToLower().Contains(str) || x.DiscountAmount.ToLower().Contains(str)));
+        }
+
+        private void tbxSearchBar_Leave(object sender, EventArgs e)
+        {
+            string str = tbxSearchBar.Text.ToLower();
+
+            if ("".ToLower().Equals(str)) tbxSearchBar.Text = "Code, ID, Date, Amount..";
         }
     }
 }

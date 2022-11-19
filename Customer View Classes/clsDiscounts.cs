@@ -14,7 +14,7 @@ namespace FinalProject.Customer_View_Classes
         public string StartDate { get; set; }
         public string ExpirationDate { get; set; }
         public string InventoryID { get; set; }
-        public int DiscountType { get; set; }
+        public int DiscountType { get; set; } // 1 = percentage AND 0 = Dollar amount
 
         public string DiscountAmount { get; set; }
         public string DiscountPercentage { get; set; }

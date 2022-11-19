@@ -136,7 +136,9 @@
             this.tbxSearchBar.Name = "tbxSearchBar";
             this.tbxSearchBar.Size = new System.Drawing.Size(677, 29);
             this.tbxSearchBar.TabIndex = 0;
-            this.tbxSearchBar.Text = "Code, Ammount, Date, ID..";
+            this.tbxSearchBar.Text = "Code, ID, Date, Amount..";
+            this.tbxSearchBar.TextChanged += new System.EventHandler(this.tbxSearchBar_TextChanged);
+            this.tbxSearchBar.Leave += new System.EventHandler(this.tbxSearchBar_Leave);
             // 
             // btnAddNewUser
             // 

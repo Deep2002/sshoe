@@ -1093,7 +1093,8 @@ namespace FinalProject
                     if (person.strPositionID == "1000")
                     {
                         person.strPosition = "Employee";
-                    } else
+                    }
+                    else
                     {
                         person.strPosition = "Customer";
                     }
@@ -1110,7 +1111,7 @@ namespace FinalProject
 
         internal static void updatePerson(string userID, string fName, string lName, string mName,
             string title, string suffix, string username,
-            string email,string primaryPhone, string secondaryPhone,
+            string email, string primaryPhone, string secondaryPhone,
             string address1, string address2, string address3,
             string city, string state, string zip,
             string password, string positionID)
@@ -1157,7 +1158,7 @@ namespace FinalProject
                 cmd.Parameters.AddWithValue("@PersonID", Convert.ToInt32(userID));
 
                 cmd.ExecuteNonQuery();
-         
+
                 // update user password and user name
                 query = "UPDATE Logon SET LogonName = @LogonName, Password = @Password WHERE PersonID = @PersonID";
 
@@ -1202,7 +1203,7 @@ namespace FinalProject
                 sqlDataAdapter.Dispose();
 
                 // check if DB return any row
-                foreach(DataRow row in dtDiscountTable.Rows)
+                foreach (DataRow row in dtDiscountTable.Rows)
                 {
                     clsDiscounts discount = new clsDiscounts();
 
@@ -1220,7 +1221,7 @@ namespace FinalProject
                     dicountCodeList.Add(discount);
                 }
 
-          
+
             }
             catch (Exception ex)
             {
@@ -1237,7 +1238,7 @@ namespace FinalProject
             try
             {
                 string query = "INSERT INTO Discounts (DiscountCode, Description, DiscountLevel, DiscountType, StartDate, ExpirationDate, ";
-                 
+
                 if (discountCode.DiscountType == 1)
                     query += "DiscountPercentage) ";
                 else
@@ -1254,7 +1255,7 @@ namespace FinalProject
                 cmd.Parameters.AddWithValue("@DiscountType", discountCode.DiscountType);
                 cmd.Parameters.AddWithValue("@StartDate", discountCode.StartDate);
                 cmd.Parameters.AddWithValue("@ExpirationDate", discountCode.ExpirationDate);
-                
+
                 if (discountCode.DiscountType == 1) // Percentage
                     cmd.Parameters.AddWithValue("@Discount", discountCode.DiscountPercentage);
                 else // amount
@@ -1279,14 +1280,17 @@ namespace FinalProject
                 " DiscountLevel = @DiscountLevel," +
                 " DiscountType = @DiscountType," +
                 " StartDate = @StartDate," +
-                " ExpirationDate = @ExpirationDate, ";
+                " ExpirationDate = @ExpirationDate," +
+                " DiscountPercentage = @DiscountPercentage," +
+                " DiscountDollarAmount = @DiscountDollarAmount" +
+                " WHERE DiscountID = @DiscountID";
 
-                if (discountCode.DiscountType == 1)
-                    query += "DiscountPercentage = @Discount ";
-                else
-                    query += "DiscountDollarAmount = @Discount ";
+                //if (discountCode.DiscountType == 1)
+                //    query += "DiscountPercentage = @Discount ";
+                //else
+                //    query += "DiscountDollarAmount = @Discount ";
 
-                query += "WHERE DiscountID = @DiscountID";
+                //query += "WHERE DiscountID = @DiscountID";
 
 
                 SqlCommand cmd = new SqlCommand(query, connection);
@@ -1300,10 +1304,15 @@ namespace FinalProject
                 cmd.Parameters.AddWithValue("@DiscountID", discountCode.DiscountID);
 
                 if (discountCode.DiscountType == 1) // Percentage
-                    cmd.Parameters.AddWithValue("@Discount", discountCode.DiscountPercentage);
-                else // amount
-                    cmd.Parameters.AddWithValue("@Discount", discountCode.DiscountAmount);
-
+                {
+                    cmd.Parameters.AddWithValue("@DiscountPercentage", discountCode.DiscountPercentage);
+                    cmd.Parameters.AddWithValue("@DiscountDollarAmount", "0.00");
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@DiscountDollarAmount", discountCode.DiscountAmount);
+                    cmd.Parameters.AddWithValue("@DiscountPercentage", "0.00");
+                }
 
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Code successfully Updated!", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Information);

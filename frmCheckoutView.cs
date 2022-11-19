@@ -55,7 +55,7 @@ namespace FinalProject
             if (clsPublicData.currentUserCart.Discount > 0)
             {
 
-                if (clsPublicData.discount.DiscountPercentage != "")
+                if (clsPublicData.discount.DiscountType == 1)
                     lblDiscount.Text = $"Discount ({Convert.ToDecimal(clsPublicData.discount.DiscountPercentage) * 100}%):";
                 else
                     lblDiscount.Text = $"Discount (${clsPublicData.discount.DiscountAmount}):";
@@ -137,7 +137,7 @@ namespace FinalProject
 
                 //  if so, give user a discount
                 // check if we have dollar amount or percentage
-                if (clsPublicData.discount.DiscountAmount != "")
+                if (clsPublicData.discount.DiscountType == 0)
                 {
                     clsPublicData.currentUserCart.Discount = Convert.ToDecimal(clsPublicData.discount.DiscountAmount);
                     lblDiscount.Text = $"Discount (${clsPublicData.discount.DiscountAmount}):";
