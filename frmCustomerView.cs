@@ -1,4 +1,5 @@
 ﻿using FinalProject.Customer_View_Classes;
+using FinalProject.ManagerViewForms;
 using FinalProject.Properties;
 using System;
 using System.Collections.Generic;
@@ -24,8 +25,11 @@ using Image = System.Drawing.Image;
 
 namespace FinalProject
 {
+    public enum FORM_TYPES { NORMAL, POINT_OF_SALES, }
+
     public partial class frmCustomerView : Form
     {
+        public FORM_TYPES currentType;
 
         #region Public Layout panels
         // Create for each menu bar items
@@ -36,9 +40,10 @@ namespace FinalProject
         public static FlowLayoutPanel currentSelectedFlowLayoutPannel = menPanel;
         #endregion
 
-        public frmCustomerView()
+        public frmCustomerView(FORM_TYPES frmType = FORM_TYPES.NORMAL)
         {
             InitializeComponent();
+            this.currentType = frmType;
         }
 
         #region Main form functions
@@ -46,10 +51,21 @@ namespace FinalProject
         {
 
             if (clsPublicData.currentUser != null)
+            {
+                if (clsPublicData.currentUser.strPositionID == "1000")
+                {
+                    clsPublicData.currentManager = clsPublicData.currentUser;
+                    currentType = FORM_TYPES.POINT_OF_SALES;
+                }
                 // Display user name
                 lblUserFirstName.Text = $"Welcome Back, {clsPublicData.currentUser.strFirstName}";
+            }
+
             else
+            {
+
                 lblUserFirstName.Text = $"Anonymous user";
+            }
 
             if (clsPublicData.lstInventory.Count <= 0)
             {
@@ -79,13 +95,12 @@ namespace FinalProject
         }
         private void frmCustomerView_FormClosing(object sender, FormClosingEventArgs e)
         {
-            clsPublicData.currentUser = null;
             clsPublicData.currentUserCart = new clsUserCart();
         }
         private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            clsPublicData.currentUser = null;
             clsPublicData.currentUserCart = new clsUserCart();
+            clsPublicData.currentManager = null;
             this.Close();
         }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -214,21 +229,32 @@ namespace FinalProject
             }
             else
             {
-                if (clsPublicData.currentUser != null)
+
+
+                switch (currentType)
                 {
-                    new frmCheckoutView().ShowDialog();
-                    updateCartArea();
-                }
-                else
-                {
-                    new frmLoginOrCreateAccountQuestion().ShowDialog();
-                    // see if they logged in
-                    if (clsPublicData.currentUser != null)
-                    {
-                        lblUserFirstName.Text = $"Welcome Back, {clsPublicData.currentUser.strFirstName}";
-                        new frmCheckoutView().ShowDialog();
-                        updateCartArea();
-                    }
+                    case FORM_TYPES.NORMAL:
+                        if(clsPublicData.currentUser == null)
+                            new frmLoginOrCreateAccountQuestion().ShowDialog();
+                        // see if they logged in
+                        if (clsPublicData.currentUser != null)
+                        {
+                            lblUserFirstName.Text = $"Welcome Back, {clsPublicData.currentUser.strFirstName}";
+                            new frmCheckoutView().ShowDialog();
+                            updateCartArea();
+                        }
+                        break;
+
+                    case FORM_TYPES.POINT_OF_SALES:
+                        new frmUserManager(FORM_TYPES.POINT_OF_SALES).ShowDialog();
+                        if (clsPublicData.currentUser != null)
+                        {
+                            MessageBox.Show($"Checking out for {clsPublicData.currentUser.strFirstName} {clsPublicData.currentUser.strLastName}.", "Sshoe",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            new frmCheckoutView().ShowDialog();
+                            clsPublicData.currentUser = clsPublicData.currentManager;
+                            updateCartArea();
+                        }
+                        break;
                 }
             }
         }

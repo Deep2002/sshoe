@@ -135,12 +135,12 @@
             // 
             this.lblUserName.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblUserName.ForeColor = System.Drawing.Color.Lime;
-            this.lblUserName.Location = new System.Drawing.Point(820, 9);
+            this.lblUserName.Location = new System.Drawing.Point(819, 10);
             this.lblUserName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblUserName.Name = "lblUserName";
             this.lblUserName.Size = new System.Drawing.Size(366, 25);
             this.lblUserName.TabIndex = 0;
-            this.lblUserName.Text = "Current Employee: Deep";
+            this.lblUserName.Text = "Current Employee: Name";
             this.lblUserName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnUsers
@@ -257,6 +257,7 @@
             this.btnPos.TabIndex = 4;
             this.btnPos.Text = "Point of Sales";
             this.btnPos.UseVisualStyleBackColor = false;
+            this.btnPos.Click += new System.EventHandler(this.btnPos_Click);
             this.btnPos.MouseEnter += new System.EventHandler(this.btnPos_MouseEnter);
             this.btnPos.MouseLeave += new System.EventHandler(this.btnPos_MouseLeave);
             // 

@@ -119,6 +119,8 @@ namespace FinalProject
             strBuilder.AppendLine("<div class=\"w-50 p-3 bg-dark\" style=\" border-style:solid; border-radius: 20px; min-width: 500px; max-width: 500px; display: flex; justify-content: space-between; color: white; margin-left: auto; margin-right: auto; font-size: large; letter-spacing: 0.01ch;\">");
             strBuilder.AppendLine("<div style=\"list-style: none;\">");
             strBuilder.AppendLine("<li style=\"color: orange;\">Name on order:</li>");
+            if (clsPublicData.currentManager != null)
+                strBuilder.AppendLine("<li style=\"color: LightGray;\">Employee helped:</li>");
             strBuilder.AppendLine("<li style=\"color: rgb(47, 255, 54);\">Order ID#</li>");
             strBuilder.AppendLine("<li>Date</li><br>");
             strBuilder.AppendLine("<li>Total Items:</li>");
@@ -130,6 +132,8 @@ namespace FinalProject
             strBuilder.AppendLine("</div>");
             strBuilder.AppendLine("<div style = \"text-align: right; list-style: none;\">");
             strBuilder.AppendLine($"<li style = \"color: orange;\">{clsPublicData.currentUser.strFirstName} {clsPublicData.currentUser.strLastName}</li>");
+            if (clsPublicData.currentManager != null)
+                strBuilder.AppendLine($"<li style = \"color: LightGray;\">{clsPublicData.currentManager.strFirstName} {clsPublicData.currentManager.strLastName}</li>");
             strBuilder.AppendLine($"<li style = \"color: rgb(47, 255, 54);\"> {clsPublicData.currentUserCart.orderID } </li>");
             strBuilder.AppendLine($"<li> {DateTime.Now.ToString("d")} </li><br>");
             strBuilder.AppendLine($"<li> {itemCount} </li>");
@@ -140,7 +144,7 @@ namespace FinalProject
             strBuilder.AppendLine($"<li style = \"color: orange;\"> ${clsPublicData.currentUserCart.Total.ToString("0.00")} </li>");
             strBuilder.AppendLine("</div>");
             strBuilder.AppendLine("</div>");
-            string strImagePath = Assembly.GetExecutingAssembly().CodeBase.Replace("FinalProject.exe", "sshoeLogo.ico");
+            string strImagePath = Assembly.GetExecutingAssembly().CodeBase.Replace("bin/Debug/FinalProject.exe", "Resources/sshoeLogo.ico");
             strBuilder.AppendLine($"<div style=\"margin-left: auto; margin-right: auto; margin-top: 2rem; text-align: center;\"><img style = \"width: 50px; height: 50px;\" src=\"{strImagePath}\" alt=\"sshoe logo\"><h5>Thank you for shopping with sshoe :)</h5></div>");
             strBuilder.AppendLine("</body>\r\n</html>");
 

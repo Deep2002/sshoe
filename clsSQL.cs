@@ -710,22 +710,35 @@ namespace FinalProject
                 #region Creating new Order
                 string strQuery = "INSERT INTO Orders (PersonID, OrderDate, CC_Number, ExpDate, CCV, Time";
 
+                // if placing order from point of sales (POS)
+                // Add Employee / Manager ID
+                if (clsPublicData.currentManager != null)
+                {
+                    strQuery += ", EmployeeID";
+                }
+
                 #region Append discount id if exists
                 if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
                     strQuery += ", DiscountID";
 
                 strQuery += ") VALUES (@PersonID, @OrderDate, @CC_Number, @ExpDate, @CCV, @Time";
 
+                if (clsPublicData.currentManager != null)
+                    strQuery += ", @EmployeeID";
+
                 if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
                     strQuery += ", @DiscountID";
-                strQuery += ");";
                 #endregion
+                strQuery += ");";
 
                 // establish command and data adapter
                 SqlCommand cmd = new SqlCommand(strQuery, connection);
 
                 if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
                     cmd.Parameters.AddWithValue("@DiscountID", clsPublicData.discount.DiscountID);
+
+                if (clsPublicData.currentManager != null)
+                    cmd.Parameters.AddWithValue("@EmployeeID", clsPublicData.currentManager.strPersonID);
 
                 string orderDate = DateTime.Now.ToString("g");
                 string orderTime = DateTime.Now.ToString("T");
@@ -850,7 +863,7 @@ namespace FinalProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error receiving Placing an order see error below:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error receiving an order see error below:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 

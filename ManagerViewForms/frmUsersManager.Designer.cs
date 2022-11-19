@@ -41,6 +41,7 @@
             this.btnAddNewUser = new System.Windows.Forms.Button();
             this.lblInfo = new System.Windows.Forms.Label();
             this.lblSearchUser = new System.Windows.Forms.Label();
+            this.btnSelectThisAsCustomer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -115,6 +116,7 @@
             this.btnUpdateUserInfo.TabIndex = 16;
             this.btnUpdateUserInfo.Text = "Update / View Selected User\r\n Infromation";
             this.btnUpdateUserInfo.UseVisualStyleBackColor = false;
+            this.btnUpdateUserInfo.Visible = false;
             this.btnUpdateUserInfo.Click += new System.EventHandler(this.btnUpdateUserInfo_Click);
             // 
             // btnShowCustomers
@@ -131,6 +133,7 @@
             this.btnShowCustomers.TabIndex = 17;
             this.btnShowCustomers.Text = "Show Customers";
             this.btnShowCustomers.UseVisualStyleBackColor = false;
+            this.btnShowCustomers.Visible = false;
             this.btnShowCustomers.Click += new System.EventHandler(this.btnShowCustomers_Click);
             // 
             // btnShowEmployees
@@ -147,6 +150,7 @@
             this.btnShowEmployees.TabIndex = 18;
             this.btnShowEmployees.Text = "Show Emoployees";
             this.btnShowEmployees.UseVisualStyleBackColor = false;
+            this.btnShowEmployees.Visible = false;
             this.btnShowEmployees.Click += new System.EventHandler(this.btnShowEmployees_Click);
             // 
             // btnAddNewUser
@@ -163,6 +167,7 @@
             this.btnAddNewUser.TabIndex = 19;
             this.btnAddNewUser.Text = "Add New User";
             this.btnAddNewUser.UseVisualStyleBackColor = false;
+            this.btnAddNewUser.Visible = false;
             this.btnAddNewUser.Click += new System.EventHandler(this.btnAddNewUser_Click);
             // 
             // lblInfo
@@ -187,11 +192,29 @@
             this.lblSearchUser.TabIndex = 21;
             this.lblSearchUser.Text = "Search User:";
             // 
+            // btnSelectThisAsCustomer
+            // 
+            this.btnSelectThisAsCustomer.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnSelectThisAsCustomer.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnSelectThisAsCustomer.FlatAppearance.BorderSize = 0;
+            this.btnSelectThisAsCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSelectThisAsCustomer.ForeColor = System.Drawing.Color.White;
+            this.btnSelectThisAsCustomer.Location = new System.Drawing.Point(561, 667);
+            this.btnSelectThisAsCustomer.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSelectThisAsCustomer.Name = "btnSelectThisAsCustomer";
+            this.btnSelectThisAsCustomer.Size = new System.Drawing.Size(302, 83);
+            this.btnSelectThisAsCustomer.TabIndex = 22;
+            this.btnSelectThisAsCustomer.Text = "&Select this as Customer";
+            this.btnSelectThisAsCustomer.UseVisualStyleBackColor = false;
+            this.btnSelectThisAsCustomer.Visible = false;
+            this.btnSelectThisAsCustomer.Click += new System.EventHandler(this.btnSelectThisAsCustomer_Click);
+            // 
             // frmUserManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1424, 781);
+            this.Controls.Add(this.btnSelectThisAsCustomer);
             this.Controls.Add(this.lblSearchUser);
             this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.btnAddNewUser);
@@ -228,5 +251,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.Label lblSearchUser;
+        private System.Windows.Forms.Button btnSelectThisAsCustomer;
     }
 }

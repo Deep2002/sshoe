@@ -116,6 +116,12 @@ namespace FinalProject
             new frmDiscountsManager().ShowDialog();
             this.Show();
         }
+
+        private void btnPos_Click(object sender, EventArgs e)
+        {
+            // open point of sales.
+            new frmCustomerView(FORM_TYPES.POINT_OF_SALES).ShowDialog(); 
+        }
     }
 
 }

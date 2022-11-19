@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinalProject.Customer_View_Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,17 +13,36 @@ namespace FinalProject.ManagerViewForms
 {
     public partial class frmUserManager : Form
     {
+        public FORM_TYPES currentFormType;
 
         public List<Person> usersList;
 
-        public frmUserManager()
+        public frmUserManager(FORM_TYPES frmType = FORM_TYPES.NORMAL)
         {
             InitializeComponent();
+            currentFormType = frmType;
         }
 
         private void frmUsersManager_Load(object sender, EventArgs e)
         {
             // Display all customers
+
+            switch (currentFormType)
+            {
+                case FORM_TYPES.NORMAL:
+                    btnSelectThisAsCustomer.Visible = false;
+                    btnAddNewUser.Visible = true;
+                    btnShowCustomers.Visible = true;
+                    btnShowEmployees.Visible = true;
+                    break;
+                case FORM_TYPES.POINT_OF_SALES:
+                    btnSelectThisAsCustomer.Visible = true;
+                    btnAddNewUser.Visible = false;
+                    btnShowCustomers.Visible = false;
+                    btnShowEmployees.Visible = false;
+                    break;
+            }
+
             loadDataOnForm();
         }
 
@@ -126,6 +146,19 @@ namespace FinalProject.ManagerViewForms
             {
                 tbxSearchBar.Text = "Name, ID, Email, Phone...";
             }
+        }
+
+        private void btnSelectThisAsCustomer_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                clsPublicData.currentUser =  usersList.Find(x => x.strPersonID == dgvUsers.SelectedCells[3].Value.ToString());
+            }
+            catch
+            {
+                MessageBox.Show("Please select a user from the grid view above.", "Selection cannot be found.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            this.Close();
         }
     }
 }

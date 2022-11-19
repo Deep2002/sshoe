@@ -13,6 +13,7 @@ namespace FinalProject.Customer_View_Classes
         /// All of these data can be used thorough this application.
         /// </summary>
         public static Person currentUser = null;
+        public static Person currentManager = null;
         public static List<clsInventory> lstInventory = new List<clsInventory>();
         public static List<clsCategories> lstCategory = new List<clsCategories>();
         public static List<Button> lstActiveCategoryTags = new List<Button>();
