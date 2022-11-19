@@ -103,7 +103,18 @@ namespace FinalProject
 
         private void btnUsers_Click(object sender, EventArgs e)
         {
+            // open users manager
+            this.Hide();
+            new frmUserManager().ShowDialog();
+            this.Show();
+        }
 
+        private void btnDiscounts_Click(object sender, EventArgs e)
+        {
+            // open discounts manager
+            this.Hide();
+            new frmDiscountsManager().ShowDialog();
+            this.Show();
         }
     }
 

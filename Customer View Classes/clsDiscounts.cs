@@ -8,13 +8,16 @@ namespace FinalProject.Customer_View_Classes
 {
     public class clsDiscounts
     {
-        public string DicountID { get; set; }
-        public string DicountCode { get; set; }
+        public string DiscountID { get; set; }
+        public string DiscountCode { get; set; }
+        public string Description { get; set; }
+        public string StartDate { get; set; }
         public string ExpirationDate { get; set; }
         public string InventoryID { get; set; }
-        public int DicountType { get; set; }
+        public int DiscountType { get; set; }
 
-        public string DicountAmount { get; set; }
-        public string DicountPercentage { get; set; }
+        public string DiscountAmount { get; set; }
+        public string DiscountPercentage { get; set; }
+        public string DiscountLevel { get; internal set; }
     }
 }

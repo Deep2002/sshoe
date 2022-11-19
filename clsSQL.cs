@@ -678,13 +678,13 @@ namespace FinalProject
 
                 if (dtDiscountTable.Rows.Count >= 1)
                 {
-                    clsPublicData.discount.DicountID = dtDiscountTable.Rows[0]["DiscountID"].ToString();
-                    clsPublicData.discount.DicountCode = dtDiscountTable.Rows[0]["DiscountCode"].ToString();
-                    clsPublicData.discount.DicountAmount = dtDiscountTable.Rows[0]["DiscountDollarAmount"].ToString();
-                    clsPublicData.discount.DicountPercentage = dtDiscountTable.Rows[0]["DiscountPercentage"].ToString();
+                    clsPublicData.discount.DiscountID = dtDiscountTable.Rows[0]["DiscountID"].ToString();
+                    clsPublicData.discount.DiscountCode = dtDiscountTable.Rows[0]["DiscountCode"].ToString();
+                    clsPublicData.discount.DiscountAmount = dtDiscountTable.Rows[0]["DiscountDollarAmount"].ToString();
+                    clsPublicData.discount.DiscountPercentage = dtDiscountTable.Rows[0]["DiscountPercentage"].ToString();
                     clsPublicData.discount.InventoryID = dtDiscountTable.Rows[0]["InventoryID"].ToString();
                     clsPublicData.discount.ExpirationDate = dtDiscountTable.Rows[0]["ExpirationDate"].ToString();
-                    clsPublicData.discount.DicountType = Convert.ToInt32(dtDiscountTable.Rows[0]["DiscountType"].ToString());
+                    clsPublicData.discount.DiscountType = Convert.ToInt32(dtDiscountTable.Rows[0]["DiscountType"].ToString());
 
                 }
                 else
@@ -711,12 +711,12 @@ namespace FinalProject
                 string strQuery = "INSERT INTO Orders (PersonID, OrderDate, CC_Number, ExpDate, CCV, Time";
 
                 #region Append discount id if exists
-                if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
+                if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
                     strQuery += ", DiscountID";
 
                 strQuery += ") VALUES (@PersonID, @OrderDate, @CC_Number, @ExpDate, @CCV, @Time";
 
-                if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
+                if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
                     strQuery += ", @DiscountID";
                 strQuery += ");";
                 #endregion
@@ -724,8 +724,8 @@ namespace FinalProject
                 // establish command and data adapter
                 SqlCommand cmd = new SqlCommand(strQuery, connection);
 
-                if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
-                    cmd.Parameters.AddWithValue("@DiscountID", clsPublicData.discount.DicountID);
+                if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
+                    cmd.Parameters.AddWithValue("@DiscountID", clsPublicData.discount.DiscountID);
 
                 string orderDate = DateTime.Now.ToString("g");
                 string orderTime = DateTime.Now.ToString("T");
@@ -786,12 +786,12 @@ namespace FinalProject
                     strQuery = "INSERT INTO OrderDetails (OrderID, InventoryID, Quantity ";
 
                     #region Append discount id if exists
-                    if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
+                    if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
                         strQuery += ", DiscountID";
 
                     strQuery += ") VALUES (@OrderID, @InventoryID, @Quantity";
 
-                    if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
+                    if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
                         strQuery += ", @DiscountID";
                     strQuery += ");";
                     #endregion
@@ -805,8 +805,8 @@ namespace FinalProject
                         cmd.Parameters.AddWithValue("@InventoryID", item.inventory.intID);
                         cmd.Parameters.AddWithValue("@Quantity", item.quantity);
 
-                        if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
-                            cmd.Parameters.AddWithValue("@DiscountID", clsPublicData.discount.DicountID);
+                        if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
+                            cmd.Parameters.AddWithValue("@DiscountID", clsPublicData.discount.DiscountID);
 
                         // run the query
                         cmd.ExecuteNonQuery();
@@ -1057,9 +1057,9 @@ namespace FinalProject
                 SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
 
                 // create and fill in the data table
-                DataTable dtBrandsTable = new DataTable();
+                DataTable dtCustomersTable = new DataTable();
                 sqlDataAdapter.SelectCommand = cmd;
-                sqlDataAdapter.Fill(dtBrandsTable);
+                sqlDataAdapter.Fill(dtCustomersTable);
 
                 // dispose unnecessary data
                 cmd.Dispose();
@@ -1067,7 +1067,7 @@ namespace FinalProject
 
                 // check if DB return any row
 
-                foreach (DataRow row in dtBrandsTable.Rows)
+                foreach (DataRow row in dtCustomersTable.Rows)
                 {
                     Person person = new Person();
 
@@ -1176,6 +1176,141 @@ namespace FinalProject
             catch (Exception ex)
             {
                 MessageBox.Show("Unable to update your record!\n\nSee Error Below:\n" + ex.Message, "SQL ERROR - Updating user", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        internal static void LoadAllDiscounts(List<clsDiscounts> dicountCodeList)
+        {
+            try
+            {
+                // setting up query to run
+                string strQuery = "SELECT * FROM Discounts;";
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+
+
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+
+                // create and fill in the data table
+                DataTable dtDiscountTable = new DataTable();
+                sqlDataAdapter.SelectCommand = cmd;
+                sqlDataAdapter.Fill(dtDiscountTable);
+
+                // dispose unnecessary data
+                cmd.Dispose();
+                sqlDataAdapter.Dispose();
+
+                // check if DB return any row
+                foreach(DataRow row in dtDiscountTable.Rows)
+                {
+                    clsDiscounts discount = new clsDiscounts();
+
+                    discount.DiscountID = row["DiscountID"].ToString();
+                    discount.DiscountCode = row["DiscountCode"].ToString();
+                    discount.Description = row["Description"].ToString();
+                    discount.DiscountAmount = row["DiscountDollarAmount"].ToString();
+                    discount.DiscountPercentage = row["DiscountPercentage"].ToString();
+                    discount.InventoryID = row["InventoryID"].ToString();
+                    discount.ExpirationDate = row["ExpirationDate"].ToString();
+                    discount.StartDate = row["StartDate"].ToString();
+                    discount.DiscountType = Convert.ToInt32(row["DiscountType"].ToString());
+                    discount.DiscountLevel = row["DiscountLevel"].ToString();
+
+                    dicountCodeList.Add(discount);
+                }
+
+          
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reviving discounts see error below:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        }
+
+        internal static void AddDiscount(clsDiscounts discountCode)
+        {
+
+
+            try
+            {
+                string query = "INSERT INTO Discounts (DiscountCode, Description, DiscountLevel, DiscountType, StartDate, ExpirationDate, ";
+                 
+                if (discountCode.DiscountType == 1)
+                    query += "DiscountPercentage) ";
+                else
+                    query += "DiscountDollarAmount) ";
+
+                query += "VALUES (@DiscountCode, @Description, @DiscountLevel, @DiscountType, @StartDate, @ExpirationDate, @Discount);";
+
+
+                SqlCommand cmd = new SqlCommand(query, connection);
+
+                cmd.Parameters.AddWithValue("@DiscountCode", discountCode.DiscountCode);
+                cmd.Parameters.AddWithValue("@Description", discountCode.Description);
+                cmd.Parameters.AddWithValue("@DiscountLevel", discountCode.DiscountLevel);
+                cmd.Parameters.AddWithValue("@DiscountType", discountCode.DiscountType);
+                cmd.Parameters.AddWithValue("@StartDate", discountCode.StartDate);
+                cmd.Parameters.AddWithValue("@ExpirationDate", discountCode.ExpirationDate);
+                
+                if (discountCode.DiscountType == 1) // Percentage
+                    cmd.Parameters.AddWithValue("@Discount", discountCode.DiscountPercentage);
+                else // amount
+                    cmd.Parameters.AddWithValue("@Discount", discountCode.DiscountAmount);
+
+
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Code successfully added!", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error adding discounts, see error below:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        internal static void UpdateDiscount(clsDiscounts discountCode)
+        {
+            try
+            {
+                string query = "UPDATE Discounts SET DiscountCode = @DiscountCode," +
+                " Description = @Description," +
+                " DiscountLevel = @DiscountLevel," +
+                " DiscountType = @DiscountType," +
+                " StartDate = @StartDate," +
+                " ExpirationDate = @ExpirationDate, ";
+
+                if (discountCode.DiscountType == 1)
+                    query += "DiscountPercentage = @Discount ";
+                else
+                    query += "DiscountDollarAmount = @Discount ";
+
+                query += "WHERE DiscountID = @DiscountID";
+
+
+                SqlCommand cmd = new SqlCommand(query, connection);
+
+                cmd.Parameters.AddWithValue("@DiscountCode", discountCode.DiscountCode);
+                cmd.Parameters.AddWithValue("@Description", discountCode.Description);
+                cmd.Parameters.AddWithValue("@DiscountLevel", discountCode.DiscountLevel);
+                cmd.Parameters.AddWithValue("@DiscountType", discountCode.DiscountType);
+                cmd.Parameters.AddWithValue("@StartDate", discountCode.StartDate);
+                cmd.Parameters.AddWithValue("@ExpirationDate", discountCode.ExpirationDate);
+                cmd.Parameters.AddWithValue("@DiscountID", discountCode.DiscountID);
+
+                if (discountCode.DiscountType == 1) // Percentage
+                    cmd.Parameters.AddWithValue("@Discount", discountCode.DiscountPercentage);
+                else // amount
+                    cmd.Parameters.AddWithValue("@Discount", discountCode.DiscountAmount);
+
+
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Code successfully Updated!", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error adding discounts, see error below:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

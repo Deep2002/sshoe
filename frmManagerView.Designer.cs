@@ -179,6 +179,7 @@
             this.btnDiscounts.TabIndex = 2;
             this.btnDiscounts.Text = "Discounts";
             this.btnDiscounts.UseVisualStyleBackColor = false;
+            this.btnDiscounts.Click += new System.EventHandler(this.btnDiscounts_Click);
             this.btnDiscounts.MouseEnter += new System.EventHandler(this.btnDiscounts_MouseEnter);
             this.btnDiscounts.MouseLeave += new System.EventHandler(this.btnDiscounts_MouseLeave);
             // 

@@ -168,6 +168,12 @@
     <Compile Include="frmTempAddInventoryForm.Designer.cs">
       <DependentUpon>frmTempAddInventoryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManagerViewForms\frmDiscountsManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManagerViewForms\frmDiscountsManager.Designer.cs">
+      <DependentUpon>frmDiscountsManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="ManagerViewForms\frmInvetoryManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -233,6 +239,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmTempAddInventoryForm.resx">
       <DependentUpon>frmTempAddInventoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManagerViewForms\frmDiscountsManager.resx">
+      <DependentUpon>frmDiscountsManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManagerViewForms\frmInvetoryManager.resx">
       <DependentUpon>frmInvetoryManager.cs</DependentUpon>
