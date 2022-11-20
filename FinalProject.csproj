@@ -180,6 +180,12 @@
     <Compile Include="ManagerViewForms\frmInvetoryManager.Designer.cs">
       <DependentUpon>frmInvetoryManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManagerViewForms\frmNotifications.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManagerViewForms\frmNotifications.Designer.cs">
+      <DependentUpon>frmNotifications.cs</DependentUpon>
+    </Compile>
     <Compile Include="ManagerViewForms\frmUpdateUserInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -245,6 +251,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ManagerViewForms\frmInvetoryManager.resx">
       <DependentUpon>frmInvetoryManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManagerViewForms\frmNotifications.resx">
+      <DependentUpon>frmNotifications.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManagerViewForms\frmUpdateUserInfo.resx">
       <DependentUpon>frmUpdateUserInfo.cs</DependentUpon>

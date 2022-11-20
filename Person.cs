@@ -18,6 +18,7 @@ namespace FinalProject
         public string strSuffix;
         public string strPositionID;
         public string strPosition;
+        public bool blnDisable;
 
         // Logon Information
         public string strUsername;

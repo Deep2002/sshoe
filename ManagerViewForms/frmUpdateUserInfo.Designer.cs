@@ -77,6 +77,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.lblUserType = new System.Windows.Forms.Label();
             this.cbxUserType = new System.Windows.Forms.ComboBox();
+            this.cbxDisableUser = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label9
@@ -482,9 +483,9 @@
             this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdate.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpdate.ForeColor = System.Drawing.Color.White;
-            this.btnUpdate.Location = new System.Drawing.Point(723, 517);
+            this.btnUpdate.Location = new System.Drawing.Point(504, 544);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(247, 79);
+            this.btnUpdate.Size = new System.Drawing.Size(466, 52);
             this.btnUpdate.TabIndex = 99;
             this.btnUpdate.Text = "&Update";
             this.btnUpdate.UseVisualStyleBackColor = false;
@@ -611,11 +612,22 @@
             this.cbxUserType.TabIndex = 130;
             this.cbxUserType.Text = "Select type";
             // 
+            // cbxDisableUser
+            // 
+            this.cbxDisableUser.AutoSize = true;
+            this.cbxDisableUser.Location = new System.Drawing.Point(650, 499);
+            this.cbxDisableUser.Name = "cbxDisableUser";
+            this.cbxDisableUser.Size = new System.Drawing.Size(174, 28);
+            this.cbxDisableUser.TabIndex = 131;
+            this.cbxDisableUser.Text = "Disable This User";
+            this.cbxDisableUser.UseVisualStyleBackColor = true;
+            // 
             // frmUpdateUserInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1062, 641);
+            this.Controls.Add(this.cbxDisableUser);
             this.Controls.Add(this.cbxUserType);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.lblUserType);
@@ -728,5 +740,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lblUserType;
         private System.Windows.Forms.ComboBox cbxUserType;
+        private System.Windows.Forms.CheckBox cbxDisableUser;
     }
 }

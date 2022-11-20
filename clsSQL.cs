@@ -1102,6 +1102,7 @@ namespace FinalProject
                     person.strPositionID = row["PositionID"].ToString();
                     person.strUsername = row["LogonName"].ToString();
                     person.strPassword = row["Password"].ToString();
+                    person.blnDisable = Convert.ToBoolean(row["PersonDeleted"].ToString());
 
                     if (person.strPositionID == "1000")
                     {
@@ -1127,7 +1128,7 @@ namespace FinalProject
             string email, string primaryPhone, string secondaryPhone,
             string address1, string address2, string address3,
             string city, string state, string zip,
-            string password, string positionID)
+            string password, string positionID, bool disable)
         {
 
             // update everything
@@ -1145,7 +1146,8 @@ namespace FinalProject
                 "Email = @Email, " +
                 "PhonePrimary = @PhonePrimary, " +
                 "PhoneSecondary = @PhoneSecondary, " +
-                "PositionID = @PositionID " +
+                "PositionID = @PositionID, " +
+                "PersonDeleted = @PErsonDeleted " +
                 "WHERE PersonID = @PersonID";
 
             try
@@ -1168,6 +1170,7 @@ namespace FinalProject
                 cmd.Parameters.AddWithValue("@PhonePrimary", primaryPhone);
                 cmd.Parameters.AddWithValue("@PhoneSecondary", secondaryPhone);
                 cmd.Parameters.AddWithValue("@PositionID", positionID);
+                cmd.Parameters.AddWithValue("@PersonDeleted", disable);
                 cmd.Parameters.AddWithValue("@PersonID", Convert.ToInt32(userID));
 
                 cmd.ExecuteNonQuery();

@@ -242,7 +242,6 @@ namespace FinalProject.ManagerViewForms
             tbxCode.Text = "";
             tbxDesc.Text = "";
             tbxDiscountLevel.Text = "";
-            cbxDiscountType.Text = "";
             dtpStartDate.Text = "";
             dtpExpDate.Text = "";
         }

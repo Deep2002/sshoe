@@ -45,6 +45,7 @@ namespace FinalProject.ManagerViewForms
                 cbxState.Text = selectedPerson.strState;
                 tbxZIP.Text = selectedPerson.strZip;
                 tbxPassword.Text = selectedPerson.strPassword;
+                cbxDisableUser.Checked = selectedPerson.blnDisable;
             }
         }
 
@@ -172,7 +173,7 @@ namespace FinalProject.ManagerViewForms
                 //if so, proceed to updating
                 clsSQL.updatePerson(selectedPerson.strPersonID, tbxFirstName.Text, tbxLastName.Text, tbxMiddleName.Text, cbxTitle.Text,
                     tbxSuffix.Text, tbxUsername.Text, tbxEmail.Text, tbxPrimaryPhone.Text, tbxSecondaryPhone.Text, tbxAddress.Text, tbxAddress2.Text,
-                    tbxAddress3.Text, tbxCity.Text, cbxState.Text, tbxZIP.Text, tbxPassword.Text, cbxUserType.Text == "Customer" ? "1001" : "1000");
+                    tbxAddress3.Text, tbxCity.Text, cbxState.Text, tbxZIP.Text, tbxPassword.Text, cbxUserType.Text == "Customer" ? "1001" : "1000", cbxDisableUser.Checked);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using FinalProject.ManagerViewForms;
+﻿using FinalProject.Customer_View_Classes;
+using FinalProject.ManagerViewForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -92,6 +93,9 @@ namespace FinalProject
 
         private void frmManagerView_Load(object sender, EventArgs e)
         {
+            // set users name
+            
+            //lblUserName.Text = $"Current employee: {clsPublicData.currentUser.strFirstName}";
         }
 
         private void btnInventory_Click(object sender, EventArgs e)
@@ -121,6 +125,16 @@ namespace FinalProject
         {
             // open point of sales.
             new frmCustomerView(FORM_TYPES.POINT_OF_SALES).ShowDialog(); 
+        }
+
+        private void btnReports_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnNotifications_Click(object sender, EventArgs e)
+        {
+            new frmNotifications().Show();
         }
     }
 

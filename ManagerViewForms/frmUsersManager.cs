@@ -34,12 +34,14 @@ namespace FinalProject.ManagerViewForms
                     btnAddNewUser.Visible = true;
                     btnShowCustomers.Visible = true;
                     btnShowEmployees.Visible = true;
+                    btnUpdateUserInfo.Visible = true;
                     break;
                 case FORM_TYPES.POINT_OF_SALES:
                     btnSelectThisAsCustomer.Visible = true;
                     btnAddNewUser.Visible = false;
                     btnShowCustomers.Visible = false;
                     btnShowEmployees.Visible = false;
+                    btnUpdateUserInfo.Visible = false;
                     break;
             }
 

@@ -199,6 +199,7 @@
             this.btnNotifications.TabIndex = 5;
             this.btnNotifications.Text = "Notifications";
             this.btnNotifications.UseVisualStyleBackColor = false;
+            this.btnNotifications.Click += new System.EventHandler(this.btnNotifications_Click);
             this.btnNotifications.MouseEnter += new System.EventHandler(this.btnNotifications_MouseEnter);
             this.btnNotifications.MouseLeave += new System.EventHandler(this.btnNotifications_MouseLeave);
             // 
@@ -238,6 +239,7 @@
             this.btnReports.TabIndex = 1;
             this.btnReports.Text = "Reports";
             this.btnReports.UseVisualStyleBackColor = false;
+            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
             this.btnReports.MouseEnter += new System.EventHandler(this.btnReports_MouseEnter);
             this.btnReports.MouseLeave += new System.EventHandler(this.btnReports_MouseLeave);
             // 
