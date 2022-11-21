@@ -71,6 +71,7 @@
     <Compile Include="Customer View Classes\clsDiscounts.cs" />
     <Compile Include="Customer View Classes\clsGender.cs" />
     <Compile Include="Customer View Classes\clsInventory.cs" />
+    <Compile Include="Customer View Classes\clsOrder.cs" />
     <Compile Include="Customer View Classes\clsPublicData.cs" />
     <Compile Include="Customer View Classes\clsUserCart.cs" />
     <Compile Include="frmAddressFilloutForm.cs">
@@ -186,6 +187,18 @@
     <Compile Include="ManagerViewForms\frmNotifications.Designer.cs">
       <DependentUpon>frmNotifications.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManagerViewForms\frmReports.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManagerViewForms\frmReports.Designer.cs">
+      <DependentUpon>frmReports.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerViewForms\frmSalesReportsDateSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManagerViewForms\frmSalesReportsDateSelector.Designer.cs">
+      <DependentUpon>frmSalesReportsDateSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="ManagerViewForms\frmUpdateUserInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -254,6 +267,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ManagerViewForms\frmNotifications.resx">
       <DependentUpon>frmNotifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManagerViewForms\frmReports.resx">
+      <DependentUpon>frmReports.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManagerViewForms\frmSalesReportsDateSelector.resx">
+      <DependentUpon>frmSalesReportsDateSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManagerViewForms\frmUpdateUserInfo.resx">
       <DependentUpon>frmUpdateUserInfo.cs</DependentUpon>

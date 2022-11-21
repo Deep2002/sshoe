@@ -796,7 +796,7 @@ namespace FinalProject
                     #region Adding order Details
 
                     // get that order id
-                    strQuery = "INSERT INTO OrderDetails (OrderID, InventoryID, Quantity ";
+                    strQuery = "INSERT INTO OrderDetails (OrderID, InventoryID, Quantity, TotalCost ";
 
                     #region Append discount id if exists
                     if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
@@ -817,6 +817,7 @@ namespace FinalProject
                         cmd.Parameters.AddWithValue("@OrderID", orderID);
                         cmd.Parameters.AddWithValue("@InventoryID", item.inventory.intID);
                         cmd.Parameters.AddWithValue("@Quantity", item.quantity);
+                        cmd.Parameters.AddWithValue("@TotalCost", item.quantity * item.inventory.decCost);
 
                         if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
                             cmd.Parameters.AddWithValue("@DiscountID", clsPublicData.discount.DiscountID);
@@ -1337,6 +1338,52 @@ namespace FinalProject
             {
                 MessageBox.Show("Error adding discounts, see error below:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        internal static void LoadOrder(List<clsOrder> orders)
+        {
+            try
+            {
+                // setting up query to run
+                string strQuery = "SELECT o.OrderID, SUM(od.Quantity) As totalItems, o.OrderDate, sum(od.TotalCost) AS OrderTotal FROM Orders as o JOIN OrderDetails as od ON od.OrderID = o.OrderID  " +
+                    "GROUP BY o.OrderID, o.OrderDate ORDER BY OrderID";
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+
+
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+
+                // create and fill in the data table
+                DataTable dtDiscountTable = new DataTable();
+                sqlDataAdapter.SelectCommand = cmd;
+                sqlDataAdapter.Fill(dtDiscountTable);
+
+                // dispose unnecessary data
+                cmd.Dispose();
+                sqlDataAdapter.Dispose();
+
+                // check if DB return any row
+                foreach (DataRow row in dtDiscountTable.Rows)
+                {
+                    clsOrder order = new clsOrder();
+
+                    order.orderID = row["OrderID"].ToString();
+                    order.orderTotal = row["OrderTotal"].ToString();
+                    order.totalQantity = row["totalItems"].ToString();
+                    order.orderDate = row["OrderDate"].ToString();
+
+                    orders.Add(order);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reviving discounts see error below:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
         }
     }
 }

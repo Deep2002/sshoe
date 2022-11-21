@@ -241,6 +241,7 @@ namespace FinalProject.ManagerViewForms
         {
             tbxCode.Text = "";
             tbxDesc.Text = "";
+            tbxPercentageORAmount.Text = "";
             tbxDiscountLevel.Text = "";
             dtpStartDate.Text = "";
             dtpExpDate.Text = "";

@@ -129,7 +129,9 @@ namespace FinalProject
 
         private void btnReports_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            new frmReports().ShowDialog();
+            this.Show();
         }
 
         private void btnNotifications_Click(object sender, EventArgs e)
