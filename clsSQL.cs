@@ -548,6 +548,7 @@ namespace FinalProject
                     inventory.intQuantity = Convert.ToInt32(row["Quantity"]);
                     inventory.intGenderID = Convert.ToInt32(row["GenderID"]);
                     inventory.intBrandID = Convert.ToInt32(row["BrandID"]);
+                    inventory.intDicontinued = Convert.ToInt32(row["Discontinued"]);
                     inventory.intCategoryID = Convert.ToInt32(row["CategoryID"]);
                     inventory.intRestockThreashold = Convert.ToInt32(row["RestockThreshold"]);
                     inventory.byteImage = (byte[])row["ItemImage"];

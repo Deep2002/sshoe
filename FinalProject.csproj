@@ -175,6 +175,12 @@
     <Compile Include="ManagerViewForms\frmDiscountsManager.Designer.cs">
       <DependentUpon>frmDiscountsManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManagerViewForms\frmInventoryReportsSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManagerViewForms\frmInventoryReportsSelector.Designer.cs">
+      <DependentUpon>frmInventoryReportsSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="ManagerViewForms\frmInvetoryManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -261,6 +267,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ManagerViewForms\frmDiscountsManager.resx">
       <DependentUpon>frmDiscountsManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManagerViewForms\frmInventoryReportsSelector.resx">
+      <DependentUpon>frmInventoryReportsSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManagerViewForms\frmInvetoryManager.resx">
       <DependentUpon>frmInvetoryManager.cs</DependentUpon>

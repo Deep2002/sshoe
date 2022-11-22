@@ -23,7 +23,16 @@ namespace FinalProject.ManagerViewForms
         private void frmNotifications_Load(object sender, EventArgs e)
         {
             // get all items and display only that is low on quantity
-            clsSQL.LoadInventory(inventoryList);
+            // check if inventory already loaded
+            if (clsPublicData.lstInventory == null || clsPublicData.lstInventory.Count <= 0)
+            {
+                // if so, load inventory
+                Application.UseWaitCursor = true;
+                clsSQL.LoadInventory(clsPublicData.lstInventory);
+                Application.UseWaitCursor = false;
+            }
+
+            inventoryList = clsPublicData.lstInventory;
             inventoryList = inventoryList.FindAll(x => x.intRestockThreashold >= x.intQuantity);
 
             foreach(clsInventory item in inventoryList)

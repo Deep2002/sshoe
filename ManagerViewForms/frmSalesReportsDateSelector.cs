@@ -145,7 +145,7 @@ namespace FinalProject.ManagerViewForms
             strBuilder.AppendLine("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
             strBuilder.AppendLine("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
             strBuilder.AppendLine("<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css\" integrity=\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\" crossorigin=\"anonymous\">");
-            strBuilder.AppendLine("<title>Receipt</title>");
+            strBuilder.AppendLine("<title>Sales Report</title>");
             strBuilder.AppendLine("</head>");
             strBuilder.AppendLine("<body>");
             strBuilder.AppendLine("<div style=\"text-align: center; padding-top: 40px\">");

@@ -24,7 +24,7 @@ namespace FinalProject.ManagerViewForms
 
         private void btnInventory_Click(object sender, EventArgs e)
         {
-
+            new frmInventoryReportsSelector().ShowDialog();
         }
     }
 }

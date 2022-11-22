@@ -172,13 +172,13 @@
             this.Controls.Add(this.btnWeekly);
             this.Controls.Add(this.btnDaily);
             this.Font = new System.Drawing.Font("Trebuchet MS", 14F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "frmSalesReportsDateSelector";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Sales Reports";
             this.ResumeLayout(false);
             this.PerformLayout();
 
