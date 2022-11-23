@@ -261,8 +261,10 @@
             this.Controls.Add(this.tbxSearchBar);
             this.Controls.Add(this.dgvUsers);
             this.Font = new System.Drawing.Font("Trebuchet MS", 14F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1440, 820);
             this.Name = "frmUserManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

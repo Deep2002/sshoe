@@ -133,7 +133,7 @@ namespace FinalProject.ManagerViewForms
                 new frmUpdateUserInfo(usersList.Find(x => x.strPersonID == dgvUsers.SelectedCells[3].Value.ToString())).ShowDialog();
                 loadDataOnForm();
             } catch {
-                MessageBox.Show("Please select a user from the grid view above to see full information!", "Selection cannot be found.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Note: Make sure entire row is selected. \nPlease select a user from the grid view above to see full information!", "Selection cannot be found.", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

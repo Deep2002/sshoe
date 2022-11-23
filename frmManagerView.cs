@@ -145,6 +145,16 @@ namespace FinalProject
             System.Diagnostics.Process.Start(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Resources\HelpFile\managerHelpFiles\help_file.html");
 
         }
+
+        private void mnuMenuLogout_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void mnuMenuExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 
 }

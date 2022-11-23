@@ -81,14 +81,16 @@
             // mnuMenuLogout
             // 
             this.mnuMenuLogout.Name = "mnuMenuLogout";
-            this.mnuMenuLogout.Size = new System.Drawing.Size(146, 28);
+            this.mnuMenuLogout.Size = new System.Drawing.Size(180, 28);
             this.mnuMenuLogout.Text = "&Logout";
+            this.mnuMenuLogout.Click += new System.EventHandler(this.mnuMenuLogout_Click);
             // 
             // mnuMenuExit
             // 
             this.mnuMenuExit.Name = "mnuMenuExit";
-            this.mnuMenuExit.Size = new System.Drawing.Size(146, 28);
+            this.mnuMenuExit.Size = new System.Drawing.Size(180, 28);
             this.mnuMenuExit.Text = "E&xit";
+            this.mnuMenuExit.Click += new System.EventHandler(this.mnuMenuExit_Click);
             // 
             // mnuAbout
             // 

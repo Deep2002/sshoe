@@ -69,8 +69,7 @@ namespace FinalProject
 
             if (clsPublicData.lstInventory.Count <= 0)
             {
-                // load category into menu bar (Not from database)
-                loadCategories();
+
 
                 // load Inventory
                 clsSQL.LoadInventory(clsPublicData.lstInventory);
@@ -91,6 +90,8 @@ namespace FinalProject
                 clsPublicData.lstCurrentDisplayingInventory = clsPublicData.lstInventory;
             }
 
+            // load category into menu bar (Not from database)
+            loadCategories();
             DisplayAllItemsOnForm(clsPublicData.lstInventory);
         }
         private void frmCustomerView_FormClosing(object sender, FormClosingEventArgs e)

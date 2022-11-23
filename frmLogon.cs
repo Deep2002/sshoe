@@ -148,7 +148,11 @@ namespace FinalProject
                             this.Hide();
                             new frmManagerView().ShowDialog();
                             clsPublicData.currentUser = null;
-                            this.Show();
+                            try
+                            {
+                                this.Show();
+                            }
+                            catch (Exception) { }
                             break;
                     }
 
