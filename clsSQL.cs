@@ -38,6 +38,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -434,7 +435,7 @@ namespace FinalProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error occurred while creating new customer:\n\nSee Error:\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -474,7 +475,7 @@ namespace FinalProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Error occurred while loading categories:\n\nSee Error:\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -510,7 +511,7 @@ namespace FinalProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Error occurred while loading categories:\n\nSee Error:\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -561,11 +562,11 @@ namespace FinalProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Error occurred while loading Inventory:\n\nSee Error:\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        public static string AddInventory(string name, string description, string categoryID, string reatilPrice, string cost, string quantity, string threshold, string imageLocation, string genderID, string brandID)
+        public static string AddInventory(string name, string description, string categoryID, string reatilPrice, string cost, string quantity, string threshold, string imageLocation, string genderID, string brandID, int discontinued = 0)
         {
             try
             {
@@ -575,7 +576,7 @@ namespace FinalProject
                     "(ItemName, ItemDescription, CategoryID, RetailPrice, Cost, Quantity, RestockThreshold, GenderID, ItemImage, BrandID, Discontinued) " +
                     "OUTPUT INSERTED.InventoryID " +
                     "VALUES " +
-                    "(@ItemName, @ItemDescription, @CategoryID, @RetailPrice, @Cost, @Quantity, @RestockThreshold, @GenderID, @ItemImage, @BrandID, 0)";
+                    "(@ItemName, @ItemDescription, @CategoryID, @RetailPrice, @Cost, @Quantity, @RestockThreshold, @GenderID, @ItemImage, @BrandID, @Discontinued)";
 
                 SqlCommand cmd = new SqlCommand(strQuery, connection);
                 cmd.Parameters.AddWithValue("@ItemName", name);
@@ -587,6 +588,7 @@ namespace FinalProject
                 cmd.Parameters.AddWithValue("@RestockThreshold", Convert.ToInt32(threshold));
                 cmd.Parameters.AddWithValue("@GenderID", genderID);
                 cmd.Parameters.AddWithValue("@BrandID", brandID);
+                cmd.Parameters.AddWithValue("@Discontinued", discontinued);
                 SqlParameter sqlParams = cmd.Parameters.AddWithValue("@ItemImage", image);
                 sqlParams.DbType = DbType.Binary;
 
@@ -604,7 +606,7 @@ namespace FinalProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error occurred while adding item to the database:\n\nSee Error:\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return "false";
             }
 
@@ -647,7 +649,7 @@ namespace FinalProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Error occurred while getting sizes:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1014,7 +1016,7 @@ namespace FinalProject
             try
             {
                 string strQuery = "DELETE FROM ShoeSize WHERE Size = @Size AND ItemID = @ItemID; " +
-                    "UPDATE Inventory SET Quantity = (SELECT COUNT(s.Quantity) FROM ShoeSize AS s WHERE ItemID = InventoryID) WHERE InventoryID = @ItemID;";
+                    "UPDATE Inventory SET Quantity = (SELECT SUM(s.Quantity) FROM ShoeSize AS s WHERE ItemID = InventoryID) WHERE InventoryID = @ItemID;";
 
                 SqlCommand cmd = new SqlCommand(strQuery, connection);
 
@@ -1033,7 +1035,7 @@ namespace FinalProject
         }
 
         internal static bool UpdateInventory(string name, string desc, string reatilPrice, string cost, string quantity, string restockThreshold,
-            string genderID, string categoryID, string brandID, string itemID, string imageLocation = "none")
+            string genderID, string categoryID, string brandID, string itemID, string imageLocation, int discontinued)
         {
             string query = "UPDATE Inventory SET itemName = @name, " +
                 "ItemDescription = @desc, " +
@@ -1043,16 +1045,51 @@ namespace FinalProject
                 "RestockThreshold = @restockthreshold, " +
                 "GenderID = @genderID, " +
                 "BrandID = @brandID, " +
-                "CategoryID = @categoryID ";
+                "CategoryID = @categoryID," +
+                "Discontinued = @Discontinued ";
 
-            if (imageLocation != "none")
+            if (!string.IsNullOrEmpty(imageLocation))
             {
                 query += ", ItemImage = @img ";
             }
 
             query += "WHERE InventoryID = @itemID;";
 
-            throw new NotImplementedException();
+
+            try
+            {
+
+                SqlCommand cmd = new SqlCommand(query, connection);
+
+                // add all Information here
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@desc", desc);
+                cmd.Parameters.AddWithValue("@retailPrice", reatilPrice);
+                cmd.Parameters.AddWithValue("@cost", cost);
+                cmd.Parameters.AddWithValue("@quantity", quantity);
+                cmd.Parameters.AddWithValue("@restockthreshold", restockThreshold);
+                cmd.Parameters.AddWithValue("@genderID", genderID);
+                cmd.Parameters.AddWithValue("@brandID", brandID);
+                cmd.Parameters.AddWithValue("@categoryID", categoryID);
+                cmd.Parameters.AddWithValue("@Discontinued", discontinued);
+                cmd.Parameters.AddWithValue("@itemID", itemID);
+
+                if (!string.IsNullOrEmpty(imageLocation))
+                {
+                    byte[] image = File.ReadAllBytes(imageLocation);
+                    cmd.Parameters.AddWithValue("@img", image);
+                }
+
+
+                cmd.ExecuteNonQuery();
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show("Unable to update inventory.\n\nSee error below:\n" + ex.Message, "SQL Error - Updating Inventory.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+            return true;
         }
 
         /// <summary>
@@ -1385,6 +1422,28 @@ namespace FinalProject
 
             }
 
+        }
+
+        internal static void UpdateShoeSize(string strSize, string quantity, string itemID)
+        {
+
+            try
+            {
+                string strQuery = "UPDATE ShoeSize SET Quantity = @Quantity WHERE ItemID = @ItemID AND Size = @Size; " +
+                    "UPDATE Inventory SET Quantity = (SELECT SUM(s.Quantity) FROM ShoeSize AS s WHERE ItemID = InventoryID) WHERE InventoryID = @ItemID;";
+
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+
+                cmd.Parameters.AddWithValue("@Size", strSize);
+                cmd.Parameters.AddWithValue("@Quantity", quantity);
+                cmd.Parameters.AddWithValue("@ItemID", Convert.ToInt32(itemID));
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to Update Shoes. Please try again in few minutes.\n\nSee Error Below:\n" + ex.Message, "SQL ERROR - Deleting Sizes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

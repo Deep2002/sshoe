@@ -36,7 +36,6 @@
             this.tbxName = new System.Windows.Forms.TextBox();
             this.btnAddSize = new System.Windows.Forms.Button();
             this.tbxDesc = new System.Windows.Forms.TextBox();
-            this.btnDeleteSelectedItem = new System.Windows.Forms.Button();
             this.tbxTotalQuantity = new System.Windows.Forms.TextBox();
             this.btnAddNewItem = new System.Windows.Forms.Button();
             this.tbxRetailPrice = new System.Windows.Forms.TextBox();
@@ -72,6 +71,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.fileChooser = new System.Windows.Forms.OpenFileDialog();
             this.tbxImgLocation = new System.Windows.Forms.TextBox();
+            this.cbxDiscountinued = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSizes)).BeginInit();
             this.SuspendLayout();
@@ -164,19 +164,6 @@
             this.tbxDesc.TabIndex = 2;
             this.tbxDesc.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbxDesc_MouseClick);
             // 
-            // btnDeleteSelectedItem
-            // 
-            this.btnDeleteSelectedItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnDeleteSelectedItem.FlatAppearance.BorderSize = 0;
-            this.btnDeleteSelectedItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteSelectedItem.Location = new System.Drawing.Point(1111, 322);
-            this.btnDeleteSelectedItem.Margin = new System.Windows.Forms.Padding(2);
-            this.btnDeleteSelectedItem.Name = "btnDeleteSelectedItem";
-            this.btnDeleteSelectedItem.Size = new System.Drawing.Size(261, 40);
-            this.btnDeleteSelectedItem.TabIndex = 17;
-            this.btnDeleteSelectedItem.Text = "Delete Selected Item";
-            this.btnDeleteSelectedItem.UseVisualStyleBackColor = false;
-            // 
             // tbxTotalQuantity
             // 
             this.tbxTotalQuantity.ForeColor = System.Drawing.Color.DimGray;
@@ -219,7 +206,7 @@
             this.btnUpdateItem.FlatAppearance.BorderSize = 0;
             this.btnUpdateItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdateItem.ForeColor = System.Drawing.Color.White;
-            this.btnUpdateItem.Location = new System.Drawing.Point(1111, 259);
+            this.btnUpdateItem.Location = new System.Drawing.Point(1111, 255);
             this.btnUpdateItem.Margin = new System.Windows.Forms.Padding(2);
             this.btnUpdateItem.Name = "btnUpdateItem";
             this.btnUpdateItem.Size = new System.Drawing.Size(261, 40);
@@ -265,10 +252,10 @@
             // pbxImage
             // 
             this.pbxImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbxImage.Location = new System.Drawing.Point(1111, 437);
+            this.pbxImage.Location = new System.Drawing.Point(1111, 383);
             this.pbxImage.Margin = new System.Windows.Forms.Padding(2);
             this.pbxImage.Name = "pbxImage";
-            this.pbxImage.Size = new System.Drawing.Size(261, 178);
+            this.pbxImage.Size = new System.Drawing.Size(261, 232);
             this.pbxImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbxImage.TabIndex = 41;
             this.pbxImage.TabStop = false;
@@ -404,7 +391,7 @@
             this.btnClearAllField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnClearAllField.FlatAppearance.BorderSize = 0;
             this.btnClearAllField.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClearAllField.Location = new System.Drawing.Point(1111, 380);
+            this.btnClearAllField.Location = new System.Drawing.Point(1111, 313);
             this.btnClearAllField.Margin = new System.Windows.Forms.Padding(2);
             this.btnClearAllField.Name = "btnClearAllField";
             this.btnClearAllField.Size = new System.Drawing.Size(261, 40);
@@ -591,12 +578,23 @@
             this.tbxImgLocation.TabIndex = 79;
             this.tbxImgLocation.Text = "Image Location...";
             // 
+            // cbxDiscountinued
+            // 
+            this.cbxDiscountinued.AutoSize = true;
+            this.cbxDiscountinued.Location = new System.Drawing.Point(781, 699);
+            this.cbxDiscountinued.Name = "cbxDiscountinued";
+            this.cbxDiscountinued.Size = new System.Drawing.Size(192, 28);
+            this.cbxDiscountinued.TabIndex = 80;
+            this.cbxDiscountinued.Text = "Item Discountinued";
+            this.cbxDiscountinued.UseVisualStyleBackColor = true;
+            // 
             // frmInvetoryManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1424, 781);
+            this.Controls.Add(this.cbxDiscountinued);
             this.Controls.Add(this.tbxImgLocation);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.label14);
@@ -625,7 +623,6 @@
             this.Controls.Add(this.tbxName);
             this.Controls.Add(this.btnAddSize);
             this.Controls.Add(this.tbxDesc);
-            this.Controls.Add(this.btnDeleteSelectedItem);
             this.Controls.Add(this.tbxTotalQuantity);
             this.Controls.Add(this.btnAddNewItem);
             this.Controls.Add(this.tbxRetailPrice);
@@ -662,7 +659,6 @@
         private System.Windows.Forms.TextBox tbxName;
         private System.Windows.Forms.Button btnAddSize;
         private System.Windows.Forms.TextBox tbxDesc;
-        private System.Windows.Forms.Button btnDeleteSelectedItem;
         private System.Windows.Forms.TextBox tbxTotalQuantity;
         private System.Windows.Forms.Button btnAddNewItem;
         private System.Windows.Forms.TextBox tbxRetailPrice;
@@ -698,5 +694,6 @@
         private System.Windows.Forms.TextBox tbxImgLocation;
         private System.Windows.Forms.DataGridViewTextBoxColumn Size;
         private System.Windows.Forms.DataGridViewTextBoxColumn Qt;
+        private System.Windows.Forms.CheckBox cbxDiscountinued;
     }
 }
