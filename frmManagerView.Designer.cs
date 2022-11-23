@@ -102,8 +102,9 @@
             // mnuMenuHelp
             // 
             this.mnuMenuHelp.Name = "mnuMenuHelp";
-            this.mnuMenuHelp.Size = new System.Drawing.Size(123, 28);
+            this.mnuMenuHelp.Size = new System.Drawing.Size(180, 28);
             this.mnuMenuHelp.Text = "&Help";
+            this.mnuMenuHelp.Click += new System.EventHandler(this.mnuMenuHelp_Click);
             // 
             // pnlInfoBar
             // 
@@ -157,7 +158,7 @@
             this.btnUsers.Padding = new System.Windows.Forms.Padding(23, 0, 0, 0);
             this.btnUsers.Size = new System.Drawing.Size(279, 129);
             this.btnUsers.TabIndex = 3;
-            this.btnUsers.Text = "Users";
+            this.btnUsers.Text = "&Users";
             this.btnUsers.UseVisualStyleBackColor = false;
             this.btnUsers.Click += new System.EventHandler(this.btnUsers_Click);
             this.btnUsers.MouseEnter += new System.EventHandler(this.btnUsers_MouseEnter);
@@ -177,7 +178,7 @@
             this.btnDiscounts.Padding = new System.Windows.Forms.Padding(23, 0, 0, 0);
             this.btnDiscounts.Size = new System.Drawing.Size(279, 129);
             this.btnDiscounts.TabIndex = 2;
-            this.btnDiscounts.Text = "Discounts";
+            this.btnDiscounts.Text = "&Discounts";
             this.btnDiscounts.UseVisualStyleBackColor = false;
             this.btnDiscounts.Click += new System.EventHandler(this.btnDiscounts_Click);
             this.btnDiscounts.MouseEnter += new System.EventHandler(this.btnDiscounts_MouseEnter);
@@ -197,7 +198,7 @@
             this.btnNotifications.Padding = new System.Windows.Forms.Padding(23, 0, 0, 0);
             this.btnNotifications.Size = new System.Drawing.Size(279, 129);
             this.btnNotifications.TabIndex = 5;
-            this.btnNotifications.Text = "Notifications";
+            this.btnNotifications.Text = "&Notifications";
             this.btnNotifications.UseVisualStyleBackColor = false;
             this.btnNotifications.Click += new System.EventHandler(this.btnNotifications_Click);
             this.btnNotifications.MouseEnter += new System.EventHandler(this.btnNotifications_MouseEnter);
@@ -217,7 +218,7 @@
             this.btnInventory.Padding = new System.Windows.Forms.Padding(23, 0, 0, 0);
             this.btnInventory.Size = new System.Drawing.Size(279, 129);
             this.btnInventory.TabIndex = 0;
-            this.btnInventory.Text = "Inventory";
+            this.btnInventory.Text = "&Inventory";
             this.btnInventory.UseVisualStyleBackColor = false;
             this.btnInventory.Click += new System.EventHandler(this.btnInventory_Click);
             this.btnInventory.MouseEnter += new System.EventHandler(this.btnInventory_MouseEnter);
@@ -237,7 +238,7 @@
             this.btnReports.Padding = new System.Windows.Forms.Padding(23, 0, 0, 0);
             this.btnReports.Size = new System.Drawing.Size(279, 129);
             this.btnReports.TabIndex = 1;
-            this.btnReports.Text = "Reports";
+            this.btnReports.Text = "&Reports";
             this.btnReports.UseVisualStyleBackColor = false;
             this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
             this.btnReports.MouseEnter += new System.EventHandler(this.btnReports_MouseEnter);
@@ -257,7 +258,7 @@
             this.btnPos.Padding = new System.Windows.Forms.Padding(23, 0, 0, 0);
             this.btnPos.Size = new System.Drawing.Size(279, 129);
             this.btnPos.TabIndex = 4;
-            this.btnPos.Text = "Point of Sales";
+            this.btnPos.Text = "&Point of Sales";
             this.btnPos.UseVisualStyleBackColor = false;
             this.btnPos.Click += new System.EventHandler(this.btnPos_Click);
             this.btnPos.MouseEnter += new System.EventHandler(this.btnPos_MouseEnter);

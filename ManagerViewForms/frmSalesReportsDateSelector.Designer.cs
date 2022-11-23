@@ -39,6 +39,9 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnSelectedDate = new System.Windows.Forms.Button();
+            this.mnuMenu = new System.Windows.Forms.MenuStrip();
+            this.mnuMenuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnDaily
@@ -136,7 +139,7 @@
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Trebuchet MS", 19F);
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblTitle.Location = new System.Drawing.Point(136, 26);
+            this.lblTitle.Location = new System.Drawing.Point(136, 54);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(612, 33);
             this.lblTitle.TabIndex = 8;
@@ -156,11 +159,32 @@
             this.btnSelectedDate.UseVisualStyleBackColor = false;
             this.btnSelectedDate.Click += new System.EventHandler(this.btnSelectedDate_Click);
             // 
+            // mnuMenu
+            // 
+            this.mnuMenu.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mnuMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.mnuMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuMenuHelp});
+            this.mnuMenu.Location = new System.Drawing.Point(0, 0);
+            this.mnuMenu.Name = "mnuMenu";
+            this.mnuMenu.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.mnuMenu.Size = new System.Drawing.Size(885, 31);
+            this.mnuMenu.TabIndex = 94;
+            this.mnuMenu.Text = "menuStrip1";
+            // 
+            // mnuMenuHelp
+            // 
+            this.mnuMenuHelp.Name = "mnuMenuHelp";
+            this.mnuMenuHelp.Size = new System.Drawing.Size(65, 27);
+            this.mnuMenuHelp.Text = "&Help";
+            this.mnuMenuHelp.Click += new System.EventHandler(this.mnuMenuHelp_Click);
+            // 
             // frmSalesReportsDateSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(885, 312);
+            this.Controls.Add(this.mnuMenu);
             this.Controls.Add(this.btnSelectedDate);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnClose);
@@ -179,6 +203,8 @@
             this.Name = "frmSalesReportsDateSelector";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sales Reports";
+            this.mnuMenu.ResumeLayout(false);
+            this.mnuMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,5 +222,7 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnSelectedDate;
+        private System.Windows.Forms.MenuStrip mnuMenu;
+        private System.Windows.Forms.ToolStripMenuItem mnuMenuHelp;
     }
 }

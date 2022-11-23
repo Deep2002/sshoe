@@ -57,7 +57,10 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
+            this.mnuMenu = new System.Windows.Forms.MenuStrip();
+            this.mnuMenuHelp = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDiscounts)).BeginInit();
+            this.mnuMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvDiscounts
@@ -351,11 +354,32 @@
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
+            // mnuMenu
+            // 
+            this.mnuMenu.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mnuMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.mnuMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuMenuHelp});
+            this.mnuMenu.Location = new System.Drawing.Point(0, 0);
+            this.mnuMenu.Name = "mnuMenu";
+            this.mnuMenu.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.mnuMenu.Size = new System.Drawing.Size(1424, 31);
+            this.mnuMenu.TabIndex = 93;
+            this.mnuMenu.Text = "menuStrip1";
+            // 
+            // mnuMenuHelp
+            // 
+            this.mnuMenuHelp.Name = "mnuMenuHelp";
+            this.mnuMenuHelp.Size = new System.Drawing.Size(65, 27);
+            this.mnuMenuHelp.Text = "&Help";
+            this.mnuMenuHelp.Click += new System.EventHandler(this.mnuMenuHelp_Click);
+            // 
             // frmDiscountsManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1424, 781);
+            this.Controls.Add(this.mnuMenu);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -379,14 +403,18 @@
             this.Controls.Add(this.tbxSearchBar);
             this.Controls.Add(this.dgvDiscounts);
             this.Font = new System.Drawing.Font("Trebuchet MS", 14F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1440, 820);
             this.Name = "frmDiscountsManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Discounts Manager";
             this.Load += new System.EventHandler(this.frmDiscountsManager_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDiscounts)).EndInit();
+            this.mnuMenu.ResumeLayout(false);
+            this.mnuMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -422,5 +450,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.MenuStrip mnuMenu;
+        private System.Windows.Forms.ToolStripMenuItem mnuMenuHelp;
     }
 }

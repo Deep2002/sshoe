@@ -174,11 +174,11 @@ namespace FinalProject
 
                 // create a quantity counter
                 NumericUpDown quantityNumericUpDown = new NumericUpDown();
-                quantityNumericUpDown.Value = item.quantity;
                 quantityNumericUpDown.Location = new System.Drawing.Point(97, 236);
                 quantityNumericUpDown.Maximum = new decimal(new int[] { item.size.intQuantity, 0, 0, 0 });
                 quantityNumericUpDown.Minimum = 1;
                 quantityNumericUpDown.Size = new Size(60, 30);
+                quantityNumericUpDown.Value = item.quantity;
 
                 // create delete button/Picture box
                 PictureBox deleteButton = new PictureBox();

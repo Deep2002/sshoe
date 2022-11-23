@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -95,7 +96,7 @@ namespace FinalProject
         {
             // set users name
             
-            //lblUserName.Text = $"Current employee: {clsPublicData.currentUser.strFirstName}";
+            lblUserName.Text = $"Current employee: {clsPublicData.currentUser.strFirstName}";
         }
 
         private void btnInventory_Click(object sender, EventArgs e)
@@ -137,6 +138,12 @@ namespace FinalProject
         private void btnNotifications_Click(object sender, EventArgs e)
         {
             new frmNotifications().Show();
+        }
+
+        private void mnuMenuHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Resources\HelpFile\managerHelpFiles\help_file.html");
+
         }
     }
 

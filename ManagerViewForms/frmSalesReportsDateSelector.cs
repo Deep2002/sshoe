@@ -219,5 +219,12 @@ namespace FinalProject.ManagerViewForms
             StringBuilder htmlReport = InsertIntoHTML(ordersList.FindAll(x => Convert.ToDateTime(x.orderDate) >= dtpStartDate.Value && Convert.ToDateTime(x.orderDate) <= dtpEndDate.Value), dtpStartDate.Value.ToString("d"), dtpEndDate.Value.ToString("d"), "normal");
             PrintReport(htmlReport);
         }
+
+        private void mnuMenuHelp_Click(object sender, EventArgs e)
+        {
+            //System.Diagnostics.Process.Start(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Resources\HelpFile\help_file.html");
+            System.Diagnostics.Process.Start(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Resources\HelpFile\managerHelpFiles\help_file.html");
+
+        }
     }
 }

@@ -78,6 +78,9 @@
             this.lblUserType = new System.Windows.Forms.Label();
             this.cbxUserType = new System.Windows.Forms.ComboBox();
             this.cbxDisableUser = new System.Windows.Forms.CheckBox();
+            this.mnuMenu = new System.Windows.Forms.MenuStrip();
+            this.mnuMenuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // label9
@@ -622,11 +625,32 @@
             this.cbxDisableUser.Text = "Disable This User";
             this.cbxDisableUser.UseVisualStyleBackColor = true;
             // 
+            // mnuMenu
+            // 
+            this.mnuMenu.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mnuMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.mnuMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuMenuHelp});
+            this.mnuMenu.Location = new System.Drawing.Point(0, 0);
+            this.mnuMenu.Name = "mnuMenu";
+            this.mnuMenu.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.mnuMenu.Size = new System.Drawing.Size(1062, 31);
+            this.mnuMenu.TabIndex = 132;
+            this.mnuMenu.Text = "menuStrip1";
+            // 
+            // mnuMenuHelp
+            // 
+            this.mnuMenuHelp.Name = "mnuMenuHelp";
+            this.mnuMenuHelp.Size = new System.Drawing.Size(65, 27);
+            this.mnuMenuHelp.Text = "&Help";
+            this.mnuMenuHelp.Click += new System.EventHandler(this.mnuMenuHelp_Click);
+            // 
             // frmUpdateUserInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1062, 641);
+            this.Controls.Add(this.mnuMenu);
             this.Controls.Add(this.cbxDisableUser);
             this.Controls.Add(this.cbxUserType);
             this.Controls.Add(this.label8);
@@ -685,6 +709,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Update user Information";
             this.Load += new System.EventHandler(this.frmUpdateUserInfo_Load);
+            this.mnuMenu.ResumeLayout(false);
+            this.mnuMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -741,5 +767,7 @@
         private System.Windows.Forms.Label lblUserType;
         private System.Windows.Forms.ComboBox cbxUserType;
         private System.Windows.Forms.CheckBox cbxDisableUser;
+        private System.Windows.Forms.MenuStrip mnuMenu;
+        private System.Windows.Forms.ToolStripMenuItem mnuMenuHelp;
     }
 }

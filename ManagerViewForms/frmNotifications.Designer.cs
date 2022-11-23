@@ -36,7 +36,10 @@
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RestockThreshold = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnEditQuantity = new System.Windows.Forms.Button();
+            this.mnuMenu = new System.Windows.Forms.MenuStrip();
+            this.mnuMenuHelp = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
+            this.mnuMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -107,11 +110,32 @@
             this.btnEditQuantity.UseVisualStyleBackColor = false;
             this.btnEditQuantity.Click += new System.EventHandler(this.btnEditQuantity_Click);
             // 
+            // mnuMenu
+            // 
+            this.mnuMenu.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mnuMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.mnuMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuMenuHelp});
+            this.mnuMenu.Location = new System.Drawing.Point(0, 0);
+            this.mnuMenu.Name = "mnuMenu";
+            this.mnuMenu.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.mnuMenu.Size = new System.Drawing.Size(1424, 31);
+            this.mnuMenu.TabIndex = 94;
+            this.mnuMenu.Text = "menuStrip1";
+            // 
+            // mnuMenuHelp
+            // 
+            this.mnuMenuHelp.Name = "mnuMenuHelp";
+            this.mnuMenuHelp.Size = new System.Drawing.Size(65, 27);
+            this.mnuMenuHelp.Text = "&Help";
+            this.mnuMenuHelp.Click += new System.EventHandler(this.mnuMenuHelp_Click);
+            // 
             // frmNotifications
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1424, 781);
+            this.Controls.Add(this.mnuMenu);
             this.Controls.Add(this.btnEditQuantity);
             this.Controls.Add(this.dgvItems);
             this.Controls.Add(this.lblTitle);
@@ -125,6 +149,8 @@
             this.Text = "Notifications";
             this.Load += new System.EventHandler(this.frmNotifications_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).EndInit();
+            this.mnuMenu.ResumeLayout(false);
+            this.mnuMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -139,5 +165,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn RestockThreshold;
         private System.Windows.Forms.Button btnEditQuantity;
+        private System.Windows.Forms.MenuStrip mnuMenu;
+        private System.Windows.Forms.ToolStripMenuItem mnuMenuHelp;
     }
 }

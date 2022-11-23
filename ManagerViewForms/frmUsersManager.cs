@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,7 @@ namespace FinalProject.ManagerViewForms
                     btnShowCustomers.Visible = true;
                     btnShowEmployees.Visible = true;
                     btnUpdateUserInfo.Visible = true;
+                    lblSelectUser.Visible = false;
                     break;
                 case FORM_TYPES.POINT_OF_SALES:
                     btnSelectThisAsCustomer.Visible = true;
@@ -42,6 +44,7 @@ namespace FinalProject.ManagerViewForms
                     btnShowCustomers.Visible = false;
                     btnShowEmployees.Visible = false;
                     btnUpdateUserInfo.Visible = false;
+                    lblSelectUser.Visible = true;
                     break;
             }
 
@@ -161,6 +164,13 @@ namespace FinalProject.ManagerViewForms
                 MessageBox.Show("Please select a user from the grid view above.", "Selection cannot be found.", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             this.Close();
+        }
+
+        private void mnuMenuHelp_Click(object sender, EventArgs e)
+        {
+            //System.Diagnostics.Process.Start(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Resources\HelpFile\help_file.html");
+            System.Diagnostics.Process.Start(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Resources\HelpFile\managerHelpFiles\help_file.html");
+
         }
     }
 }

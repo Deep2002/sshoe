@@ -42,7 +42,11 @@
             this.lblInfo = new System.Windows.Forms.Label();
             this.lblSearchUser = new System.Windows.Forms.Label();
             this.btnSelectThisAsCustomer = new System.Windows.Forms.Button();
+            this.mnuMenu = new System.Windows.Forms.MenuStrip();
+            this.mnuMenuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblSelectUser = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
+            this.mnuMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvUsers
@@ -55,11 +59,11 @@
             this.Email,
             this.Phone,
             this.ID});
-            this.dgvUsers.Location = new System.Drawing.Point(31, 124);
+            this.dgvUsers.Location = new System.Drawing.Point(31, 145);
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.ReadOnly = true;
             this.dgvUsers.RowTemplate.Height = 24;
-            this.dgvUsers.Size = new System.Drawing.Size(1368, 512);
+            this.dgvUsers.Size = new System.Drawing.Size(1368, 491);
             this.dgvUsers.TabIndex = 0;
             // 
             // UserName
@@ -91,7 +95,7 @@
             this.tbxSearchBar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tbxSearchBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.tbxSearchBar.ForeColor = System.Drawing.Color.DimGray;
-            this.tbxSearchBar.Location = new System.Drawing.Point(434, 49);
+            this.tbxSearchBar.Location = new System.Drawing.Point(724, 103);
             this.tbxSearchBar.Margin = new System.Windows.Forms.Padding(2);
             this.tbxSearchBar.Name = "tbxSearchBar";
             this.tbxSearchBar.Size = new System.Drawing.Size(677, 29);
@@ -114,7 +118,7 @@
             this.btnUpdateUserInfo.Name = "btnUpdateUserInfo";
             this.btnUpdateUserInfo.Size = new System.Drawing.Size(304, 79);
             this.btnUpdateUserInfo.TabIndex = 16;
-            this.btnUpdateUserInfo.Text = "Update / View Selected User\r\n Infromation";
+            this.btnUpdateUserInfo.Text = "&Update / View Selected User\r\n Infromation";
             this.btnUpdateUserInfo.UseVisualStyleBackColor = false;
             this.btnUpdateUserInfo.Visible = false;
             this.btnUpdateUserInfo.Click += new System.EventHandler(this.btnUpdateUserInfo_Click);
@@ -131,7 +135,7 @@
             this.btnShowCustomers.Name = "btnShowCustomers";
             this.btnShowCustomers.Size = new System.Drawing.Size(304, 79);
             this.btnShowCustomers.TabIndex = 17;
-            this.btnShowCustomers.Text = "Show Customers";
+            this.btnShowCustomers.Text = "Show &Customers";
             this.btnShowCustomers.UseVisualStyleBackColor = false;
             this.btnShowCustomers.Visible = false;
             this.btnShowCustomers.Click += new System.EventHandler(this.btnShowCustomers_Click);
@@ -148,7 +152,7 @@
             this.btnShowEmployees.Name = "btnShowEmployees";
             this.btnShowEmployees.Size = new System.Drawing.Size(304, 79);
             this.btnShowEmployees.TabIndex = 18;
-            this.btnShowEmployees.Text = "Show Emoployees";
+            this.btnShowEmployees.Text = "Show &Emoployees";
             this.btnShowEmployees.UseVisualStyleBackColor = false;
             this.btnShowEmployees.Visible = false;
             this.btnShowEmployees.Click += new System.EventHandler(this.btnShowEmployees_Click);
@@ -165,7 +169,7 @@
             this.btnAddNewUser.Name = "btnAddNewUser";
             this.btnAddNewUser.Size = new System.Drawing.Size(304, 79);
             this.btnAddNewUser.TabIndex = 19;
-            this.btnAddNewUser.Text = "Add New User";
+            this.btnAddNewUser.Text = "&Add New User";
             this.btnAddNewUser.UseVisualStyleBackColor = false;
             this.btnAddNewUser.Visible = false;
             this.btnAddNewUser.Click += new System.EventHandler(this.btnAddNewUser_Click);
@@ -176,7 +180,7 @@
             this.lblInfo.AutoSize = true;
             this.lblInfo.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInfo.ForeColor = System.Drawing.Color.Green;
-            this.lblInfo.Location = new System.Drawing.Point(27, 85);
+            this.lblInfo.Location = new System.Drawing.Point(27, 103);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(206, 24);
             this.lblInfo.TabIndex = 20;
@@ -186,7 +190,7 @@
             // 
             this.lblSearchUser.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSearchUser.AutoSize = true;
-            this.lblSearchUser.Location = new System.Drawing.Point(313, 52);
+            this.lblSearchUser.Location = new System.Drawing.Point(603, 106);
             this.lblSearchUser.Name = "lblSearchUser";
             this.lblSearchUser.Size = new System.Drawing.Size(116, 24);
             this.lblSearchUser.TabIndex = 21;
@@ -209,11 +213,44 @@
             this.btnSelectThisAsCustomer.Visible = false;
             this.btnSelectThisAsCustomer.Click += new System.EventHandler(this.btnSelectThisAsCustomer_Click);
             // 
+            // mnuMenu
+            // 
+            this.mnuMenu.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mnuMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.mnuMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuMenuHelp});
+            this.mnuMenu.Location = new System.Drawing.Point(0, 0);
+            this.mnuMenu.Name = "mnuMenu";
+            this.mnuMenu.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.mnuMenu.Size = new System.Drawing.Size(1424, 31);
+            this.mnuMenu.TabIndex = 94;
+            this.mnuMenu.Text = "menuStrip1";
+            // 
+            // mnuMenuHelp
+            // 
+            this.mnuMenuHelp.Name = "mnuMenuHelp";
+            this.mnuMenuHelp.Size = new System.Drawing.Size(65, 27);
+            this.mnuMenuHelp.Text = "&Help";
+            this.mnuMenuHelp.Click += new System.EventHandler(this.mnuMenuHelp_Click);
+            // 
+            // lblSelectUser
+            // 
+            this.lblSelectUser.AutoSize = true;
+            this.lblSelectUser.Font = new System.Drawing.Font("Trebuchet MS", 18F);
+            this.lblSelectUser.Location = new System.Drawing.Point(645, 51);
+            this.lblSelectUser.Name = "lblSelectUser";
+            this.lblSelectUser.Size = new System.Drawing.Size(135, 29);
+            this.lblSelectUser.TabIndex = 95;
+            this.lblSelectUser.Text = "Select User";
+            this.lblSelectUser.Visible = false;
+            // 
             // frmUserManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1424, 781);
+            this.Controls.Add(this.lblSelectUser);
+            this.Controls.Add(this.mnuMenu);
             this.Controls.Add(this.btnSelectThisAsCustomer);
             this.Controls.Add(this.lblSearchUser);
             this.Controls.Add(this.lblInfo);
@@ -232,6 +269,8 @@
             this.Text = "Users Manager";
             this.Load += new System.EventHandler(this.frmUsersManager_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
+            this.mnuMenu.ResumeLayout(false);
+            this.mnuMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -252,5 +291,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.Label lblSearchUser;
         private System.Windows.Forms.Button btnSelectThisAsCustomer;
+        private System.Windows.Forms.MenuStrip mnuMenu;
+        private System.Windows.Forms.ToolStripMenuItem mnuMenuHelp;
+        private System.Windows.Forms.Label lblSelectUser;
     }
 }
