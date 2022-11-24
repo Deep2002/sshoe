@@ -127,9 +127,12 @@ namespace FinalProject
                 {
                     stsStatus.Items.Clear();
 
-                    if (currentState != LOGON_FORM_STATE.POP_UP && clsPublicData.currentUser.strPositionID == "1000")
+                    if (currentState != LOGON_FORM_STATE.POP_UP && clsPublicData.currentUser.strPositionID != "1001")
                     {
                         currentState = LOGON_FORM_STATE.MANAGER;
+                    } else if (clsPublicData.currentUser.strPositionID == "1001")
+                    {
+                        currentState = LOGON_FORM_STATE.NORMAL;
                     }
 
                     switch (currentState)

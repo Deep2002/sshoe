@@ -732,6 +732,7 @@ namespace FinalProject
                 if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
                     strQuery += ", @DiscountID";
                 #endregion
+
                 strQuery += ");";
 
                 // establish command and data adapter
@@ -805,7 +806,7 @@ namespace FinalProject
                     if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
                         strQuery += ", DiscountID";
 
-                    strQuery += ") VALUES (@OrderID, @InventoryID, @Quantity";
+                    strQuery += ") VALUES (@OrderID, @InventoryID, @Quantity, @TotalCost";
 
                     if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
                         strQuery += ", @DiscountID";
