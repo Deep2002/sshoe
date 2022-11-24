@@ -195,7 +195,7 @@ namespace FinalProject.ManagerViewForms
             cbxBrand.Text = "";
             tbxTotalQuantity.Text = "0";
             cbxSize.Text = "Size";
-            tbxQuantity.Text = "Quantity";
+            tbxQuantity.Text = "";
             tbxImgLocation.Text = "Image Location...";
 
             dgvSizes.DataSource = null;
@@ -362,6 +362,11 @@ namespace FinalProject.ManagerViewForms
 
             if (cbxSize.Items.Contains(cbxSize.Text))
             {
+                if (string.IsNullOrEmpty(tbxQuantity.Text) || tbxQuantity.Text == "0" || tbxQuantity.Text == "0.00")
+                {
+                    MessageBox.Show("Invalid Quantity. Please enter valid Quantity", "Invalid Input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 foreach (char c in tbxQuantity.Text)
                 {
                     if (char.IsLetter(c))
@@ -539,6 +544,17 @@ namespace FinalProject.ManagerViewForms
 
             //System.Diagnostics.Process.Start(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Resources\HelpFile\help_file.html");
             System.Diagnostics.Process.Start(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Resources\HelpFile\managerHelpFiles\help_file.html");
+
+        }
+
+        private void tbxQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '.' || char.IsLetter(e.KeyChar)) e.Handled = true;
+        }
+
+        private void tbxRestockThreshold_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '.' || char.IsLetter(e.KeyChar)) e.Handled = true;
 
         }
     }

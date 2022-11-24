@@ -251,6 +251,7 @@
             this.tbxRestockThreshold.Name = "tbxRestockThreshold";
             this.tbxRestockThreshold.Size = new System.Drawing.Size(290, 29);
             this.tbxRestockThreshold.TabIndex = 5;
+            this.tbxRestockThreshold.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxRestockThreshold_KeyPress);
             // 
             // pbxImage
             // 
@@ -308,7 +309,7 @@
             this.tbxQuantity.Name = "tbxQuantity";
             this.tbxQuantity.Size = new System.Drawing.Size(108, 29);
             this.tbxQuantity.TabIndex = 12;
-            this.tbxQuantity.Text = "Quantity";
+            this.tbxQuantity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxQuantity_KeyPress);
             // 
             // cbxSize
             // 

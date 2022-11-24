@@ -103,13 +103,12 @@ namespace FinalProject
             int itemCount = 0;
             foreach (var item in clsPublicData.currentUserCart.lstUserCart)
             {
-
                 itemCount++;
                 strBuilder.AppendLine("<tr>");
-                strBuilder.AppendLine($"<th scope = \"row\" >{clsPublicData.currentUserCart.TotalItems}</th>");
+                strBuilder.AppendLine($"<th scope = \"row\" >{itemCount}</th>");
                 strBuilder.AppendLine($"<td>{ item.inventory.strName }</td>");
                 strBuilder.AppendLine($"<td>${item.inventory.decCost.ToString("0.00")}</td>");
-                strBuilder.AppendLine($"<td>{ item.quantity }</td>");
+                strBuilder.AppendLine($"<td>{clsPublicData.currentUserCart.TotalItems}</td>");
                 strBuilder.AppendLine($"<td>${ item.inventory.decCost * item.quantity }</td>");
                 strBuilder.AppendLine("</tr>");
             }
@@ -136,7 +135,7 @@ namespace FinalProject
                 strBuilder.AppendLine($"<li style = \"color: LightGray;\">{clsPublicData.currentManager.strFirstName} {clsPublicData.currentManager.strLastName}</li>");
             strBuilder.AppendLine($"<li style = \"color: rgb(47, 255, 54);\"> {clsPublicData.currentUserCart.orderID } </li>");
             strBuilder.AppendLine($"<li> {DateTime.Now.ToString("d")} </li><br>");
-            strBuilder.AppendLine($"<li> {itemCount} </li>");
+            strBuilder.AppendLine($"<li> {clsPublicData.currentUserCart.TotalItems} </li>");
             strBuilder.AppendLine($"<li> ${clsPublicData.currentUserCart.Subtotal.ToString("0.00")} </li>");
             strBuilder.AppendLine($"<li style=\"color: rgb(47, 255, 54);\"> -{clsPublicData.currentUserCart.Discount.ToString("0.00")} </li>");
             strBuilder.AppendLine($"<li> ${clsPublicData.currentUserCart.DiscountedTotal.ToString("0.00")} </li>");
