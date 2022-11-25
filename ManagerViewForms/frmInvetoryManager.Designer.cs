@@ -138,7 +138,6 @@
             this.tbxName.Name = "tbxName";
             this.tbxName.Size = new System.Drawing.Size(290, 29);
             this.tbxName.TabIndex = 1;
-            this.tbxName.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbxName_MouseClick);
             // 
             // btnAddSize
             // 
@@ -165,7 +164,6 @@
             this.tbxDesc.Name = "tbxDesc";
             this.tbxDesc.Size = new System.Drawing.Size(290, 100);
             this.tbxDesc.TabIndex = 2;
-            this.tbxDesc.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbxDesc_MouseClick);
             // 
             // tbxTotalQuantity
             // 
@@ -201,7 +199,6 @@
             this.tbxRetailPrice.Name = "tbxRetailPrice";
             this.tbxRetailPrice.Size = new System.Drawing.Size(127, 29);
             this.tbxRetailPrice.TabIndex = 3;
-            this.tbxRetailPrice.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbxRetailPrice_MouseClick);
             // 
             // btnUpdateItem
             // 
@@ -226,7 +223,6 @@
             this.tbxCost.Name = "tbxCost";
             this.tbxCost.Size = new System.Drawing.Size(125, 29);
             this.tbxCost.TabIndex = 4;
-            this.tbxCost.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbxCost_MouseClick);
             // 
             // btnUpdateImage
             // 

@@ -503,7 +503,11 @@ namespace FinalProject.ManagerViewForms
         private void btnUpdateItem_Click(object sender, EventArgs e)
         {
             // This will update all item information  
-
+            if (lbxItems.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select item you want to update", "Cannot update.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             // if entered info is invalid return
             if (!AllFieldsAreValid(false)) return;
 

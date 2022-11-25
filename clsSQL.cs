@@ -340,7 +340,7 @@ namespace FinalProject
                 // create Person
                 string strQuery = "SET ANSI_WARNINGS OFF;" +
                     " INSERT INTO ParmarD22Fa2332.Person " +
-                    "(NameFirst, NameLast, Address1, City, Zipcode, State, PositionID, Title, Email, PhonePrimary";
+                    "(NameFirst, NameLast, Address1, City, Zipcode, State, PositionID, Title, Email, PhonePrimary, PersonDeleted";
 
                 #region Append fields if provided by user
                 if (strMiddleName != "")
@@ -358,7 +358,7 @@ namespace FinalProject
                 if (strSuffix != "")
                     strQuery += ", Suffix";
 
-                strQuery += ") VALUES " + "(@NameFirst, @NameLast, @Address1, @City, @Zipcode, @State, @PositionID, @Title, @Email, @PhonePrimary";
+                strQuery += ") VALUES " + "(@NameFirst, @NameLast, @Address1, @City, @Zipcode, @State, @PositionID, @Title, @Email, @PhonePrimary, @PersonDeleted";
 
                 if (strMiddleName != "")
                     strQuery += ", @NameMiddle";
@@ -392,6 +392,7 @@ namespace FinalProject
                 cmd.Parameters.AddWithValue("@Title", strTitle);
                 cmd.Parameters.AddWithValue("@Email", strEmail);
                 cmd.Parameters.AddWithValue("@PhonePrimary", strPrimaryPhone);
+                cmd.Parameters.AddWithValue("@PersonDeleted", 0);
 
                 if (!strMiddleName.Equals(""))
                     cmd.Parameters.AddWithValue("@NameMiddle", strMiddleName);

@@ -30,12 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDiscountsManager));
             this.dgvDiscounts = new System.Windows.Forms.DataGridView();
-            this.DiscountCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DiscountPercentage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DicountAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DicountID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblSearchCode = new System.Windows.Forms.Label();
             this.tbxSearchBar = new System.Windows.Forms.TextBox();
             this.btnAddNewUser = new System.Windows.Forms.Button();
@@ -59,6 +53,12 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.mnuMenu = new System.Windows.Forms.MenuStrip();
             this.mnuMenuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.DiscountCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DiscountPercentage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DiscountAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DicountID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDiscounts)).BeginInit();
             this.mnuMenu.SuspendLayout();
             this.SuspendLayout();
@@ -73,7 +73,7 @@
             this.StartDate,
             this.EndDate,
             this.DiscountPercentage,
-            this.DicountAmount,
+            this.DiscountAmount,
             this.DicountID});
             this.dgvDiscounts.Location = new System.Drawing.Point(12, 116);
             this.dgvDiscounts.Name = "dgvDiscounts";
@@ -82,42 +82,6 @@
             this.dgvDiscounts.Size = new System.Drawing.Size(1386, 287);
             this.dgvDiscounts.TabIndex = 0;
             this.dgvDiscounts.SelectionChanged += new System.EventHandler(this.dgvDiscounts_SelectionChanged);
-            // 
-            // DiscountCode
-            // 
-            this.DiscountCode.HeaderText = "Code";
-            this.DiscountCode.Name = "DiscountCode";
-            this.DiscountCode.ReadOnly = true;
-            // 
-            // StartDate
-            // 
-            this.StartDate.HeaderText = "Starting Date";
-            this.StartDate.Name = "StartDate";
-            this.StartDate.ReadOnly = true;
-            // 
-            // EndDate
-            // 
-            this.EndDate.HeaderText = "Ending Date";
-            this.EndDate.Name = "EndDate";
-            this.EndDate.ReadOnly = true;
-            // 
-            // DiscountPercentage
-            // 
-            this.DiscountPercentage.HeaderText = "Discount Percentage";
-            this.DiscountPercentage.Name = "DiscountPercentage";
-            this.DiscountPercentage.ReadOnly = true;
-            // 
-            // DicountAmount
-            // 
-            this.DicountAmount.HeaderText = "Dicount Amount";
-            this.DicountAmount.Name = "DicountAmount";
-            this.DicountAmount.ReadOnly = true;
-            // 
-            // DicountID
-            // 
-            this.DicountID.HeaderText = "ID";
-            this.DicountID.Name = "DicountID";
-            this.DicountID.ReadOnly = true;
             // 
             // lblSearchCode
             // 
@@ -374,6 +338,42 @@
             this.mnuMenuHelp.Text = "&Help";
             this.mnuMenuHelp.Click += new System.EventHandler(this.mnuMenuHelp_Click);
             // 
+            // DiscountCode
+            // 
+            this.DiscountCode.HeaderText = "Code";
+            this.DiscountCode.Name = "DiscountCode";
+            this.DiscountCode.ReadOnly = true;
+            // 
+            // StartDate
+            // 
+            this.StartDate.HeaderText = "Starting Date";
+            this.StartDate.Name = "StartDate";
+            this.StartDate.ReadOnly = true;
+            // 
+            // EndDate
+            // 
+            this.EndDate.HeaderText = "Ending Date";
+            this.EndDate.Name = "EndDate";
+            this.EndDate.ReadOnly = true;
+            // 
+            // DiscountPercentage
+            // 
+            this.DiscountPercentage.HeaderText = "Discount Percentage";
+            this.DiscountPercentage.Name = "DiscountPercentage";
+            this.DiscountPercentage.ReadOnly = true;
+            // 
+            // DiscountAmount
+            // 
+            this.DiscountAmount.HeaderText = "Discount Amount";
+            this.DiscountAmount.Name = "DiscountAmount";
+            this.DiscountAmount.ReadOnly = true;
+            // 
+            // DicountID
+            // 
+            this.DicountID.HeaderText = "ID";
+            this.DicountID.Name = "DicountID";
+            this.DicountID.ReadOnly = true;
+            // 
             // frmDiscountsManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
@@ -423,12 +423,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvDiscounts;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DiscountCode;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StartDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EndDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DiscountPercentage;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DicountAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DicountID;
         private System.Windows.Forms.Label lblSearchCode;
         private System.Windows.Forms.TextBox tbxSearchBar;
         private System.Windows.Forms.Button btnAddNewUser;
@@ -452,5 +446,11 @@
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.MenuStrip mnuMenu;
         private System.Windows.Forms.ToolStripMenuItem mnuMenuHelp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DiscountCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StartDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EndDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DiscountPercentage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DiscountAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DicountID;
     }
 }

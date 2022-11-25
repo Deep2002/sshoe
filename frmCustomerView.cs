@@ -436,7 +436,7 @@ namespace FinalProject
             };
 
             lstBrandsCategoryList = lstBrandsCategoryList.OrderBy(x => x).ToList();
-
+            menPanel.Controls.Clear();
             foreach (string category in lstMenCategoryList)
             {
                 Label label = new Label();
@@ -457,6 +457,8 @@ namespace FinalProject
                 });
                 menPanel.Controls.Add(label);
             }
+
+            womenPanel.Controls.Clear();
 
             foreach (string category in lstWomenCategoryList)
             {
@@ -479,6 +481,8 @@ namespace FinalProject
                 womenPanel.Controls.Add(label);
             }
 
+            kidsPanel.Controls.Clear();
+
             foreach (string category in lstKidsCategoryList)
             {
                 Label label = new Label();
@@ -490,13 +494,16 @@ namespace FinalProject
                 label.Text = category;
 
                 // make it click
-                kidsPanel.Controls.Add(label);
                 label.Click += new EventHandler(delegate (object o, EventArgs a)
                 {
                     DisplayAllItemsOnForm(GetByGender(category));
                     pnlCategory.Size = new Size(pnlCategory.Size.Width, 70);
                 });
+
+                kidsPanel.Controls.Add(label);
             }
+
+            brandsPanel.Controls.Clear();
 
             foreach (string category in lstBrandsCategoryList)
             {
