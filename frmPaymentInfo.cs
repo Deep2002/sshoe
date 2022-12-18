@@ -103,13 +103,12 @@ namespace FinalProject
             int itemCount = 0;
             foreach (var item in clsPublicData.currentUserCart.lstUserCart)
             {
-
                 itemCount++;
                 strBuilder.AppendLine("<tr>");
-                strBuilder.AppendLine($"<th scope = \"row\" >{clsPublicData.currentUserCart.TotalItems}</th>");
+                strBuilder.AppendLine($"<th scope = \"row\" >{itemCount}</th>");
                 strBuilder.AppendLine($"<td>{ item.inventory.strName }</td>");
                 strBuilder.AppendLine($"<td>${item.inventory.decCost.ToString("0.00")}</td>");
-                strBuilder.AppendLine($"<td>{ item.quantity }</td>");
+                strBuilder.AppendLine($"<td>{clsPublicData.currentUserCart.TotalItems}</td>");
                 strBuilder.AppendLine($"<td>${ item.inventory.decCost * item.quantity }</td>");
                 strBuilder.AppendLine("</tr>");
             }
@@ -119,6 +118,8 @@ namespace FinalProject
             strBuilder.AppendLine("<div class=\"w-50 p-3 bg-dark\" style=\" border-style:solid; border-radius: 20px; min-width: 500px; max-width: 500px; display: flex; justify-content: space-between; color: white; margin-left: auto; margin-right: auto; font-size: large; letter-spacing: 0.01ch;\">");
             strBuilder.AppendLine("<div style=\"list-style: none;\">");
             strBuilder.AppendLine("<li style=\"color: orange;\">Name on order:</li>");
+            if (clsPublicData.currentManager != null)
+                strBuilder.AppendLine("<li style=\"color: LightGray;\">Employee helped:</li>");
             strBuilder.AppendLine("<li style=\"color: rgb(47, 255, 54);\">Order ID#</li>");
             strBuilder.AppendLine("<li>Date</li><br>");
             strBuilder.AppendLine("<li>Total Items:</li>");
@@ -130,9 +131,11 @@ namespace FinalProject
             strBuilder.AppendLine("</div>");
             strBuilder.AppendLine("<div style = \"text-align: right; list-style: none;\">");
             strBuilder.AppendLine($"<li style = \"color: orange;\">{clsPublicData.currentUser.strFirstName} {clsPublicData.currentUser.strLastName}</li>");
+            if (clsPublicData.currentManager != null)
+                strBuilder.AppendLine($"<li style = \"color: LightGray;\">{clsPublicData.currentManager.strFirstName} {clsPublicData.currentManager.strLastName}</li>");
             strBuilder.AppendLine($"<li style = \"color: rgb(47, 255, 54);\"> {clsPublicData.currentUserCart.orderID } </li>");
             strBuilder.AppendLine($"<li> {DateTime.Now.ToString("d")} </li><br>");
-            strBuilder.AppendLine($"<li> {itemCount} </li>");
+            strBuilder.AppendLine($"<li> {clsPublicData.currentUserCart.TotalItems} </li>");
             strBuilder.AppendLine($"<li> ${clsPublicData.currentUserCart.Subtotal.ToString("0.00")} </li>");
             strBuilder.AppendLine($"<li style=\"color: rgb(47, 255, 54);\"> -{clsPublicData.currentUserCart.Discount.ToString("0.00")} </li>");
             strBuilder.AppendLine($"<li> ${clsPublicData.currentUserCart.DiscountedTotal.ToString("0.00")} </li>");
@@ -140,7 +143,7 @@ namespace FinalProject
             strBuilder.AppendLine($"<li style = \"color: orange;\"> ${clsPublicData.currentUserCart.Total.ToString("0.00")} </li>");
             strBuilder.AppendLine("</div>");
             strBuilder.AppendLine("</div>");
-            string strImagePath = Assembly.GetExecutingAssembly().CodeBase.Replace("FinalProject.exe", "sshoeLogo.ico");
+            string strImagePath = Assembly.GetExecutingAssembly().CodeBase.Replace("bin/Debug/FinalProject.exe", "Resources/sshoeLogo.ico");
             strBuilder.AppendLine($"<div style=\"margin-left: auto; margin-right: auto; margin-top: 2rem; text-align: center;\"><img style = \"width: 50px; height: 50px;\" src=\"{strImagePath}\" alt=\"sshoe logo\"><h5>Thank you for shopping with sshoe :)</h5></div>");
             strBuilder.AppendLine("</body>\r\n</html>");
 
@@ -150,33 +153,22 @@ namespace FinalProject
         private void PrintReport(StringBuilder html)
         {
             // Write (and overwrite) to the hard drive using the same filename of "Report.html"
+            DateTime today = DateTime.Now;
+
             try
             {
                 // A "using" statement will automatically close a file after opening it.
                 // It never hurts to include a file.Close() once you are done with a file.
-                using (StreamWriter writer = new StreamWriter(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\Report.html"))
+                using (StreamWriter writer = new StreamWriter(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + $"\\{today.ToString("MM-dd-yyyy hh-mm-tt")} - Report.html"))
                 {
                     writer.WriteLine(html);
                 }
-                System.Diagnostics.Process.Start(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\Report.html"); //Open the report in the default web browser
+                System.Diagnostics.Process.Start(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + $"\\{today.ToString("MM-dd-yyyy hh-mm-tt")} - Report.html"); //Open the report in the default web browser
             }
             catch (Exception ex)
             {
                 MessageBox.Show("You currently do not have write permissions for this feature.\n\n" + ex.Message,
                     "Error with System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            // If you want a unique filename you could use a date and time with part of a name
-            try
-            {
-                DateTime today = DateTime.Now;
-                using (StreamWriter writer = new StreamWriter(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + $"\\{today.ToString("yyyy-MM-dd-HHmmss")} - Report.html"))
-                {
-                    writer.WriteLine(html);
-                }
-            } catch (Exception ex)
-            {
-                MessageBox.Show("HTML file (receipt) does not exists." + ex.Message, "Error with System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

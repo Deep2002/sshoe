@@ -16,7 +16,8 @@ namespace FinalProject
     public enum LOGON_FORM_STATE
     {
         NORMAL,
-        POP_UP // This means when user logs in it will not open customer window
+        POP_UP, // This means when user logs in it will not open customer window
+        MANAGER
 
     }
 
@@ -126,15 +127,35 @@ namespace FinalProject
                 {
                     stsStatus.Items.Clear();
 
+                    if (currentState != LOGON_FORM_STATE.POP_UP && clsPublicData.currentUser.strPositionID != "1001")
+                    {
+                        currentState = LOGON_FORM_STATE.MANAGER;
+                    } else if (clsPublicData.currentUser.strPositionID == "1001")
+                    {
+                        currentState = LOGON_FORM_STATE.NORMAL;
+                    }
+
                     switch (currentState)
                     {
                         case LOGON_FORM_STATE.NORMAL:
                             this.Hide();
                             new frmCustomerView().ShowDialog();
+                            clsPublicData.currentUser = null;
                             this.Show();
                             break;
                         case LOGON_FORM_STATE.POP_UP:
                             this.Close();
+                            break;
+
+                        case LOGON_FORM_STATE.MANAGER:
+                            this.Hide();
+                            new frmManagerView().ShowDialog();
+                            clsPublicData.currentUser = null;
+                            try
+                            {
+                                this.Show();
+                            }
+                            catch (Exception) { }
                             break;
                     }
 
@@ -176,7 +197,7 @@ namespace FinalProject
                     if (clsSQL.SearchCurrentUser(tbxUsername.Text))
                     {
                         strUserName = tbxUsername.Text;
-                        // if exist, than send them to verify thier security questions
+                        // if exist, than send them to verify their security questions
                         frmQuestionsWindow frmQuestions = new frmQuestionsWindow(FORM_TYPE.RESET_PASSWORD);
                         this.Hide();
                         frmQuestions.ShowDialog();
@@ -208,6 +229,7 @@ namespace FinalProject
             this.Hide();
             new frmCustomerView().ShowDialog();
             this.Show();
+            clsPublicData.currentUser = null;
         }
 
         private void btnSignUp_Click(object sender, EventArgs e)

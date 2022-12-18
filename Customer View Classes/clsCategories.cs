@@ -8,15 +8,15 @@ namespace FinalProject.Customer_View_Classes
 {
     public class clsCategories
     {
-        public int intID;
-        public string strName;
-        public string strDescription;
+        public int intID { get; set; }
+        public string strName { get; set; }
+        public string strDescription { get; set; }
 
-        public clsCategories(int intID, string strName, string strDescription)
+
+        public clsCategories(int intID, string strName)
         {
             this.intID = intID;
             this.strName = strName;
-            this.strDescription = strDescription;
         }
     }
 }

@@ -55,10 +55,10 @@ namespace FinalProject
             if (clsPublicData.currentUserCart.Discount > 0)
             {
 
-                if (clsPublicData.discount.DicountPercentage != "")
-                    lblDiscount.Text = $"Discount ({Convert.ToDecimal(clsPublicData.discount.DicountPercentage) * 100}%):";
+                if (clsPublicData.discount.DiscountType == 1)
+                    lblDiscount.Text = $"Discount ({Convert.ToDecimal(clsPublicData.discount.DiscountPercentage) * 100}%):";
                 else
-                    lblDiscount.Text = $"Discount (${clsPublicData.discount.DicountAmount}):";
+                    lblDiscount.Text = $"Discount (${clsPublicData.discount.DiscountAmount}):";
 
                 lblDiscountValue.Text = "-" + clsPublicData.currentUserCart.Discount.ToString("0.00");
                 lblDiscountedTotalValue.Text = "$" + clsPublicData.currentUserCart.DiscountedTotal.ToString("0.00");
@@ -137,15 +137,15 @@ namespace FinalProject
 
                 //  if so, give user a discount
                 // check if we have dollar amount or percentage
-                if (clsPublicData.discount.DicountAmount != "")
+                if (clsPublicData.discount.DiscountType == 0)
                 {
-                    clsPublicData.currentUserCart.Discount = Convert.ToDecimal(clsPublicData.discount.DicountAmount);
-                    lblDiscount.Text = $"Discount (${clsPublicData.discount.DicountAmount}):";
+                    clsPublicData.currentUserCart.Discount = Convert.ToDecimal(clsPublicData.discount.DiscountAmount);
+                    lblDiscount.Text = $"Discount (${clsPublicData.discount.DiscountAmount}):";
                 }
                 else
                 {
-                    clsPublicData.currentUserCart.Discount = clsPublicData.currentUserCart.Subtotal * Convert.ToDecimal(clsPublicData.discount.DicountPercentage);
-                    lblDiscount.Text = $"Discount ({Convert.ToDecimal(clsPublicData.discount.DicountPercentage) * 100}%):";
+                    clsPublicData.currentUserCart.Discount = clsPublicData.currentUserCart.Subtotal * Convert.ToDecimal(clsPublicData.discount.DiscountPercentage);
+                    lblDiscount.Text = $"Discount ({Convert.ToDecimal(clsPublicData.discount.DiscountPercentage) * 100}%):";
                 }
 
                 // add rest of the amounts
@@ -159,7 +159,7 @@ namespace FinalProject
                 lblTaxValue.Text = "$" + clsPublicData.currentUserCart.Tax.ToString("0.00");
                 lblTotalValue.Text = "$" + clsPublicData.currentUserCart.Total.ToString("0.00");
 
-                lblCouponInfo.Text = $"Coupon Applied: {clsPublicData.discount.DicountCode}";
+                lblCouponInfo.Text = $"Coupon Applied: {clsPublicData.discount.DiscountCode}";
                 lblCouponInfo.ForeColor = Color.DarkGreen;
             }
             else

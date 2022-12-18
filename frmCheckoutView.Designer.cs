@@ -287,6 +287,7 @@
             // rdoUseAboveAddress
             // 
             this.rdoUseAboveAddress.AutoSize = true;
+            this.rdoUseAboveAddress.Checked = true;
             this.rdoUseAboveAddress.Location = new System.Drawing.Point(14, 100);
             this.rdoUseAboveAddress.Name = "rdoUseAboveAddress";
             this.rdoUseAboveAddress.Size = new System.Drawing.Size(217, 27);
@@ -302,7 +303,6 @@
             this.rdoUseDiffrentAddress.Name = "rdoUseDiffrentAddress";
             this.rdoUseDiffrentAddress.Size = new System.Drawing.Size(241, 27);
             this.rdoUseDiffrentAddress.TabIndex = 18;
-            this.rdoUseDiffrentAddress.TabStop = true;
             this.rdoUseDiffrentAddress.Text = "Use different Address.\r\n";
             this.rdoUseDiffrentAddress.UseVisualStyleBackColor = true;
             // 

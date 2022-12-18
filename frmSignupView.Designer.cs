@@ -91,6 +91,7 @@ namespace FinalProject
             this.tbxSuffix = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.cbxState = new System.Windows.Forms.ComboBox();
+            this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
             this.mnuMenuStrip.SuspendLayout();
             this.stsStatus.SuspendLayout();
             this.SuspendLayout();
@@ -147,14 +148,14 @@ namespace FinalProject
             // 
             this.mnuMenuViewHelp.Image = global::FinalProject.Properties.Resources.help1;
             this.mnuMenuViewHelp.Name = "mnuMenuViewHelp";
-            this.mnuMenuViewHelp.Size = new System.Drawing.Size(180, 22);
+            this.mnuMenuViewHelp.Size = new System.Drawing.Size(158, 22);
             this.mnuMenuViewHelp.Text = "&View Help";
             this.mnuMenuViewHelp.Click += new System.EventHandler(this.mnuMenuViewHelp_Click);
             // 
             // mnuMenuAbout
             // 
             this.mnuMenuAbout.Name = "mnuMenuAbout";
-            this.mnuMenuAbout.Size = new System.Drawing.Size(180, 22);
+            this.mnuMenuAbout.Size = new System.Drawing.Size(158, 22);
             this.mnuMenuAbout.Text = "&About";
             // 
             // tbxPassword
@@ -751,6 +752,12 @@ namespace FinalProject
             this.cbxState.TabIndex = 14;
             this.cbxState.TextChanged += new System.EventHandler(this.cbxState_TextChanged);
             // 
+            // directorySearcher1
+            // 
+            this.directorySearcher1.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
+            this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
+            this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
+            // 
             // frmSignupView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 23F);
@@ -889,5 +896,6 @@ namespace FinalProject
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cbxState;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.DirectoryServices.DirectorySearcher directorySearcher1;
     }
 }

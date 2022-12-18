@@ -1,4 +1,5 @@
 ﻿using FinalProject.Customer_View_Classes;
+using FinalProject.ManagerViewForms;
 using FinalProject.Properties;
 using System;
 using System.Collections.Generic;
@@ -24,8 +25,11 @@ using Image = System.Drawing.Image;
 
 namespace FinalProject
 {
+    public enum FORM_TYPES { NORMAL, POINT_OF_SALES, }
+
     public partial class frmCustomerView : Form
     {
+        public FORM_TYPES currentType;
 
         #region Public Layout panels
         // Create for each menu bar items
@@ -36,9 +40,10 @@ namespace FinalProject
         public static FlowLayoutPanel currentSelectedFlowLayoutPannel = menPanel;
         #endregion
 
-        public frmCustomerView()
+        public frmCustomerView(FORM_TYPES frmType = FORM_TYPES.NORMAL)
         {
             InitializeComponent();
+            this.currentType = frmType;
         }
 
         #region Main form functions
@@ -46,15 +51,25 @@ namespace FinalProject
         {
 
             if (clsPublicData.currentUser != null)
+            {
+                if (clsPublicData.currentUser.strPositionID == "1000")
+                {
+                    clsPublicData.currentManager = clsPublicData.currentUser;
+                    currentType = FORM_TYPES.POINT_OF_SALES;
+                }
                 // Display user name
                 lblUserFirstName.Text = $"Welcome Back, {clsPublicData.currentUser.strFirstName}";
+            }
+
             else
+            {
+
                 lblUserFirstName.Text = $"Anonymous user";
+            }
 
             if (clsPublicData.lstInventory.Count <= 0)
             {
-                // load category into menu bar (Not from database)
-                loadCategories();
+
 
                 // load Inventory
                 clsSQL.LoadInventory(clsPublicData.lstInventory);
@@ -75,17 +90,18 @@ namespace FinalProject
                 clsPublicData.lstCurrentDisplayingInventory = clsPublicData.lstInventory;
             }
 
+            // load category into menu bar (Not from database)
+            loadCategories();
             DisplayAllItemsOnForm(clsPublicData.lstInventory);
         }
         private void frmCustomerView_FormClosing(object sender, FormClosingEventArgs e)
         {
-            clsPublicData.currentUser = null;
             clsPublicData.currentUserCart = new clsUserCart();
         }
         private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            clsPublicData.currentUser = null;
             clsPublicData.currentUserCart = new clsUserCart();
+            clsPublicData.currentManager = null;
             this.Close();
         }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -159,11 +175,11 @@ namespace FinalProject
 
                 // create a quantity counter
                 NumericUpDown quantityNumericUpDown = new NumericUpDown();
-                quantityNumericUpDown.Value = item.quantity;
                 quantityNumericUpDown.Location = new System.Drawing.Point(97, 236);
                 quantityNumericUpDown.Maximum = new decimal(new int[] { item.size.intQuantity, 0, 0, 0 });
                 quantityNumericUpDown.Minimum = 1;
                 quantityNumericUpDown.Size = new Size(60, 30);
+                quantityNumericUpDown.Value = item.quantity;
 
                 // create delete button/Picture box
                 PictureBox deleteButton = new PictureBox();
@@ -214,21 +230,32 @@ namespace FinalProject
             }
             else
             {
-                if (clsPublicData.currentUser != null)
+
+
+                switch (currentType)
                 {
-                    new frmCheckoutView().ShowDialog();
-                    updateCartArea();
-                }
-                else
-                {
-                    new frmLoginOrCreateAccountQuestion().ShowDialog();
-                    // see if they logged in
-                    if (clsPublicData.currentUser != null)
-                    {
-                        lblUserFirstName.Text = $"Welcome Back, {clsPublicData.currentUser.strFirstName}";
-                        new frmCheckoutView().ShowDialog();
-                        updateCartArea();
-                    }
+                    case FORM_TYPES.NORMAL:
+                        if(clsPublicData.currentUser == null)
+                            new frmLoginOrCreateAccountQuestion().ShowDialog();
+                        // see if they logged in
+                        if (clsPublicData.currentUser != null)
+                        {
+                            lblUserFirstName.Text = $"Welcome Back, {clsPublicData.currentUser.strFirstName}";
+                            new frmCheckoutView().ShowDialog();
+                            updateCartArea();
+                        }
+                        break;
+
+                    case FORM_TYPES.POINT_OF_SALES:
+                        new frmUserManager(FORM_TYPES.POINT_OF_SALES).ShowDialog();
+                        if (clsPublicData.currentUser != null)
+                        {
+                            MessageBox.Show($"Checking out for {clsPublicData.currentUser.strFirstName} {clsPublicData.currentUser.strLastName}.", "Sshoe",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            new frmCheckoutView().ShowDialog();
+                            clsPublicData.currentUser = clsPublicData.currentManager;
+                            updateCartArea();
+                        }
+                        break;
                 }
             }
         }
@@ -409,7 +436,7 @@ namespace FinalProject
             };
 
             lstBrandsCategoryList = lstBrandsCategoryList.OrderBy(x => x).ToList();
-
+            menPanel.Controls.Clear();
             foreach (string category in lstMenCategoryList)
             {
                 Label label = new Label();
@@ -430,6 +457,8 @@ namespace FinalProject
                 });
                 menPanel.Controls.Add(label);
             }
+
+            womenPanel.Controls.Clear();
 
             foreach (string category in lstWomenCategoryList)
             {
@@ -452,6 +481,8 @@ namespace FinalProject
                 womenPanel.Controls.Add(label);
             }
 
+            kidsPanel.Controls.Clear();
+
             foreach (string category in lstKidsCategoryList)
             {
                 Label label = new Label();
@@ -463,13 +494,16 @@ namespace FinalProject
                 label.Text = category;
 
                 // make it click
-                kidsPanel.Controls.Add(label);
                 label.Click += new EventHandler(delegate (object o, EventArgs a)
                 {
                     DisplayAllItemsOnForm(GetByGender(category));
                     pnlCategory.Size = new Size(pnlCategory.Size.Width, 70);
                 });
+
+                kidsPanel.Controls.Add(label);
             }
+
+            brandsPanel.Controls.Clear();
 
             foreach (string category in lstBrandsCategoryList)
             {
@@ -591,7 +625,7 @@ namespace FinalProject
         }
         public static List<clsInventory> GetBySearchString(string searchString, List<clsInventory> lst)
         {
-            return lst.Where(x => x.strName.Contains(searchString) || x.strBrand.Contains(searchString) || x.strDescription.Contains(searchString)).ToList();
+            return lst.Where(x => x.strName.ToLower().Contains(searchString.ToLower()) || x.strBrand.ToLower().Contains(searchString.ToLower()) || x.strDescription.ToLower().Contains(searchString.ToLower())).ToList();
         }
         public static List<clsInventory> GetByMinMaxShoeSize(double selectedSize, List<clsInventory> lst)
         {

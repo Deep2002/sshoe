@@ -38,6 +38,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -339,7 +340,7 @@ namespace FinalProject
                 // create Person
                 string strQuery = "SET ANSI_WARNINGS OFF;" +
                     " INSERT INTO ParmarD22Fa2332.Person " +
-                    "(NameFirst, NameLast, Address1, City, Zipcode, State, PositionID, Title, Email, PhonePrimary";
+                    "(NameFirst, NameLast, Address1, City, Zipcode, State, PositionID, Title, Email, PhonePrimary, PersonDeleted";
 
                 #region Append fields if provided by user
                 if (strMiddleName != "")
@@ -357,7 +358,7 @@ namespace FinalProject
                 if (strSuffix != "")
                     strQuery += ", Suffix";
 
-                strQuery += ") VALUES " + "(@NameFirst, @NameLast, @Address1, @City, @Zipcode, @State, @PositionID, @Title, @Email, @PhonePrimary";
+                strQuery += ") VALUES " + "(@NameFirst, @NameLast, @Address1, @City, @Zipcode, @State, @PositionID, @Title, @Email, @PhonePrimary, @PersonDeleted";
 
                 if (strMiddleName != "")
                     strQuery += ", @NameMiddle";
@@ -391,6 +392,7 @@ namespace FinalProject
                 cmd.Parameters.AddWithValue("@Title", strTitle);
                 cmd.Parameters.AddWithValue("@Email", strEmail);
                 cmd.Parameters.AddWithValue("@PhonePrimary", strPrimaryPhone);
+                cmd.Parameters.AddWithValue("@PersonDeleted", 0);
 
                 if (!strMiddleName.Equals(""))
                     cmd.Parameters.AddWithValue("@NameMiddle", strMiddleName);
@@ -434,7 +436,7 @@ namespace FinalProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error occurred while creating new customer:\n\nSee Error:\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -464,8 +466,8 @@ namespace FinalProject
 
                 foreach (DataRow row in dtCategoriesTable.Rows)
                 {
-                   
-                    foreach(clsInventory item in lstInventory.Where(x => x.intCategoryID == Convert.ToInt32(row["CategoryID"])))
+
+                    foreach (clsInventory item in lstInventory.Where(x => x.intCategoryID == Convert.ToInt32(row["CategoryID"])))
                     {
                         item.strCategory = row["CategoryName"].ToString();
                     }
@@ -474,7 +476,43 @@ namespace FinalProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Error occurred while loading categories:\n\nSee Error:\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public static void LoadAllCategories(List<clsCategories> lstCategories)
+        {
+            try
+            {
+                // setting up query to run
+                string strQuery = "SELECT * FROM Categories;";
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+
+                // create and fill in the data table
+                DataTable dtCategoriesTable = new DataTable();
+                sqlDataAdapter.SelectCommand = cmd;
+                sqlDataAdapter.Fill(dtCategoriesTable);
+
+                // dispose unnecessary data
+                cmd.Dispose();
+                sqlDataAdapter.Dispose();
+
+                // check if DB return any row
+
+                foreach (DataRow row in dtCategoriesTable.Rows)
+                {
+                    clsCategories category = new clsCategories(Convert.ToInt32(row["categoryID"]), row["categoryName"].ToString());
+
+                    lstCategories.Add(category);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred while loading categories:\n\nSee Error:\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -483,7 +521,7 @@ namespace FinalProject
             try
             {
                 // setting up query to run
-                string strQuery = "SELECT * FROM Inventory;";
+                string strQuery = "SELECT * FROM Inventory ORDER BY ItemName;";
 
                 // establish command and data adapter
                 SqlCommand cmd = new SqlCommand(strQuery, connection);
@@ -512,7 +550,9 @@ namespace FinalProject
                     inventory.intQuantity = Convert.ToInt32(row["Quantity"]);
                     inventory.intGenderID = Convert.ToInt32(row["GenderID"]);
                     inventory.intBrandID = Convert.ToInt32(row["BrandID"]);
+                    inventory.intDicontinued = Convert.ToInt32(row["Discontinued"]);
                     inventory.intCategoryID = Convert.ToInt32(row["CategoryID"]);
+                    inventory.intRestockThreashold = Convert.ToInt32(row["RestockThreshold"]);
                     inventory.byteImage = (byte[])row["ItemImage"];
 
                     // Finally add it to list
@@ -523,19 +563,21 @@ namespace FinalProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Error occurred while loading Inventory:\n\nSee Error:\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        public static void AddInventory(string name, string description, string categoryID, string reatilPrice, string cost, string quantity, string threshold, string imageLocation, string genderID)
+        public static string AddInventory(string name, string description, string categoryID, string reatilPrice, string cost, string quantity, string threshold, string imageLocation, string genderID, string brandID, int discontinued = 0)
         {
             try
             {
                 byte[] image = File.ReadAllBytes(imageLocation);
 
                 string strQuery = "INSERT INTO Inventory " +
-                    "(ItemName, ItemDescription, CategoryID, RetailPrice, Cost, Quantity, RestockThreshold, GenderID, ItemImage) VALUES " +
-                    "(@ItemName, @ItemDescription, @CategoryID, @RetailPrice, @Cost, @Quantity, @RestockThreshold, @GenderID, @ItemImage)";
+                    "(ItemName, ItemDescription, CategoryID, RetailPrice, Cost, Quantity, RestockThreshold, GenderID, ItemImage, BrandID, Discontinued) " +
+                    "OUTPUT INSERTED.InventoryID " +
+                    "VALUES " +
+                    "(@ItemName, @ItemDescription, @CategoryID, @RetailPrice, @Cost, @Quantity, @RestockThreshold, @GenderID, @ItemImage, @BrandID, @Discontinued)";
 
                 SqlCommand cmd = new SqlCommand(strQuery, connection);
                 cmd.Parameters.AddWithValue("@ItemName", name);
@@ -546,17 +588,29 @@ namespace FinalProject
                 cmd.Parameters.AddWithValue("@Quantity", Convert.ToInt32(quantity));
                 cmd.Parameters.AddWithValue("@RestockThreshold", Convert.ToInt32(threshold));
                 cmd.Parameters.AddWithValue("@GenderID", genderID);
+                cmd.Parameters.AddWithValue("@BrandID", brandID);
+                cmd.Parameters.AddWithValue("@Discontinued", discontinued);
                 SqlParameter sqlParams = cmd.Parameters.AddWithValue("@ItemImage", image);
                 sqlParams.DbType = DbType.Binary;
 
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Success");
+                int id = (Int32)cmd.ExecuteScalar();
+
+                if (id > 0)
+                {
+                    return id.ToString();
+                }
+                else
+                {
+                    return "false";
+                }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error occurred while adding item to the database:\n\nSee Error:\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return "false";
             }
+
         }
 
         public static void LoadSizes(List<clsInventory> lstInventory)
@@ -579,15 +633,15 @@ namespace FinalProject
                 cmd.Dispose();
                 sqlDataAdapter.Dispose();
 
-                foreach(var item in lstInventory)
+                foreach (var item in lstInventory)
                 {
                     item.lstSizes = new List<clsShoeSize>();
                 }
-                
+
                 foreach (DataRow row in dtShoeSizeTable.Rows)
                 {
                     // Add shoe size to the item
-                    if(Convert.ToInt32(row["Quantity"]) > 0)
+                    if (Convert.ToInt32(row["Quantity"]) > 0)
                     {
                         lstInventory.Find(x => x.intID == Convert.ToInt32(row["ItemID"])).lstSizes.Add(new clsShoeSize(row["Size"].ToString(), Convert.ToInt32(row["Quantity"])));
                     }
@@ -596,7 +650,7 @@ namespace FinalProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Error occurred while getting sizes:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -628,13 +682,13 @@ namespace FinalProject
 
                 if (dtDiscountTable.Rows.Count >= 1)
                 {
-                    clsPublicData.discount.DicountID = dtDiscountTable.Rows[0]["DiscountID"].ToString();
-                    clsPublicData.discount.DicountCode = dtDiscountTable.Rows[0]["DiscountCode"].ToString();
-                    clsPublicData.discount.DicountAmount = dtDiscountTable.Rows[0]["DiscountDollarAmount"].ToString();
-                    clsPublicData.discount.DicountPercentage = dtDiscountTable.Rows[0]["DiscountPercentage"].ToString();
+                    clsPublicData.discount.DiscountID = dtDiscountTable.Rows[0]["DiscountID"].ToString();
+                    clsPublicData.discount.DiscountCode = dtDiscountTable.Rows[0]["DiscountCode"].ToString();
+                    clsPublicData.discount.DiscountAmount = dtDiscountTable.Rows[0]["DiscountDollarAmount"].ToString();
+                    clsPublicData.discount.DiscountPercentage = dtDiscountTable.Rows[0]["DiscountPercentage"].ToString();
                     clsPublicData.discount.InventoryID = dtDiscountTable.Rows[0]["InventoryID"].ToString();
                     clsPublicData.discount.ExpirationDate = dtDiscountTable.Rows[0]["ExpirationDate"].ToString();
-                    clsPublicData.discount.DicountType = Convert.ToInt32(dtDiscountTable.Rows[0]["DiscountType"].ToString());
+                    clsPublicData.discount.DiscountType = Convert.ToInt32(dtDiscountTable.Rows[0]["DiscountType"].ToString());
 
                 }
                 else
@@ -660,22 +714,36 @@ namespace FinalProject
                 #region Creating new Order
                 string strQuery = "INSERT INTO Orders (PersonID, OrderDate, CC_Number, ExpDate, CCV, Time";
 
+                // if placing order from point of sales (POS)
+                // Add Employee / Manager ID
+                if (clsPublicData.currentManager != null)
+                {
+                    strQuery += ", EmployeeID";
+                }
+
                 #region Append discount id if exists
-                if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
+                if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
                     strQuery += ", DiscountID";
 
                 strQuery += ") VALUES (@PersonID, @OrderDate, @CC_Number, @ExpDate, @CCV, @Time";
 
-                if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
+                if (clsPublicData.currentManager != null)
+                    strQuery += ", @EmployeeID";
+
+                if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
                     strQuery += ", @DiscountID";
-                strQuery += ");";
                 #endregion
+
+                strQuery += ");";
 
                 // establish command and data adapter
                 SqlCommand cmd = new SqlCommand(strQuery, connection);
 
-                if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
-                    cmd.Parameters.AddWithValue("@DiscountID", clsPublicData.discount.DicountID);
+                if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
+                    cmd.Parameters.AddWithValue("@DiscountID", clsPublicData.discount.DiscountID);
+
+                if (clsPublicData.currentManager != null)
+                    cmd.Parameters.AddWithValue("@EmployeeID", clsPublicData.currentManager.strPersonID);
 
                 string orderDate = DateTime.Now.ToString("g");
                 string orderTime = DateTime.Now.ToString("T");
@@ -733,15 +801,15 @@ namespace FinalProject
                     #region Adding order Details
 
                     // get that order id
-                    strQuery = "INSERT INTO OrderDetails (OrderID, InventoryID, Quantity ";
+                    strQuery = "INSERT INTO OrderDetails (OrderID, InventoryID, Quantity, TotalCost ";
 
                     #region Append discount id if exists
-                    if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
+                    if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
                         strQuery += ", DiscountID";
 
-                    strQuery += ") VALUES (@OrderID, @InventoryID, @Quantity";
+                    strQuery += ") VALUES (@OrderID, @InventoryID, @Quantity, @TotalCost";
 
-                    if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
+                    if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
                         strQuery += ", @DiscountID";
                     strQuery += ");";
                     #endregion
@@ -754,9 +822,10 @@ namespace FinalProject
                         cmd.Parameters.AddWithValue("@OrderID", orderID);
                         cmd.Parameters.AddWithValue("@InventoryID", item.inventory.intID);
                         cmd.Parameters.AddWithValue("@Quantity", item.quantity);
+                        cmd.Parameters.AddWithValue("@TotalCost", item.quantity * item.inventory.decCost);
 
-                        if (!string.IsNullOrEmpty(clsPublicData.discount.DicountID))
-                            cmd.Parameters.AddWithValue("@DiscountID", clsPublicData.discount.DicountID);
+                        if (!string.IsNullOrEmpty(clsPublicData.discount.DiscountID))
+                            cmd.Parameters.AddWithValue("@DiscountID", clsPublicData.discount.DiscountID);
 
                         // run the query
                         cmd.ExecuteNonQuery();
@@ -800,14 +869,14 @@ namespace FinalProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error receiving Placing an order see error below:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error receiving an order see error below:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             return true;
         }
 
-        public static void LoadGenders( List<clsInventory> lstInventory)
+        public static void LoadGenders(List<clsInventory> lstInventory)
         {
             try
             {
@@ -833,7 +902,7 @@ namespace FinalProject
                 {
 
                     foreach (clsInventory v in lstInventory.Where(x => x.intGenderID == Convert.ToInt32(row["GenderID"])))
-                    { 
+                    {
                         v.strGender = row["Gender"].ToString();
                     }
                 }
@@ -869,7 +938,7 @@ namespace FinalProject
 
                 foreach (DataRow row in dtBrandsTable.Rows)
                 {
-                    
+
                     foreach (clsInventory v in lstInventory.Where(x => x.intBrandID == Convert.ToInt32(row["BrandID"])))
                     {
                         v.strBrand = row["BrandName"].ToString();
@@ -883,5 +952,501 @@ namespace FinalProject
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        public static void LoadAllBrands(List<clsBrand> lstBrandList)
+        {
+            try
+            {
+                // setting up query to run
+                string strQuery = "SELECT * FROM Brands;";
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+
+                // create and fill in the data table
+                DataTable dtBrandsTable = new DataTable();
+                sqlDataAdapter.SelectCommand = cmd;
+                sqlDataAdapter.Fill(dtBrandsTable);
+
+                // dispose unnecessary data
+                cmd.Dispose();
+                sqlDataAdapter.Dispose();
+
+                // check if DB return any row
+
+                foreach (DataRow row in dtBrandsTable.Rows)
+                {
+                    clsBrand brand = new clsBrand();
+                    brand.id = Convert.ToInt32(row["brandId"]);
+                    brand.name = row["brandName"].ToString();
+                    lstBrandList.Add(brand);
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        internal static void AddShoeSize(string size, string quantity, string itemID)
+        {
+            try
+            {
+                string strQuery = "INSERT INTO ShoeSize (Size, Quantity, ItemID) " +
+                    "VALUES (@Size, @Quantity, @ItemID)";
+
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+
+                cmd.Parameters.AddWithValue("@Size", size);
+                cmd.Parameters.AddWithValue("@Quantity", quantity);
+                cmd.Parameters.AddWithValue("@ItemID", itemID);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to add Shoes all sizes. Please try again in few minutes.\n\nSee Error Below:\n" + ex.Message, "SQL ERROR - Adding Sizes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        internal static bool DeleteShoeSize(string size, string itemID)
+        {
+            try
+            {
+                string strQuery = "DELETE FROM ShoeSize WHERE Size = @Size AND ItemID = @ItemID; " +
+                    "UPDATE Inventory SET Quantity = (SELECT SUM(s.Quantity) FROM ShoeSize AS s WHERE ItemID = InventoryID) WHERE InventoryID = @ItemID;";
+
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+
+                cmd.Parameters.AddWithValue("@Size", size);
+                cmd.Parameters.AddWithValue("@ItemID", Convert.ToInt32(itemID));
+
+                cmd.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to Delete Shoes. Please try again in few minutes.\n\nSee Error Below:\n" + ex.Message, "SQL ERROR - Deleting Sizes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return false;
+        }
+
+        internal static bool UpdateInventory(string name, string desc, string reatilPrice, string cost, string quantity, string restockThreshold,
+            string genderID, string categoryID, string brandID, string itemID, string imageLocation, int discontinued)
+        {
+            string query = "UPDATE Inventory SET itemName = @name, " +
+                "ItemDescription = @desc, " +
+                "RetailPrice = @retailPrice, " +
+                "Cost = @cost, " +
+                "Quantity = @quantity, " +
+                "RestockThreshold = @restockthreshold, " +
+                "GenderID = @genderID, " +
+                "BrandID = @brandID, " +
+                "CategoryID = @categoryID," +
+                "Discontinued = @Discontinued ";
+
+            if (!string.IsNullOrEmpty(imageLocation))
+            {
+                query += ", ItemImage = @img ";
+            }
+
+            query += "WHERE InventoryID = @itemID;";
+
+
+            try
+            {
+
+                SqlCommand cmd = new SqlCommand(query, connection);
+
+                // add all Information here
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@desc", desc);
+                cmd.Parameters.AddWithValue("@retailPrice", reatilPrice);
+                cmd.Parameters.AddWithValue("@cost", cost);
+                cmd.Parameters.AddWithValue("@quantity", quantity);
+                cmd.Parameters.AddWithValue("@restockthreshold", restockThreshold);
+                cmd.Parameters.AddWithValue("@genderID", genderID);
+                cmd.Parameters.AddWithValue("@brandID", brandID);
+                cmd.Parameters.AddWithValue("@categoryID", categoryID);
+                cmd.Parameters.AddWithValue("@Discontinued", discontinued);
+                cmd.Parameters.AddWithValue("@itemID", itemID);
+
+                if (!string.IsNullOrEmpty(imageLocation))
+                {
+                    byte[] image = File.ReadAllBytes(imageLocation);
+                    cmd.Parameters.AddWithValue("@img", image);
+                }
+
+
+                cmd.ExecuteNonQuery();
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show("Unable to update inventory.\n\nSee error below:\n" + ex.Message, "SQL Error - Updating Inventory.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+            return true;
+        }
+
+        /// <summary>
+        /// Method to load all customers into the given list.
+        /// </summary>
+        /// <param name="usersList"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        internal static void LoadAllCustomers(List<Person> usersList)
+        {
+            try
+            {
+                // setting up query to run
+                string strQuery = "SELECT * FROM Person as p JOIN Logon AS l ON l.PersonID = p.PersonID;";
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+
+                // create and fill in the data table
+                DataTable dtCustomersTable = new DataTable();
+                sqlDataAdapter.SelectCommand = cmd;
+                sqlDataAdapter.Fill(dtCustomersTable);
+
+                // dispose unnecessary data
+                cmd.Dispose();
+                sqlDataAdapter.Dispose();
+
+                // check if DB return any row
+
+                foreach (DataRow row in dtCustomersTable.Rows)
+                {
+                    Person person = new Person();
+
+                    person.strPersonID = row["PersonID"].ToString();
+                    person.strFirstName = row["NameFirst"].ToString();
+                    person.strLastName = row["NameLast"].ToString();
+                    person.strMiddleName = row["NameMiddle"].ToString();
+                    person.strSuffix = row["Suffix"].ToString();
+                    person.strTitle = row["Title"].ToString();
+                    person.strAddress1 = row["Address1"].ToString();
+                    person.strAddress2 = row["Address2"].ToString();
+                    person.strAddress3 = row["Address3"].ToString();
+                    person.strCity = row["City"].ToString();
+                    person.strState = row["State"].ToString();
+                    person.strZip = row["Zipcode"].ToString();
+                    person.strEmail = row["Email"].ToString();
+                    person.strPrimaryPhone = row["PhonePrimary"].ToString();
+                    person.strSecondaryPhone = row["PhoneSecondary"].ToString();
+                    person.strPositionID = row["PositionID"].ToString();
+                    person.strUsername = row["LogonName"].ToString();
+                    person.strPassword = row["Password"].ToString();
+                    person.blnDisable = Convert.ToBoolean(row["PersonDeleted"].ToString());
+
+                    if (person.strPositionID == "1000")
+                    {
+                        person.strPosition = "Employee";
+                    }
+                    else
+                    {
+                        person.strPosition = "Customer";
+                    }
+
+                    usersList.Add(person);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        internal static void updatePerson(string userID, string fName, string lName, string mName,
+            string title, string suffix, string username,
+            string email, string primaryPhone, string secondaryPhone,
+            string address1, string address2, string address3,
+            string city, string state, string zip,
+            string password, string positionID, bool disable)
+        {
+
+            // update everything
+            string query = "UPDATE Person SET NameFirst = @NameFirst, " +
+                "NameLast = @NameLast, " +
+                "NameMiddle = @NameMiddle, " +
+                "Suffix = @Suffix, " +
+                "Title = @Title, " +
+                "Address1 = @Address1, " +
+                "Address2 = @Address2, " +
+                "Address3 = @Address3, " +
+                "City = @City, " +
+                "State = @State, " +
+                "Zipcode = @Zipcode, " +
+                "Email = @Email, " +
+                "PhonePrimary = @PhonePrimary, " +
+                "PhoneSecondary = @PhoneSecondary, " +
+                "PositionID = @PositionID, " +
+                "PersonDeleted = @PErsonDeleted " +
+                "WHERE PersonID = @PersonID";
+
+            try
+            {
+
+                SqlCommand cmd = new SqlCommand(query, connection);
+
+                cmd.Parameters.AddWithValue("@NameFirst", fName);
+                cmd.Parameters.AddWithValue("@NameLast", lName);
+                cmd.Parameters.AddWithValue("@NameMiddle", mName);
+                cmd.Parameters.AddWithValue("@Suffix", suffix);
+                cmd.Parameters.AddWithValue("@Title", title);
+                cmd.Parameters.AddWithValue("@Address1", address1);
+                cmd.Parameters.AddWithValue("@Address2", address2);
+                cmd.Parameters.AddWithValue("@Address3", address3);
+                cmd.Parameters.AddWithValue("@City", city);
+                cmd.Parameters.AddWithValue("@State", state);
+                cmd.Parameters.AddWithValue("@Zipcode", zip);
+                cmd.Parameters.AddWithValue("@Email", email);
+                cmd.Parameters.AddWithValue("@PhonePrimary", primaryPhone);
+                cmd.Parameters.AddWithValue("@PhoneSecondary", secondaryPhone);
+                cmd.Parameters.AddWithValue("@PositionID", positionID);
+                cmd.Parameters.AddWithValue("@PersonDeleted", disable);
+                cmd.Parameters.AddWithValue("@PersonID", Convert.ToInt32(userID));
+
+                cmd.ExecuteNonQuery();
+
+                // update user password and user name
+                query = "UPDATE Logon SET LogonName = @LogonName, Password = @Password WHERE PersonID = @PersonID";
+
+                cmd = new SqlCommand(query, connection);
+
+                cmd.Parameters.AddWithValue("@LogonName", username);
+                cmd.Parameters.AddWithValue("@Password", password);
+                cmd.Parameters.AddWithValue("@PersonID", userID);
+                cmd.ExecuteNonQuery();
+
+
+                // If everything went well, show message of success
+                MessageBox.Show("Successfully Updated User Record", "User Information updated.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to update your record!\n\nSee Error Below:\n" + ex.Message, "SQL ERROR - Updating user", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        internal static void LoadAllDiscounts(List<clsDiscounts> dicountCodeList)
+        {
+            try
+            {
+                // setting up query to run
+                string strQuery = "SELECT * FROM Discounts;";
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+
+
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+
+                // create and fill in the data table
+                DataTable dtDiscountTable = new DataTable();
+                sqlDataAdapter.SelectCommand = cmd;
+                sqlDataAdapter.Fill(dtDiscountTable);
+
+                // dispose unnecessary data
+                cmd.Dispose();
+                sqlDataAdapter.Dispose();
+
+                // check if DB return any row
+                foreach (DataRow row in dtDiscountTable.Rows)
+                {
+                    clsDiscounts discount = new clsDiscounts();
+
+                    discount.DiscountID = row["DiscountID"].ToString();
+                    discount.DiscountCode = row["DiscountCode"].ToString();
+                    discount.Description = row["Description"].ToString();
+                    discount.DiscountAmount = row["DiscountDollarAmount"].ToString();
+                    discount.DiscountPercentage = row["DiscountPercentage"].ToString();
+                    discount.InventoryID = row["InventoryID"].ToString();
+                    discount.ExpirationDate = row["ExpirationDate"].ToString();
+                    discount.StartDate = row["StartDate"].ToString();
+                    discount.DiscountType = Convert.ToInt32(row["DiscountType"].ToString());
+                    discount.DiscountLevel = row["DiscountLevel"].ToString();
+
+                    dicountCodeList.Add(discount);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reviving discounts see error below:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        }
+
+        internal static void AddDiscount(clsDiscounts discountCode)
+        {
+
+
+            try
+            {
+                string query = "INSERT INTO Discounts (DiscountCode, Description, DiscountLevel, DiscountType, StartDate, ExpirationDate, ";
+
+                if (discountCode.DiscountType == 1)
+                    query += "DiscountPercentage) ";
+                else
+                    query += "DiscountDollarAmount) ";
+
+                query += "VALUES (@DiscountCode, @Description, @DiscountLevel, @DiscountType, @StartDate, @ExpirationDate, @Discount);";
+
+
+                SqlCommand cmd = new SqlCommand(query, connection);
+
+                cmd.Parameters.AddWithValue("@DiscountCode", discountCode.DiscountCode);
+                cmd.Parameters.AddWithValue("@Description", discountCode.Description);
+                cmd.Parameters.AddWithValue("@DiscountLevel", discountCode.DiscountLevel);
+                cmd.Parameters.AddWithValue("@DiscountType", discountCode.DiscountType);
+                cmd.Parameters.AddWithValue("@StartDate", discountCode.StartDate);
+                cmd.Parameters.AddWithValue("@ExpirationDate", discountCode.ExpirationDate);
+
+                if (discountCode.DiscountType == 1) // Percentage
+                    cmd.Parameters.AddWithValue("@Discount", discountCode.DiscountPercentage);
+                else // amount
+                    cmd.Parameters.AddWithValue("@Discount", discountCode.DiscountAmount);
+
+
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Code successfully added!", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error adding discounts, see error below:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        internal static void UpdateDiscount(clsDiscounts discountCode)
+        {
+            try
+            {
+                string query = "UPDATE Discounts SET DiscountCode = @DiscountCode," +
+                " Description = @Description," +
+                " DiscountLevel = @DiscountLevel," +
+                " DiscountType = @DiscountType," +
+                " StartDate = @StartDate," +
+                " ExpirationDate = @ExpirationDate," +
+                " DiscountPercentage = @DiscountPercentage," +
+                " DiscountDollarAmount = @DiscountDollarAmount" +
+                " WHERE DiscountID = @DiscountID";
+
+                //if (discountCode.DiscountType == 1)
+                //    query += "DiscountPercentage = @Discount ";
+                //else
+                //    query += "DiscountDollarAmount = @Discount ";
+
+                //query += "WHERE DiscountID = @DiscountID";
+
+
+                SqlCommand cmd = new SqlCommand(query, connection);
+
+                cmd.Parameters.AddWithValue("@DiscountCode", discountCode.DiscountCode);
+                cmd.Parameters.AddWithValue("@Description", discountCode.Description);
+                cmd.Parameters.AddWithValue("@DiscountLevel", discountCode.DiscountLevel);
+                cmd.Parameters.AddWithValue("@DiscountType", discountCode.DiscountType);
+                cmd.Parameters.AddWithValue("@StartDate", discountCode.StartDate);
+                cmd.Parameters.AddWithValue("@ExpirationDate", discountCode.ExpirationDate);
+                cmd.Parameters.AddWithValue("@DiscountID", discountCode.DiscountID);
+
+                if (discountCode.DiscountType == 1) // Percentage
+                {
+                    cmd.Parameters.AddWithValue("@DiscountPercentage", discountCode.DiscountPercentage);
+                    cmd.Parameters.AddWithValue("@DiscountDollarAmount", "0.00");
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@DiscountDollarAmount", discountCode.DiscountAmount);
+                    cmd.Parameters.AddWithValue("@DiscountPercentage", "0.00");
+                }
+
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Code successfully Updated!", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error adding discounts, see error below:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        internal static void LoadOrder(List<clsOrder> orders)
+        {
+            try
+            {
+                // setting up query to run
+                string strQuery = "SELECT o.OrderID, SUM(od.Quantity) As totalItems, o.OrderDate, sum(od.TotalCost) AS OrderTotal FROM Orders as o JOIN OrderDetails as od ON od.OrderID = o.OrderID  " +
+                    "GROUP BY o.OrderID, o.OrderDate ORDER BY OrderID";
+
+                // establish command and data adapter
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+
+
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+
+                // create and fill in the data table
+                DataTable dtDiscountTable = new DataTable();
+                sqlDataAdapter.SelectCommand = cmd;
+                sqlDataAdapter.Fill(dtDiscountTable);
+
+                // dispose unnecessary data
+                cmd.Dispose();
+                sqlDataAdapter.Dispose();
+
+                // check if DB return any row
+                foreach (DataRow row in dtDiscountTable.Rows)
+                {
+                    clsOrder order = new clsOrder();
+
+                    order.orderID = row["OrderID"].ToString();
+                    order.orderTotal = row["OrderTotal"].ToString();
+                    order.totalQantity = row["totalItems"].ToString();
+                    order.orderDate = row["OrderDate"].ToString();
+
+                    orders.Add(order);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reviving discounts see error below:\n\n" + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        }
+
+        internal static void UpdateShoeSize(string strSize, string quantity, string itemID)
+        {
+
+            try
+            {
+                string strQuery = "UPDATE ShoeSize SET Quantity = @Quantity WHERE ItemID = @ItemID AND Size = @Size; " +
+                    "UPDATE Inventory SET Quantity = (SELECT SUM(s.Quantity) FROM ShoeSize AS s WHERE ItemID = InventoryID) WHERE InventoryID = @ItemID;";
+
+                SqlCommand cmd = new SqlCommand(strQuery, connection);
+
+                cmd.Parameters.AddWithValue("@Size", strSize);
+                cmd.Parameters.AddWithValue("@Quantity", quantity);
+                cmd.Parameters.AddWithValue("@ItemID", Convert.ToInt32(itemID));
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to Update Shoes. Please try again in few minutes.\n\nSee Error Below:\n" + ex.Message, "SQL ERROR - Deleting Sizes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
+
