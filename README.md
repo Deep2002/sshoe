@@ -52,21 +52,9 @@ Include any essential instructions for:
 - Configuring your program
 - Running your program
 
-### Videos
-- Project Proposal - [https://drive.google.com/file/d/1fY-Um_XzTF7NH6vekmCGcCqaCqwK6Y92/view]
-- Logon View - N/A
-- Customer View - N/A
-- Manager View - N/A
-- Video Resume - N/A
-- Final Client Demonstration Video - N/A
-- URL for any other specific videos for this product - N/A
-
-### Contact [Must Update]
-
 Contact | Information
 --------|------
 Name | Deep Parmar
-Email | dhparmar@mymail.tstc.edu
 
 ### [License](https://github.com/TSTC-CPT/22FA-FinalProject-ParmarDeep/blob/README-Update/LICENSE)
 
